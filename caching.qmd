@@ -32,3 +32,18 @@ Caching can also be used for other large files - for example, if you wanted to l
 ![](assets/2024-09-16-23-10-39.png)
 
 It’s not always obvious which to use, so head to [the Streamlit documentation](https://docs.streamlit.io/develop/concepts/architecture/caching#deciding-which-caching-decorator-to-use) if you’re a bit unsure.
+
+
+## Caching functions with parameters
+
+While using caching for the initial load of a dataframe, it can also make sense to use it for other long-running functions.
+
+Like normal functions, functions for caching can accept parameters.
+
+Streamlit will be able to look at the parameters passed in and tell whether it should
+
+use a cached version of the data (because the parameters are the same as a previous instance that’s already in its cache)
+
+run the function (because it’s a new set of parameters that it doesn’t already have a saved output for in its cache)
+
+* There are a few complexities around parameters that you may want to look into if using this in your own app: https://docs.streamlit.io/develop/concepts/architecture/caching#excluding-input-parameters
