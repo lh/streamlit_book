@@ -1,5 +1,184 @@
 ---
-title: "(Coming Soon!) Persisting Data Across Pages and Runs with Session State"
+title: "Persisting Data Across Pages and Runs with Session State"
 filters:
   - whitphx/stlite
 ---
+
+One limitation we’ve mentioned of multipage apps is that variables do not persist across the different pages.
+
+Once you switch pages, all of that information is lost!
+
+However - you can use session state to remember things across multiple pages or multiple runs of the same app.
+
+It doesn’t help with remembering information when leaving or fully reloading the page.
+
+## Initialising session state keys
+
+First, we need to initialise the session state key with a default value if it doesn’t already exist.
+
+:::{.callout-info}
+This can be anything, and doesn't strictly have to be the same type of data as the final value will be - though it's usually good practice to keep it fairly consistent throughout its lifecycle!
+:::
+
+:::{.callout-tip}
+You need to do this on every page of your app where you will do either of the following:
+
+- Update the value
+- Display the value
+
+:::
+
+```{python}
+#| eval: false
+if 'your_number' not in st.session_state:
+    st.session_state.your_number = None
+```
+
+## Assigning to session state keys
+
+Session state can be used to store a range of things.
+
+It can store the input given in a user input widget:
+
+```{python}
+#| eval: false
+st.session_state.your_number = st.number_input(
+    "Pick a number between 1 and 100",
+    min_value=1, max_value=100, value=None
+    )
+```
+
+:::{.callout-warning collapse="true"}
+### A note about assigning inputs to session state like this
+
+This is the simplest way to assign a user's input to the session state to pass it around between pages or something along those lines.
+
+However - you will need to be mindful of what default value you initialise the input with using the `value` parameter. It will automatically overwrite the session state key as soon as the page containing the input widget is opened.
+
+Later, we cover the concept of `callbacks`; the `on_change` parameter that is available for most streamlit inputs will allow you to use a callback function to update the session state only after the first time the user interacts with the widget, which can be better depending on your app.
+:::
+
+
+Or the result of a calculation (whether that’s a number, a dataframe, a graph, or something else)
+
+```{python}
+#| eval: false
+st.session_state.the_final_answer = result * 42
+```
+
+The thing you’re saving to the state could itself optionally use something stored in the session state!
+
+```{python}
+#| eval: false
+st.session_state.the_final_answer = st.session_state.your_number * 42
+```
+
+
+## Using the session state
+
+You can then access the session state key regardless of the page you are using it on!
+
+```{python}
+#| eval: false
+
+
+```
+
+
+
+Just remember - you need to check for whether the key exists in the session state anywhere you are setting or using the key, and set a default value for it if it doesn’t already exist.
+
+When your app is deployed, a user could open the app on a page that means they are trying to view the stored session state key before they’ve had a chance to actually input a value - so think about how you could use conditional logic (if/elif/else) to handle this gracefully.
+
+## A more complex multipage example
+
+Let's now take a look at a full example across several pages that makes use of session state.
+
+Here, we'll have a numeric input that makes use of session state.
+
+We'll have a text input for the user's name which doesn't make use of session state.
+
+Try comparing the behaviour when moving between the different pages of the app.
+
+### app.py
+
+```{python}
+#| eval: false
+import streamlit as st
+
+pg = st.navigation([
+        st.Page("page_1.py", title="Start here!"),
+        st.Page("page_2.py", title="Now go here")
+     ])
+
+pg.run()
+```
+
+### page_1.py
+
+```{python}
+#| eval: false
+
+import streamlit as st
+
+if 'your_number' not in st.session_state:
+    st.session_state.your_number = None
+if 'the_final_answer' not in st.session_state:
+    st.session_state.the_final_answer = None
+
+st.title("Session State Example")
+
+st.session_state.your_number = st.number_input(
+    "Pick a number between 1 and 100",
+    min_value=1, max_value=100, value=None
+    )
+
+if st.session_state.the_final_answer is None:
+    "Enter a number and then go to the next page to calculate the final answer"
+else:
+    f"Your answer is {st.session_state.the_final_answer} - but what was the question?"
+
+st.divider()
+
+name_input = st.text_input("Enter Your Name")
+
+```
+
+
+### page_2.py
+
+```{python}
+#| eval: false
+import streamlit as st
+
+if 'your_number' not in st.session_state:
+    st.session_state.your_number = None
+if 'the_final_answer' not in st.session_state:
+    st.session_state.the_final_answer = None
+
+if st.session_state.your_number is None:
+    st.write("Go back to the previous page and enter a number!")
+else:
+    st.write(f"I remember your number! It's {st.session_state.your_number}")
+
+    st.session_state.the_final_answer = st.session_state.your_number * 42
+    st.write("I've calculated the final answer and put it back on the first page...")
+
+st.divider()
+
+st.write("Your name? Let me look up what your name is.")
+
+try:
+    st.write(name_input)
+except:
+    st.write("I don't seem to remember your name...")
+
+```
+
+
+:::{.callout-note}
+The sample app linked below also uses a concept known as `callbacks`, which is often used with session state, to make the button increment work. Head to the callbacks chapter to find out more!
+:::
+
+```{=html} <iframe width="780" height="800" src="https://session-state-callbacks-examples-hsma.streamlit.app/" title="Session State example"></iframe>
+```
