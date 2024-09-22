@@ -593,7 +593,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#interactive-maps-with-folium" id="toc-interactive-maps-with-folium" class="nav-link active" data-scroll-target="#interactive-maps-with-folium"><span class="header-section-number">9.1</span> Interactive maps with Folium</a>
   <ul class="collapse">
-  <li><a href="#updating-the-map-based-on-inputs" id="toc-updating-the-map-based-on-inputs" class="nav-link" data-scroll-target="#updating-the-map-based-on-inputs"><span class="header-section-number">9.1.1</span> Updating the map based on inputs</a></li>
+  <li><a href="#sneak-peak---updating-the-map-based-on-inputs" id="toc-sneak-peak---updating-the-map-based-on-inputs" class="nav-link" data-scroll-target="#sneak-peak---updating-the-map-based-on-inputs"><span class="header-section-number">9.1.1</span> Sneak Peak - Updating the map based on inputs</a></li>
   <li><a href="#updating-the-app-based-on-the-map-zoom" id="toc-updating-the-app-based-on-the-map-zoom" class="nav-link" data-scroll-target="#updating-the-app-based-on-the-map-zoom"><span class="header-section-number">9.1.2</span> Updating the app based on the map zoom</a></li>
   </ul></li>
   </ul>
@@ -625,89 +625,173 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="9.1" class="anchored" data-anchor-id="interactive-maps-with-folium"><span class="header-section-number">9.1</span> Interactive maps with Folium</h2>
 <p>Folium is an easy way to make interactive maps.</p>
 <p>While they are not natively supported in streamlit, the st-folium component is a powerful custom component that is being actively supported and developed.</p>
-<div id="9ff3b140" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> streamlit_folium <span class="im">import</span> st_folium</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>gp_list_gdf_sw <span class="op">=</span> geopandas.read_file(<span class="st">"https://files.catbox.moe/atzk26.gpkg"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out instances with no geometry</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>gp_list_gdf_sw <span class="op">=</span> gp_list_gdf_sw[<span class="op">~</span>gp_list_gdf_sw[<span class="st">'geometry'</span>].is_empty]</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a geometry list from the GeoDataFrame</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>geo_df_list <span class="op">=</span> [[point.xy[<span class="dv">1</span>][<span class="dv">0</span>], point.xy[<span class="dv">0</span>][<span class="dv">0</span>]] <span class="cf">for</span> point <span class="kw">in</span> gp_list_gdf_sw.geometry]</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>gp_map_tooltip <span class="op">=</span> folium.Map(</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>[<span class="fl">50.7</span>, <span class="op">-</span><span class="fl">4.2</span>],</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    zoom_start<span class="op">=</span><span class="dv">8</span>,</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span><span class="st">'openstreetmap'</span>,</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, coordinates <span class="kw">in</span> <span class="bu">enumerate</span>(geo_df_list):</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    gp_map_tooltip <span class="op">=</span> gp_map_tooltip.add_child(</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        folium.Marker(</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>            location<span class="op">=</span>coordinates,</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>            tooltip<span class="op">=</span>gp_list_gdf_sw[<span class="st">'name'</span>].values[i],</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>            icon<span class="op">=</span>folium.Icon(icon<span class="op">=</span><span class="st">"user-md"</span>, prefix<span class="op">=</span><span class="st">'fa'</span>, color<span class="op">=</span><span class="st">"black"</span>)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>     )</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>st_folium(gp_map_tooltip)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7222b18c" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-4" class="code-annotation-target"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-1-5" class="code-annotation-target"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> streamlit_folium <span class="im">import</span> st_folium</span>
+<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-1-7" class="code-annotation-target"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a>gp_list_gdf_sw <span class="op">=</span> geopandas.read_file(</span>
+<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://files.catbox.moe/atzk26.gpkg"</span></span>
+<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out instances with no geometry</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-1-12" class="code-annotation-target"><a href="#annotated-cell-1-12" aria-hidden="true" tabindex="-1"></a>gp_list_gdf_sw <span class="op">=</span> gp_list_gdf_sw[<span class="op">~</span>gp_list_gdf_sw[<span class="st">'geometry'</span>].is_empty] ,</span>
+<span id="annotated-cell-1-13"><a href="#annotated-cell-1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-14"><a href="#annotated-cell-1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a geometry list from the GeoDataFrame</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-1-15" class="code-annotation-target"><a href="#annotated-cell-1-15" aria-hidden="true" tabindex="-1"></a>geo_df_list <span class="op">=</span> [[point.xy[<span class="dv">1</span>][<span class="dv">0</span>], point.xy[<span class="dv">0</span>][<span class="dv">0</span>]] <span class="cf">for</span> point <span class="kw">in</span> gp_list_gdf_sw.geometry]</span>
+<span id="annotated-cell-1-16"><a href="#annotated-cell-1-16" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-1-17" class="code-annotation-target"><a href="#annotated-cell-1-17" aria-hidden="true" tabindex="-1"></a>gp_map_tooltip <span class="op">=</span> folium.Map(</span>
+<span id="annotated-cell-1-18"><a href="#annotated-cell-1-18" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>[<span class="fl">50.7</span>, <span class="op">-</span><span class="fl">4.2</span>],</span>
+<span id="annotated-cell-1-19"><a href="#annotated-cell-1-19" aria-hidden="true" tabindex="-1"></a>    zoom_start<span class="op">=</span><span class="dv">8</span>,</span>
+<span id="annotated-cell-1-20"><a href="#annotated-cell-1-20" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span><span class="st">'openstreetmap'</span>,</span>
+<span id="annotated-cell-1-21"><a href="#annotated-cell-1-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="annotated-cell-1-22"><a href="#annotated-cell-1-22" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-1-23" class="code-annotation-target"><a href="#annotated-cell-1-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, coordinates <span class="kw">in</span> <span class="bu">enumerate</span>(geo_df_list):</span>
+<span id="annotated-cell-1-24"><a href="#annotated-cell-1-24" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-1-25" class="code-annotation-target"><a href="#annotated-cell-1-25" aria-hidden="true" tabindex="-1"></a>    gp_map_tooltip <span class="op">=</span> gp_map_tooltip.add_child(</span>
+<span id="annotated-cell-1-26"><a href="#annotated-cell-1-26" aria-hidden="true" tabindex="-1"></a>        folium.Marker(</span>
+<span id="annotated-cell-1-27"><a href="#annotated-cell-1-27" aria-hidden="true" tabindex="-1"></a>            location<span class="op">=</span>coordinates,</span>
+<span id="annotated-cell-1-28"><a href="#annotated-cell-1-28" aria-hidden="true" tabindex="-1"></a>            tooltip<span class="op">=</span>gp_list_gdf_sw[<span class="st">'name'</span>].values[i],</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="10" onclick="event.preventDefault();">10</a><span id="annotated-cell-1-29" class="code-annotation-target"><a href="#annotated-cell-1-29" aria-hidden="true" tabindex="-1"></a>            icon<span class="op">=</span>folium.Icon(icon<span class="op">=</span><span class="st">"user-md"</span>, prefix<span class="op">=</span><span class="st">'fa'</span>, color<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="annotated-cell-1-30"><a href="#annotated-cell-1-30" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="annotated-cell-1-31"><a href="#annotated-cell-1-31" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="annotated-cell-1-32"><a href="#annotated-cell-1-32" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="11" onclick="event.preventDefault();">11</a><span id="annotated-cell-1-33" class="code-annotation-target"><a href="#annotated-cell-1-33" aria-hidden="true" tabindex="-1"></a>st_folium(gp_map_tooltip)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1">To work with geographic data, we need to import the geopandas library.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="4" data-code-annotation="2">We’ll also need the folium library to help set up our interactive map.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="5" data-code-annotation="3">Finally we need to use the streamlit_folium library, which we have to install separately (but is included in the hsma_webdev environment if you are following the HSMA course). From that library, we import just the function <code>st_folium()</code>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="7" data-code-annotation="4">We load in a geopackage file. We don’t need to specify a coordinate reference system for this kind of file; it’s recorded within the file itself and geopandas will automatically read and apply this, though as Folium expects the coordinates to be in latitude and longitude (not Northings and Eastings), you may need to convert the CRS of your own data. See the HSMA geographic book for more details.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="12" data-code-annotation="5">Folium does not cope well with missing data, so we filter out any rows where our ‘geometry’ column is empty.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="15" data-code-annotation="6">To set up our map of points, we will need to create a list of coordinate pairs, though Folium expects them in the order longitude, latitude, so we swap the order of the points from our geometry column when placing them in the list.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="17" data-code-annotation="7">We then create a folium map, specifying the starting zoom level and the coordinates around which it should initially be centred.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="8">8</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="23" data-code-annotation="8">We then iterate through the list of points we created.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="9">9</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="25" data-code-annotation="9">In each round of our loop we add a Folium ‘marker’ to our original map.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="10">10</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="29" data-code-annotation="10">In Folium, if we don’t specify an icon to use for the marker, it will choose a default. However, this doesn’t seem to reliably work in all instances of Streamlit, so you may need to specify a custom icon instead using the folium.Icon class to select an icon from a web service such as font awesome. More about this can be found in the <a href="https://hsma-programme.github.io/hsma6_geographic_optimisation_and_visualisation_book/python_geopandas_folium_point_data.html#web-markers">HSMA geographic book</a>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="11">11</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="33" data-code-annotation="11">Finally, we pass our map to the <code>st_folium()</code> function.</span>
+</dd>
+</dl>
+</div>
 </div>
 <iframe src="https://share.stlite.net/?embed=true#code=import%20micropip%0Aawait%20micropip.install%28%22geopandas%22%29%0Aawait%20micropip.install%28%22streamlit-folium%22%29%0Aimport%20geopandas%0Aimport%20pandas%20as%20pd%0Aimport%20matplotlib.pyplot%20as%20plt%0Aimport%20streamlit%20as%20st%0Aimport%20folium%0Afrom%20streamlit_folium%20import%20st_folium%0A%0Agp_list_gdf_sw%20%3D%20geopandas.read_file%28%22https%3A//files.catbox.moe/atzk26.gpkg%22%29%0A%0A%23%20Filter%20out%20instances%20with%20no%20geometry%0Agp_list_gdf_sw%20%3D%20gp_list_gdf_sw%5B~gp_list_gdf_sw%5B%27geometry%27%5D.is_empty%5D%0A%0A%23%20Create%20a%20geometry%20list%20from%20the%20GeoDataFrame%0Ageo_df_list%20%3D%20%5B%5Bpoint.xy%5B1%5D%5B0%5D%2C%20point.xy%5B0%5D%5B0%5D%5D%20for%20point%20in%20gp_list_gdf_sw.geometry%5D%0A%0Agp_map_tooltip%20%3D%20folium.Map%28%0A%20%20%20%20location%3D%5B50.7%2C%20-4.2%5D%2C%0A%20%20%20%20zoom_start%3D8%2C%0A%20%20%20%20tiles%3D%27openstreetmap%27%2C%0A%20%20%20%20%29%0A%0Afor%20i%2C%20coordinates%20in%20enumerate%28geo_df_list%29%3A%0A%0A%20%20%20%20gp_map_tooltip%20%3D%20gp_map_tooltip.add_child%28%0A%20%20%20%20%20%20%20%20folium.Marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20location%3Dcoordinates%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20tooltip%3Dgp_list_gdf_sw%5B%27name%27%5D.values%5Bi%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20icon%3Dfolium.Icon%28icon%3D%22user-md%22%2C%20prefix%3D%27fa%27%2C%20color%3D%22black%22%29%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%0A%20%20%20%20%20%29%0A%0Ast_folium%28gp_map_tooltip%29%0A
 
 " class="stlite"></iframe>
-<section id="updating-the-map-based-on-inputs" class="level3" data-number="9.1.1">
-<h3 data-number="9.1.1" class="anchored" data-anchor-id="updating-the-map-based-on-inputs"><span class="header-section-number">9.1.1</span> Updating the map based on inputs</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Take a look at the <a href="https://hsma-programme.github.io/hsma6_geographic_optimisation_and_visualisation_book/python_geopandas_folium_intro.html">HSMA geographic modelling and visualisation book</a> to find out more about creating and modifying interactive maps in Python.</p>
+</div>
+</div>
+<section id="sneak-peak---updating-the-map-based-on-inputs" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="sneak-peak---updating-the-map-based-on-inputs"><span class="header-section-number">9.1.1</span> Sneak Peak - Updating the map based on inputs</h3>
 <p>Let’s use a simple text input to filter the dataframe we are passing to the map.</p>
 <p>What happens to the map when we do this?</p>
-<div id="2dda30c3" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> streamlit_folium <span class="im">import</span> st_folium</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> io <span class="im">import</span> StringIO</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>search_string <span class="op">=</span> st.text_input(<span class="st">"Enter a string to search the practice name field by"</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>gp_list_gdf_sw <span class="op">=</span> geopandas.read_file(<span class="st">"https://files.catbox.moe/atzk26.gpkg"</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out instances with no geometry</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>gp_list_gdf_sw <span class="op">=</span> gp_list_gdf_sw[<span class="op">~</span>gp_list_gdf_sw[<span class="st">'geometry'</span>].is_empty]</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to just the practice of interest (if given)</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> search_string <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    gp_list_gdf_sw <span class="op">=</span> gp_list_gdf_sw[gp_list_gdf_sw[<span class="st">'name'</span>].<span class="bu">str</span>.contains(search_string.upper())]</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>st.dataframe(gp_list_gdf_sw[[<span class="st">'name'</span>, <span class="st">'address_1'</span>, <span class="st">'postcode'</span>, <span class="st">'Total List Size'</span>]])</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a geometry list from the GeoDataFrame</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>geo_df_list <span class="op">=</span> [[point.xy[<span class="dv">1</span>][<span class="dv">0</span>], point.xy[<span class="dv">0</span>][<span class="dv">0</span>]] <span class="cf">for</span> point <span class="kw">in</span> gp_list_gdf_sw.geometry]</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>gp_map_tooltip <span class="op">=</span> folium.Map(</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>[<span class="fl">50.7</span>, <span class="op">-</span><span class="fl">4.2</span>],</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    zoom_start<span class="op">=</span><span class="dv">8</span>,</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span><span class="st">'openstreetmap'</span>,</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, coordinates <span class="kw">in</span> <span class="bu">enumerate</span>(geo_df_list):</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    gp_map_tooltip <span class="op">=</span> gp_map_tooltip.add_child(</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>        folium.Marker(</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>            location<span class="op">=</span>coordinates,</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>            tooltip<span class="op">=</span>gp_list_gdf_sw[<span class="st">'name'</span>].values[i],</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>            icon<span class="op">=</span>folium.Icon(icon<span class="op">=</span><span class="st">"user-md"</span>, prefix<span class="op">=</span><span class="st">'fa'</span>, color<span class="op">=</span><span class="st">"black"</span>)</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>     )</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>st_folium(gp_map_tooltip)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c731395a" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span>
+<span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
+<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> streamlit_folium <span class="im">import</span> st_folium</span>
+<span id="annotated-cell-2-6"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-2-7" class="code-annotation-target"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>search_string <span class="op">=</span> st.text_input(<span class="st">"Enter a string to search the practice name field by"</span>)</span>
+<span id="annotated-cell-2-8"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a>gp_list_gdf_sw <span class="op">=</span> geopandas.read_file(<span class="st">"https://files.catbox.moe/atzk26.gpkg"</span>)</span>
+<span id="annotated-cell-2-10"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out instances with no geometry</span></span>
+<span id="annotated-cell-2-12"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a>gp_list_gdf_sw <span class="op">=</span> gp_list_gdf_sw[<span class="op">~</span>gp_list_gdf_sw[<span class="st">'geometry'</span>].is_empty]</span>
+<span id="annotated-cell-2-13"><a href="#annotated-cell-2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-14"><a href="#annotated-cell-2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to just the practice of interest (if given)</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-2-15" class="code-annotation-target"><a href="#annotated-cell-2-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> search_string <span class="kw">is</span> <span class="kw">not</span> <span class="st">""</span>:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-2-16" class="code-annotation-target"><a href="#annotated-cell-2-16" aria-hidden="true" tabindex="-1"></a>    gp_list_gdf_sw <span class="op">=</span> gp_list_gdf_sw[gp_list_gdf_sw[<span class="st">'name'</span>].<span class="bu">str</span>.contains(search_string.upper())]</span>
+<span id="annotated-cell-2-17"><a href="#annotated-cell-2-17" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-2-18" class="code-annotation-target"><a href="#annotated-cell-2-18" aria-hidden="true" tabindex="-1"></a>st.dataframe(gp_list_gdf_sw[[<span class="st">'name'</span>, <span class="st">'address_1'</span>, <span class="st">'postcode'</span>, <span class="st">'Total List Size'</span>]])</span>
+<span id="annotated-cell-2-19"><a href="#annotated-cell-2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-20"><a href="#annotated-cell-2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a geometry list from the GeoDataFrame</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-2-21" class="code-annotation-target"><a href="#annotated-cell-2-21" aria-hidden="true" tabindex="-1"></a>geo_df_list <span class="op">=</span> [[point.xy[<span class="dv">1</span>][<span class="dv">0</span>], point.xy[<span class="dv">0</span>][<span class="dv">0</span>]] <span class="cf">for</span> point <span class="kw">in</span> gp_list_gdf_sw.geometry]</span>
+<span id="annotated-cell-2-22"><a href="#annotated-cell-2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-23"><a href="#annotated-cell-2-23" aria-hidden="true" tabindex="-1"></a>gp_map_tooltip <span class="op">=</span> folium.Map(</span>
+<span id="annotated-cell-2-24"><a href="#annotated-cell-2-24" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>[<span class="fl">50.7</span>, <span class="op">-</span><span class="fl">4.2</span>],</span>
+<span id="annotated-cell-2-25"><a href="#annotated-cell-2-25" aria-hidden="true" tabindex="-1"></a>    zoom_start<span class="op">=</span><span class="dv">8</span>,</span>
+<span id="annotated-cell-2-26"><a href="#annotated-cell-2-26" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span><span class="st">'openstreetmap'</span>,</span>
+<span id="annotated-cell-2-27"><a href="#annotated-cell-2-27" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="annotated-cell-2-28"><a href="#annotated-cell-2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-29"><a href="#annotated-cell-2-29" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, coordinates <span class="kw">in</span> <span class="bu">enumerate</span>(geo_df_list):</span>
+<span id="annotated-cell-2-30"><a href="#annotated-cell-2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-31"><a href="#annotated-cell-2-31" aria-hidden="true" tabindex="-1"></a>    gp_map_tooltip <span class="op">=</span> gp_map_tooltip.add_child(</span>
+<span id="annotated-cell-2-32"><a href="#annotated-cell-2-32" aria-hidden="true" tabindex="-1"></a>        folium.Marker(</span>
+<span id="annotated-cell-2-33"><a href="#annotated-cell-2-33" aria-hidden="true" tabindex="-1"></a>            location<span class="op">=</span>coordinates,</span>
+<span id="annotated-cell-2-34"><a href="#annotated-cell-2-34" aria-hidden="true" tabindex="-1"></a>            tooltip<span class="op">=</span>gp_list_gdf_sw[<span class="st">'name'</span>].values[i],</span>
+<span id="annotated-cell-2-35"><a href="#annotated-cell-2-35" aria-hidden="true" tabindex="-1"></a>            icon<span class="op">=</span>folium.Icon(icon<span class="op">=</span><span class="st">"user-md"</span>, prefix<span class="op">=</span><span class="st">'fa'</span>, color<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="annotated-cell-2-36"><a href="#annotated-cell-2-36" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="annotated-cell-2-37"><a href="#annotated-cell-2-37" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="annotated-cell-2-38"><a href="#annotated-cell-2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-39"><a href="#annotated-cell-2-39" aria-hidden="true" tabindex="-1"></a>st_folium(gp_map_tooltip)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="7" data-code-annotation="1">We create a streamlit user input that is designed to take a text string from the user. Whatever the user enters is saved to the variable <code>search_string</code>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="15" data-code-annotation="2">We check whether this search string is equal to an empty string, which is <code>""</code> or <code>''</code> (but we can use either of those to check against - they are regarded as identical). If the value of <code>search_string</code> is <code>""</code>, we don’t undertake the indented code and jump to the next step instead - i.e.&nbsp;we won’t do any filtering.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="16" data-code-annotation="3">If the <code>search_string</code> is anything other than a blank string, we filter the name column of the dataframe (which here is the GP practice name) to only include instances where the <code>search_string</code> appears somewhere in the name - e.g.&nbsp;if our search string is “Hill” it would match “Hill Practice”, “Big Hill Surgery”, “Chilly Bend Surgery” and so on. Other methods exist if we only want to match the exact string.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="18" data-code-annotation="4">Here, we add in a display of the filtered dataframe, restricting it to only the columns specified in the list.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="21" data-code-annotation="5">All of our Folium code is unchanged; we just pass the filtered (or unfiltered, if no search string is entered) dataframe instead.</span>
+</dd>
+</dl>
+</div>
 </div>
 <iframe src="https://share.stlite.net/?embed=true#code=import%20micropip%0Aawait%20micropip.install%28%22geopandas%22%29%0Aawait%20micropip.install%28%22streamlit-folium%22%29%0Aimport%20geopandas%0Aimport%20pandas%20as%20pd%0Aimport%20matplotlib.pyplot%20as%20plt%0Aimport%20streamlit%20as%20st%0Aimport%20folium%0Afrom%20streamlit_folium%20import%20st_folium%0A%0Asearch_string%20%3D%20st.text_input%28%22Enter%20a%20string%20to%20search%20the%20practice%20name%20field%20by%22%29%0A%0Agp_list_gdf_sw%20%3D%20geopandas.read_file%28%22https%3A//files.catbox.moe/atzk26.gpkg%22%29%0A%0A%23%20Filter%20out%20instances%20with%20no%20geometry%0Agp_list_gdf_sw%20%3D%20gp_list_gdf_sw%5B~gp_list_gdf_sw%5B%27geometry%27%5D.is_empty%5D%0A%0A%23%20Filter%20to%20just%20the%20practice%20of%20interest%20%28if%20given%29%0Aif%20search_string%20is%20not%20None%3A%0A%20%20%20%20gp_list_gdf_sw%20%3D%20gp_list_gdf_sw%5Bgp_list_gdf_sw%5B%27name%27%5D.str.contains%28search_string.upper%28%29%29%5D%0A%0Ast.dataframe%28gp_list_gdf_sw%5B%5B%27name%27%2C%20%27address_1%27%2C%20%27postcode%27%2C%20%27Total%20List%20Size%27%5D%5D%29%0A%0A%23%20Create%20a%20geometry%20list%20from%20the%20GeoDataFrame%0Ageo_df_list%20%3D%20%5B%5Bpoint.xy%5B1%5D%5B0%5D%2C%20point.xy%5B0%5D%5B0%5D%5D%20for%20point%20in%20gp_list_gdf_sw.geometry%5D%0A%0Agp_map_tooltip%20%3D%20folium.Map%28%0A%20%20%20%20location%3D%5B50.7%2C%20-4.2%5D%2C%0A%20%20%20%20zoom_start%3D8%2C%0A%20%20%20%20tiles%3D%27openstreetmap%27%2C%0A%20%20%20%20%29%0A%0Afor%20i%2C%20coordinates%20in%20enumerate%28geo_df_list%29%3A%0A%0A%20%20%20%20gp_map_tooltip%20%3D%20gp_map_tooltip.add_child%28%0A%20%20%20%20%20%20%20%20folium.Marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20location%3Dcoordinates%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20tooltip%3Dgp_list_gdf_sw%5B%27name%27%5D.values%5Bi%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20icon%3Dfolium.Icon%28icon%3D%22user-md%22%2C%20prefix%3D%27fa%27%2C%20color%3D%22black%22%29%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%0A%20%20%20%20%20%29%0A%0Ast_folium%28gp_map_tooltip%29%0A
 

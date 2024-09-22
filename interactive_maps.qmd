@@ -10,43 +10,55 @@ Folium is an easy way to make interactive maps.
 
 While they are not natively supported in streamlit, the st-folium component is a powerful custom component that is being actively supported and developed.
 
-
 ```{python}
 #| eval: false
-import geopandas
+import geopandas # <1>
 import pandas as pd
-import matplotlib.pyplot as plt
 import streamlit as st
-import folium
-from streamlit_folium import st_folium
+import folium # <2>
+from streamlit_folium import st_folium # <3>
 
-gp_list_gdf_sw = geopandas.read_file("https://files.catbox.moe/atzk26.gpkg")
+gp_list_gdf_sw = geopandas.read_file( # <4>
+    "https://files.catbox.moe/atzk26.gpkg"
+    )
 
 # Filter out instances with no geometry
-gp_list_gdf_sw = gp_list_gdf_sw[~gp_list_gdf_sw['geometry'].is_empty]
+gp_list_gdf_sw = gp_list_gdf_sw[~gp_list_gdf_sw['geometry'].is_empty] , # <5>
 
 # Create a geometry list from the GeoDataFrame
-geo_df_list = [[point.xy[1][0], point.xy[0][0]] for point in gp_list_gdf_sw.geometry]
+geo_df_list = [[point.xy[1][0], point.xy[0][0]] for point in gp_list_gdf_sw.geometry] # <6>
 
-gp_map_tooltip = folium.Map(
+gp_map_tooltip = folium.Map( # <7>
     location=[50.7, -4.2],
     zoom_start=8,
     tiles='openstreetmap',
     )
 
-for i, coordinates in enumerate(geo_df_list):
+for i, coordinates in enumerate(geo_df_list): # <8>
 
-    gp_map_tooltip = gp_map_tooltip.add_child(
+    gp_map_tooltip = gp_map_tooltip.add_child( # <9>
         folium.Marker(
             location=coordinates,
             tooltip=gp_list_gdf_sw['name'].values[i],
-            icon=folium.Icon(icon="user-md", prefix='fa', color="black")
+            icon=folium.Icon(icon="user-md", prefix='fa', color="black") # <10>
             )
      )
 
-st_folium(gp_map_tooltip)
+st_folium(gp_map_tooltip) # <11>
 
 ```
+
+1. To work with geographic data, we need to import the geopandas library.
+2. We'll also need the folium library to help set up our interactive map.
+3. Finally we need to use the streamlit_folium library, which we have to install separately (but is included in the hsma_webdev environment if you are following the HSMA course). From that library, we import just the function `st_folium()`.
+4. We load in a geopackage file. We don't need to specify a coordinate reference system for this kind of file; it's recorded within the file itself and geopandas will automatically read and apply this, though as Folium expects the coordinates to be in latitude and longitude (not Northings and Eastings), you may need to convert the CRS of your own data. See the HSMA geographic book for more details.
+5. Folium does not cope well with missing data, so we filter out any rows where our 'geometry' column is empty.
+6. To set up our map of points, we will need to create a list of coordinate pairs, though Folium expects them in the order longitude, latitude, so we swap the order of the points from our geometry column when placing them in the list.
+7. We then create a folium map, specifying the starting zoom level and the coordinates around which it should initially be centred.
+8. We then iterate through the list of points we created.
+9. In each round of our loop we add a Folium 'marker' to our original map.
+10. In Folium, if we don't specify an icon to use for the marker, it will choose a default. However, this doesn't seem to reliably work in all instances of Streamlit, so you may need to specify a custom icon instead using the folium.Icon class to select an icon from a web service such as font awesome. More about this can be found in the [HSMA geographic book](https://hsma-programme.github.io/hsma6_geographic_optimisation_and_visualisation_book/python_geopandas_folium_point_data.html#web-markers).
+11. Finally, we pass our map to the `st_folium()` function.
 
 ```{stlite-python}
 import micropip
@@ -87,7 +99,11 @@ st_folium(gp_map_tooltip)
 
 ```
 
-### Updating the map based on inputs
+:::{.callout-tip}
+Take a look at the [HSMA geographic modelling and visualisation book](https://hsma-programme.github.io/hsma6_geographic_optimisation_and_visualisation_book/python_geopandas_folium_intro.html) to find out more about creating and modifying interactive maps in Python.
+:::
+
+### Sneak Peak - Updating the map based on inputs
 
 Let's use a simple text input to filter the dataframe we are passing to the map.
 
@@ -97,13 +113,11 @@ What happens to the map when we do this?
 #| eval: false
 import geopandas
 import pandas as pd
-import matplotlib.pyplot as plt
 import streamlit as st
 import folium
 from streamlit_folium import st_folium
-from io import StringIO
 
-search_string = st.text_input("Enter a string to search the practice name field by")
+search_string = st.text_input("Enter a string to search the practice name field by") # <1>
 
 gp_list_gdf_sw = geopandas.read_file("https://files.catbox.moe/atzk26.gpkg")
 
@@ -111,13 +125,13 @@ gp_list_gdf_sw = geopandas.read_file("https://files.catbox.moe/atzk26.gpkg")
 gp_list_gdf_sw = gp_list_gdf_sw[~gp_list_gdf_sw['geometry'].is_empty]
 
 # Filter to just the practice of interest (if given)
-if search_string is not None:
-    gp_list_gdf_sw = gp_list_gdf_sw[gp_list_gdf_sw['name'].str.contains(search_string.upper())]
+if search_string is not "": # <2>
+    gp_list_gdf_sw = gp_list_gdf_sw[gp_list_gdf_sw['name'].str.contains(search_string.upper())] # <3>
 
-st.dataframe(gp_list_gdf_sw[['name', 'address_1', 'postcode', 'Total List Size']])
+st.dataframe(gp_list_gdf_sw[['name', 'address_1', 'postcode', 'Total List Size']]) # <4>
 
 # Create a geometry list from the GeoDataFrame
-geo_df_list = [[point.xy[1][0], point.xy[0][0]] for point in gp_list_gdf_sw.geometry]
+geo_df_list = [[point.xy[1][0], point.xy[0][0]] for point in gp_list_gdf_sw.geometry] # <5>
 
 gp_map_tooltip = folium.Map(
     location=[50.7, -4.2],
@@ -138,6 +152,12 @@ for i, coordinates in enumerate(geo_df_list):
 st_folium(gp_map_tooltip)
 
 ```
+
+1. We create a streamlit user input that is designed to take a text string from the user. Whatever the user enters is saved to the variable `search_string`.
+2. We check whether this search string is equal to an empty string, which is `""` or `''` (but we can use either of those to check against - they are regarded as identical). If the value of `search_string` is `""`, we don't undertake the indented code and jump to the next step instead - i.e. we won't do any filtering.
+3. If the `search_string` is anything other than a blank string, we filter the name column of the dataframe (which here is the GP practice name) to only include instances where the `search_string` appears somewhere in the name - e.g. if our search string is "Hill" it would match "Hill Practice", "Big Hill Surgery", "Chilly Bend Surgery" and so on. Other methods exist if we only want to match the exact string.
+4. Here, we add in a display of the filtered dataframe, restricting it to only the columns specified in the list.
+5. All of our Folium code is unchanged; we just pass the filtered (or unfiltered, if no search string is entered) dataframe instead.
 
 ```{stlite-python}
 import micropip
