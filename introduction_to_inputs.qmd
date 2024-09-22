@@ -26,21 +26,28 @@ We've also got a dictionary of links to the posters for each of these movies -
 #| eval: false
 import streamlit as st
 
-chosen_option = st.selectbox(
-    "What is your favourite movie?",
-    ["Back to the Future", "Home Alone", "Bicentennial Man"],
+chosen_option = st.selectbox( # <1>
+    "What is your favourite movie?", # <2>
+    ["Back to the Future", "Home Alone", "Bicentennial Man"], # <3>
 )
 
-st.write(f"You selected: {chosen_option}")
+st.write(f"You selected: {chosen_option}") # <4>
 
 image_url = {
     "Back to the Future": "https://upload.wikimedia.org/wikipedia/en/d/d2/Back_to_the_Future.jpg",
     "Home Alone": "https://upload.wikimedia.org/wikipedia/en/7/76/Home_alone_poster.jpg",
     "Bicentennial Man": "https://upload.wikimedia.org/wikipedia/en/f/fc/Bicentennial_man_film_poster.jpg"
-    }
+    } # <5>
 
-st.image(image_url[chosen_option])
+st.image(image_url[chosen_option]) # <6>
 ```
+
+1. We start by creating an instance of `st.selectbox` and assigning it to a variable. This is very similar regardless of the type of user input we choose to make use of.
+2. The first argument to most user input functions is a label that should be displayed above or otherwise near the input so that the user is given an indication of what to enter or what they are selecting.
+3. For st.selectbox we provide a Python list to indicate what the possible inputs should be.
+4. As the user selects different options from that list, the value of the variable `chosen_option` will change (and note that we could have called tht variable anything). Therefore, we can pass it to an f-string and the `st.write()` function will display the user's selection as a string.
+5. Here, we're also going to make streamlit display an image of the poster of the selected movie. We create a dictionary where the keys are the movie name (exactly matching the way the movie name is given in our list of options), and the values on the other side of the `:` are links to images on the web.
+6. Finally, we filter our 'image_url' dictionary to only the instance where the `key` (value on the left of the `:`) matches the chosen movie, and this will then return the relevant url to that movie's poster. We pass this to `st.image()`, which can then display the image that exists at that URL within the app.
 
 Try it out in the interactive version of the app below.
 
@@ -82,34 +89,45 @@ Here, despite the fact that the dataframe does not change between runs
 ```{python}
 #| eval: false
 import streamlit as st
-import time
+import time # <1>
 import pandas as pd
 
 st.write("Loading the name popularity lookup")
-time.sleep(3)
+time.sleep(3) # <2>
 st.write("Still Loading...")
-time.sleep(3)
+time.sleep(4)
 
 url = 'https://www.dropbox.com/scl/fi/yxrc1ll9o3kpg5b1ekm5b/girl_boy_names_2022.csv?rlkey=eq3uv3ms5441gqxchnnom1h6b&st=d53l3q1q&dl=1'
-name_lookup = pd.read_csv(url)
+name_lookup = pd.read_csv(url) # <3>
 st.write("Done!")
 
-input_name = st.text_input("What is your name?")
+input_name = st.text_input("What is your name?") # <4>
 
-boy_name_lookup = name_lookup[name_lookup["Boy Name"] == input_name]
+boy_name_lookup = name_lookup[name_lookup["Boy Name"] == input_name] # <5>
 girl_name_lookup = name_lookup[name_lookup["Girl Name"] == input_name]
 
-if len(boy_name_lookup) > 0:
-    st.write(f"{input_name} was in popularity position {boy_name_lookup["Rank"].values[0]} for boys in 2022.")
+if len(boy_name_lookup) > 0: # <6>
+    st.write(f"{input_name} was in popularity position {boy_name_lookup["Rank"].values[0]} for boys in 2022.") # <7>
 else:
-    st.write(f"{input_name} was not in the most popular 1000 names for boys in 2022.")
+    st.write(f"{input_name} was not in the most popular 1000 names for boys in 2022.") # <8>
 
-if len(girl_name_lookup) > 0:
+if len(girl_name_lookup) > 0: # <9>
     st.write(f"{input_name} was in popularity position {girl_name_lookup["Rank"].values[0]} for girls in 2022.")
 else:
     st.write(f"{input_name} was not in the most popular 1000 names for girls in 2022.")
 
 ```
+
+1. Here we import a module called 'time' just to make the loading time artifically longer (for demonstration purposes).
+2. We then run `time.sleep(3)` to make the app pause for 3 seconds at this point in the code. Each time the code reaches this step, it will pause for 3 seconds.
+3. We import a dataframe of the 1000 most popular boy and grl names in 2022. This has three columns - the rank, the boy name in that popularity position for 2022, and the girl name in that position in that year too.
+4. Here, we allow users to enter a string of text and save their string as the variable `input_name`.
+5. We create two variables; we filter the dataframe to rows where the 'Boy Name' column is exactly equal to the input string from the user, and repeat this for the 'Girl Name' column to create a second variable.
+6. If the length of the variable `boy_name_lookup` is greater than 0 (i.e. after filtering the dataframe to only include rows where this name exists), this indicates that the name was in the 1000 most popular names for that year.
+7. If this is the case, display the name and its rank in that year.
+8. If not, display a different message.
+9. Repeat this for the girl name.
+
 
 ```{stlite-python}
 # stlite quirks mean we need (in reality) to use await asyncio.sleep instead of time.sleep
