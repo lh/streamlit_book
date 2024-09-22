@@ -16,7 +16,7 @@ It doesn’t help with remembering information when leaving or fully reloading t
 
 First, we need to initialise the session state key with a default value if it doesn’t already exist.
 
-:::{.callout-info}
+:::{.callout-note}
 This can be anything, and doesn't strictly have to be the same type of data as the final value will be - though it's usually good practice to keep it fairly consistent throughout its lifecycle!
 :::
 

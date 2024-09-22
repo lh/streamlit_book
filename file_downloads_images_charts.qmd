@@ -8,7 +8,7 @@ filters:
 
 We can provide two possible ways of downloading the output of a matplotlib plot.
 
-The first involves saving the resulting plot to a file, then serving that file to the user.
+The first involves saving the resulting plot to a file, then serving that file to the user. This is a reliable and simple method that is probably the best to use in most situations - it will generally work even when the file is deployed.
 
 ```{python}
 #| eval: false
@@ -70,6 +70,8 @@ with open(filename, "rb") as img:
 
 ```
 
+:::{.callout-note collapse="true"}
+#### Advanced Method
 The second involves saving the image to tempory memory, then serving that instead.
 
 ```{python}
@@ -133,6 +135,7 @@ btn = st.download_button(
 )
 
 ```
+:::
 
 #### Wordcloud Example
 
@@ -257,7 +260,7 @@ with open("wordcloud.png", "rb") as file:
 
 Saving the file and then serving this is a good way to work with seaborn as well.
 
-```{stlite-python}
+```{python}
 #| eval: false
 import streamlit as st
 from palmerpenguins import load_penguins
@@ -339,6 +342,84 @@ When using plotly, users can hover over the plot and choose 'Download plot as a 
 
 #### Downloading the interactive plots
 
+```{python}
+#| eval: False
+import streamlit as st
+from palmerpenguins import load_penguins
+import plotly.express as px
+
+penguins = load_penguins()
+
+axis_options = ['bill_length_mm', 'bill_depth_mm',
+       'flipper_length_mm', 'body_mass_g']
+
+col_1 = st.selectbox("Select the column to use for the x axis", axis_options)
+
+axis_options.remove(col_1)
+
+col_2 = st.selectbox("Select the column to use for the x axis", axis_options)
+
+color_factor = st.selectbox("Select the column to colour the chart by",
+["species", "sex", "island"])
+
+fig = px.scatter(penguins, x=col_1, y=col_2, color=color_factor,
+title=f"Penguins Dataset - {col_1} vs {col_2}, coloured by {color_factor}")
+
+st.plotly_chart(fig)
+
+fig.write_html("plotly_chart.html")
+
+with open("plotly_chart.html", "rb") as file:
+    st.download_button(
+        label='Download This Plot as an Interactive HTML file',
+        data=file,
+        file_name=f'{col_1}_vs_{col_2}_by_{color_factor}.html',
+        mime='text/html'
+    )
+```
+
+```{stlite-python}
+import micropip
+await micropip.install("setuptools")
+await micropip.install("palmerpenguins")
+await micropip.install("plotly")
+import streamlit as st
+from palmerpenguins import load_penguins
+import plotly.express as px
+
+penguins = load_penguins()
+
+axis_options = ['bill_length_mm', 'bill_depth_mm',
+       'flipper_length_mm', 'body_mass_g']
+
+col_1 = st.selectbox("Select the column to use for the x axis", axis_options)
+
+axis_options.remove(col_1)
+
+col_2 = st.selectbox("Select the column to use for the x axis", axis_options)
+
+color_factor = st.selectbox("Select the column to colour the chart by",
+["species", "sex", "island"])
+
+fig = px.scatter(penguins, x=col_1, y=col_2, color=color_factor,
+title=f"Penguins Dataset - {col_1} vs {col_2}, coloured by {color_factor}")
+
+st.plotly_chart(fig)
+
+fig.write_html("plotly_chart.html")
+
+with open("plotly_chart.html", "rb") as file:
+    st.download_button(
+        label='Download This Plot as an Interactive HTML file',
+        data=file,
+        file_name=f'{col_1}_vs_{col_2}_by_{color_factor}.html',
+        mime='text/html'
+    )
+```
+
+:::{.callout-note collapse="true"}
+##### Advanced Method
+
 We can once again use `StringIO` to save the chart html temporarily to memory, then write that to a html file when the user clicks on a download button.
 
 The resulting file is completely self-contained and can even be used offline. The file could be emailed or placed on a shared site like sharepoint or google drive and would work - though sometimes it requires the user to download the html file to their own machine for it to display correctly rather than just previewing the underlying html data, depending on the platform.
@@ -372,12 +453,13 @@ st.plotly_chart(fig)
 buffer = StringIO()
 fig.write_html(buffer)
 
-st.download_button(
-    label='Download This Plot as an Interactive HTML file',
-    data=buffer,
-    file_name=f'{col_1}_vs_{col_2}_by_{color_factor}.html',
-    mime='text/html'
-)
+with open(buffer, "rb") as html_file:
+    st.download_button(
+        label='Download This Plot as an Interactive HTML file',
+        data=html_file,
+        file_name=f'{col_1}_vs_{col_2}_by_{color_factor}.html',
+        mime='text/html'
+    )
 ```
 
 ```{stlite-python}
@@ -412,13 +494,15 @@ st.plotly_chart(fig)
 buffer = StringIO()
 fig.write_html(buffer)
 
-st.download_button(
-    label='Download This Plot as an Interactive HTML file',
-    data=buffer,
-    file_name=f'{col_1}_vs_{col_2}_by_{color_factor}.html',
-    mime='text/html'
-)
+with open(buffer, "rb") as html_file:
+    st.download_button(
+        label='Download This Plot as an Interactive HTML file',
+        data=html_file,
+        file_name=f'{col_1}_vs_{col_2}_by_{color_factor}.html',
+        mime='text/html'
+    )
 ```
+:::
 
 #### Static outputs with a download button
 
