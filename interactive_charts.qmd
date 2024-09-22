@@ -4,6 +4,8 @@ filters:
   - whitphx/stlite
 ---
 
+## An overview of supported interactive chart types in Streamlit
+
 Streamlit provides support for several interactive chart libraries, including
 
 - Plotly
@@ -11,33 +13,54 @@ Streamlit provides support for several interactive chart libraries, including
 - Altair
 - Vega-lite
 
-It also provides its own simplified interactive chart types like `st.bar_chart`, which are wrappers around Altair.
+It also provides its own simplified interactive chart types like `st.bar_chart`, which are simplified functions for plotting that use Altair behind the scenes.
 
 :::{.callout-tip}
 While all of these are valid options to use in your own dashboards, we will be focussing on plotly - specifically the 'plotly express' module, which makes it very quick and easy to create relatively complex interactive charts.
 
-Arguably plotly express is simpler to use than the built-in streamlit plot types!
+Arguably plotly express is simpler to use than the built-in streamlit plot types! It's also generally more customisable.
 :::
 
 :::{.callout-tip}
-Each of these plot types require a different streamlit command to display them.
+Each of the plot types mentioned above require a different streamlit command to display them.
+
+- Plotly - `st.plotly_chart()`
+- Bokeh - `st.bokeh_chart()`
+- Altair - `st.altair_chart()`
+- Vega-lite - `st.vega_lite_chart()`
 
 The details and specific arguments that are available for each can be found in the Streamlit documentation [here](https://docs.streamlit.io/develop/api-reference/charts).
 :::
 
+## An example plotly chart in Streamlit
+
 ```{python}
 #| eval: False
 import streamlit as st
-from palmerpenguins import load_penguins
-import plotly.express as px
+from palmerpenguins import load_penguins # <1>
+import plotly.express as px # <2>
 
-penguins = load_penguins()
+penguins = load_penguins() # <3>
 
-fig = px.scatter(penguins, x='bill_length_mm', y='bill_depth_mm', color="sex",
-title=f"Penguins Dataset - Bill Length (mm) vs Bill Depth (mm), coloured by Sex")
+fig = px.scatter( # <4>
+       penguins, # <5>
+       x='bill_length_mm', # <6>
+       y='bill_depth_mm',
+       color="sex", # <7>
+       title=f"Penguins Dataset - Bill Length (mm) vs Bill Depth (mm), coloured by Sex" # <8>
+       )
 
-st.plotly_chart(fig)
+st.plotly_chart(fig) # <9>
 ```
+
+1. Here we load in a package that will provide access to a dataset of penguin measurements.
+2. We also need to load in the plotly.express module. The standard alias for this library is `px`.
+3. We use the `load_penguins()` function to pull in the pandas dataframe of penguin measurements, assigning it to the variable `penguin`.
+4. Plotly express (px) provides access to a wide range of simple plot types. Here, `px.scatter` sets up the chart as a scatterplot which expects, as a minimum, two columns of numeric values to assign the x and y position of a series of points on an axis. We save the output of this function to a variable, as we'll need to pass that variable to the relevant streamlit function later. A common variable name to use for this is `fig`.
+5. We pass in the dataframe we want to plot as the first argument.
+6. We specify the names of the columns we want to plot the values of on the x (horizontal) and y (vertical) axes. These can be surrounded by single ' or double " quotes. Note that we don't need to respecify the dataframe name here - purely the column name as a string.
+8. Optionally we can pass in a column containing a categorical variable (which can just be a column of strings) to use to colour the points. Here, we have a column called 'sex' which just contains the values 'Male' or 'Female'; passing this in will mean our male penguin points will have one colour, and female another.
+9. Finally, we pass the variable corresponding to our plotly plot object to the `st.plotly_plot()` function.
 
 ```{stlite-python}
 import micropip
@@ -60,13 +83,20 @@ st.plotly_chart(fig)
 
 Many streamlit components have a parameter called `use_container_width`.
 
-When set to `True` in something like `st.pyplot`, it ensures the output is rescaled to use the maximum available width of the screen.
+We showed the impact of this parameter on static charts in the previous chapter.
+
+When set to `True` in something like `st.plotly_chart`, it ensures the output is rescaled to use the maximum available width of the screen.
 
 The parameter is set to `False` by default, which will result in outputs often not optimally using the available space.
 
 :::{.callout-tip}
 This can become particularly valuable when we start to explore layout options like columns later in the book.
 :::
+
+:::{.callout-note}
+Depending on the width of the app window itself, the impact of this function is sometimes not very obvious; it may become more apparent in your own app compared to the example below.
+:::
+
 
 ```{python}
 #| eval: False
@@ -76,8 +106,15 @@ import plotly.express as px
 
 penguins = load_penguins()
 
-fig = px.scatter(penguins, x='bill_length_mm', y='bill_depth_mm', color="sex",
-title=f"Penguins Dataset - Bill Length (mm) vs Bill Depth (mm), coloured by Sex")
+fig = px.scatter(
+       penguins,
+       x='bill_length_mm',
+       y='bill_depth_mm',
+       color="sex",
+       title=f"Penguins Dataset - Bill Length (mm) vs Bill Depth (mm), coloured by Sex",
+       width=300,
+       height=400
+       )
 
 st.subheader("use_container_width=False")
 
@@ -100,7 +137,9 @@ import plotly.express as px
 penguins = load_penguins()
 
 fig = px.scatter(penguins, x='bill_length_mm', y='bill_depth_mm', color="sex",
-title=f"Penguins Dataset - Bill Length (mm) vs Bill Depth (mm), coloured by Sex")
+title=f"Penguins Dataset - Bill Length (mm) vs Bill Depth (mm), coloured by Sex",
+       width=300,
+       height=400)
 
 st.subheader("use_container_width=False")
 
@@ -112,7 +151,7 @@ st.plotly_chart(fig, use_container_width = True)
 ```
 
 
-## Reacting to user inputs
+## Sneak Peak: Reacting to user inputs
 
 While we haven't gone into detail about user inputs yet, here is an example of a plotly chart updating based on the options a user is selecting.
 
@@ -121,28 +160,32 @@ While we haven't gone into detail about user inputs yet, here is an example of a
 import streamlit as st
 from palmerpenguins import load_penguins
 import plotly.express as px
-from io import StringIO
 
 penguins = load_penguins()
 
-axis_options = ['bill_length_mm', 'bill_depth_mm',
-       'flipper_length_mm', 'body_mass_g']
+axis_options = [
+       'bill_length_mm', 'bill_depth_mm' 'flipper_length_mm'
+       ] # <1>
 
-col_1 = st.selectbox("Select the column to use for the x axis", axis_options)
+col_1 = st.selectbox(
+       "Select the column to use for the x axis", axis_options
+       ) # <2>
 
-axis_options.remove(col_1)
-
-col_2 = st.selectbox("Select the column to use for the y axis", axis_options)
-
-color_factor = st.selectbox("Select the column to colour the chart by",
-["species", "sex", "island"])
-
-fig = px.scatter(penguins, x=col_1, y=col_2, color=color_factor,
-title=f"Penguins Dataset - {col_1} vs {col_2}, coloured by {color_factor}")
+fig = px.scatter(
+       penguins,
+       x=col_1, # <3>
+       y='body_mass_g',
+       color='species',
+       title=f"Penguins Dataset - {col_1} vs Body Mass (g), coloured by Species" # <4>
+       )
 
 st.plotly_chart(fig)
 ```
 
+1. In this example, we want users to be able to choose one of three columns to use for the x axis values, with the y axis values and column used for colour being pre-set. We start by creating a list of the column names; these must exact match the way the column name is written in the dataframe, including case, spaces and any underscores.
+2. Next, we use one of streamlit's built-in user input gathering functions. A selectbox gives the user a drop-down list of predefined options to select from. We pass this a label (to indicate to the user what they are selecting) and the list of possible column names. We store the output of this in a variable, which we've called `col_1` here. The contents of `col_1` will be whichever of the three provided column names the user has selected. By default, the first column name in the list will be selected when the app loads.
+3. Here, we pass in `col_1` when creating our plotly plot. When the app executes, the variable `col_1` will be replaced with the name of the column the user has selected, which will then be used by plotly when constructing the plot.
+4. We can also use this input to make the title of the plot update in response to the selected variable.
 
 ```{stlite-python}
 import micropip
@@ -152,24 +195,22 @@ await micropip.install("plotly")
 import streamlit as st
 from palmerpenguins import load_penguins
 import plotly.express as px
-from io import StringIO
 
 penguins = load_penguins()
 
 axis_options = ['bill_length_mm', 'bill_depth_mm',
-       'flipper_length_mm', 'body_mass_g']
+       'flipper_length_mm']
 
-col_1 = st.selectbox("Select the column to use for the x axis", axis_options)
+col_1 = st.selectbox(
+       "Select the column to use for the x axis", axis_options
+       )
 
-axis_options.remove(col_1)
-
-col_2 = st.selectbox("Select the column to use for the y axis", axis_options)
-
-color_factor = st.selectbox("Select the column to colour the chart by",
-["species", "sex", "island"])
-
-fig = px.scatter(penguins, x=col_1, y=col_2, color=color_factor,
-title=f"Penguins Dataset - {col_1} vs {col_2}, coloured by {color_factor}")
+fig = px.scatter(
+       penguins,
+       x=col_1,
+       y='body_mass_g',
+       color='species',
+       title=f"Penguins Dataset - {col_1} vs Body Mass (g), coloured by Species")
 
 st.plotly_chart(fig)
 ```

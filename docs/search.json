@@ -131,23 +131,23 @@
   {
     "objectID": "interactive_charts.html",
     "href": "interactive_charts.html",
-    "title": "5  Interactive Charts",
+    "title": "6  Interactive Charts",
     "section": "",
-    "text": "5.1 Making use of the available space\nMany streamlit components have a parameter called use_container_width.\nWhen set to True in something like st.pyplot, it ensures the output is rescaled to use the maximum available width of the screen.\nThe parameter is set to False by default, which will result in outputs often not optimally using the available space.\nimport streamlit as st\nfrom palmerpenguins import load_penguins\nimport plotly.express as px\n\npenguins = load_penguins()\n\nfig = px.scatter(penguins, x='bill_length_mm', y='bill_depth_mm', color=\"sex\",\ntitle=f\"Penguins Dataset - Bill Length (mm) vs Bill Depth (mm), coloured by Sex\")\n\nst.subheader(\"use_container_width=False\")\n\nst.plotly_chart(fig)\n\nst.subheader(\"use_container_width=True\")\n\nst.plotly_chart(fig, use_container_width = True)",
+    "text": "6.1 An overview of supported interactive chart types in Streamlit\nStreamlit provides support for several interactive chart libraries, including\nIt also provides its own simplified interactive chart types like st.bar_chart, which are simplified functions for plotting that use Altair behind the scenes.",
     "crumbs": [
       "Outputs",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Interactive Charts</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Interactive Charts</span>"
     ]
   },
   {
     "objectID": "interactive_charts.html#making-use-of-the-available-space",
     "href": "interactive_charts.html#making-use-of-the-available-space",
-    "title": "5  Interactive Charts",
-    "section": "",
-    "text": "Tip\n\n\n\nThis can become particularly valuable when we start to explore layout options like columns later in the book.",
+    "title": "6  Interactive Charts",
+    "section": "6.3 Making use of the available space",
+    "text": "6.3 Making use of the available space\nMany streamlit components have a parameter called use_container_width.\nWe showed the impact of this parameter on static charts in the previous chapter.\nWhen set to True in something like st.plotly_chart, it ensures the output is rescaled to use the maximum available width of the screen.\nThe parameter is set to False by default, which will result in outputs often not optimally using the available space.\n\n\n\n\n\n\nTip\n\n\n\nThis can become particularly valuable when we start to explore layout options like columns later in the book.\n\n\n\n\n\n\n\n\nNote\n\n\n\nDepending on the width of the app window itself, the impact of this function is sometimes not very obvious; it may become more apparent in your own app compared to the example below.\n\n\n\nimport streamlit as st\nfrom palmerpenguins import load_penguins\nimport plotly.express as px\n\npenguins = load_penguins()\n\nfig = px.scatter(\n       penguins,\n       x='bill_length_mm',\n       y='bill_depth_mm',\n       color=\"sex\",\n       title=f\"Penguins Dataset - Bill Length (mm) vs Bill Depth (mm), coloured by Sex\",\n       width=300,\n       height=400\n       )\n\nst.subheader(\"use_container_width=False\")\n\nst.plotly_chart(fig)\n\nst.subheader(\"use_container_width=True\")\n\nst.plotly_chart(fig, use_container_width = True)",
     "crumbs": [
       "Outputs",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Interactive Charts</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Interactive Charts</span>"
     ]
   },
   {
@@ -164,34 +164,34 @@
   {
     "objectID": "metrics.html",
     "href": "metrics.html",
-    "title": "6  Metrics and Dials",
+    "title": "7  Metrics and Dials",
     "section": "",
-    "text": "6.1 Metrics",
+    "text": "7.1 Metrics\nimport streamlit as st\n\nst.metric(\n  label=\"Number of Patients Seen this Week\",\n  value=52\n  )\n\nst.metric(\n  label=\"Number of Patients Seen this Week - South\",\n  value=30,\n  delta=-5\n  )\n\nst.metric(\n  label=\"Number of Patients Seen this Week - North\",\n  value=12,\n  delta=7\n  )\n\nst.metric(\n  label=\"Waiting List Length\",\n  value=147,\n  delta=-15,\n  delta_color=\"inverse\"\n  )\n\nst.subheader(\"A metric without its own header\")\n\nst.metric(\n  label=\"This Won't Be Displayed\",\n  value=5,\n  delta=3,\n  label_visibility=\"collapsed\"\n  )",
     "crumbs": [
       "Outputs",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Metrics and Dials</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Metrics and Dials</span>"
     ]
   },
   {
     "objectID": "metrics.html#metrics",
     "href": "metrics.html#metrics",
-    "title": "6  Metrics and Dials",
+    "title": "7  Metrics and Dials",
     "section": "",
-    "text": "6.1.1 Layout\nBy combining metrics with st.columns, we can make better use of the screen to start building up more of a dashboard layout.\n\nimport streamlit as st\nimport plotly.express as px\nimport pandas as pd\n\n1st.set_page_config(layout=\"wide\")\n\nst.title(\"Activity Dashboard\")\n\n2col1, col2, col3 = st.columns(3)\n\n3col1.metric(label=\"Total Number of Patients Seen this Week\", value=52)\n\ncol2.metric(label=\"Number of Patients Seen this Week - South\", value=30, delta=-5)\n\ncol2.metric(label=\"Number of Patients Seen this Week - North\", value=12, delta=-7)\n\ncol3.metric(label=\"Number of Patients Seen this Year\", value=1302)\n\n4patients_seen_df = pd.DataFrame(\n  {\n    'Week': ['2021-01-01', '2021-01-08', '2021-01-15', '2021-01-22', '2021-01-29', '2021-02-05'],\n    'Patients Seen': [24, 12, 43, 23, 32, 25]\n  }\n)\n\n5st.plotly_chart(\n  px.line(patients_seen_df, x='Week', y='Patients Seen', title=\"Total Patients Seen per Week\")\n  )\n\n\n1\n\nHere, we’ve started out by setting the page config to ‘wide’. This just means that the page will use the whole width of the viewer’s screen, rather than limiting itself to the middle third.\n\n2\n\nWe set up 3 columns using the st.columns feature, unpacking them on the left-hand side of our assign (the equals sign) into three separate variables called col1, col2, col3 for easy reference (though we could call them anything!). col1 will be the leftmost column and as we haven’t specified otherwise, they will be of equal width.\n\n3\n\nWe then create our metrics, but instead of using st.metric, we use col1.metric (and so on). This is an easy shorthand to assign the resulting metric to each of the columns we’ve just created.\n\n4\n\nNow we’re just going to quickly make a dummy dataframe so that we can see the impact of putting something underneath the column layout. We wouldn’t usually build the dataframe up like this - we’d load it in from a database or csv.\n\n5\n\nNow we’re just creating a plotly chart container and putting a plotly express line chart in it. Note how rather than being inside one of the columns, it takes up the full width of the screen. This is because we’ve gone back to using st.plotly_chart instead of col1.plotly_chart or similar.\n\n\n\n\n\n\n\n6.1.2 Styling Metric Cards\nThe Streamlit Extras package provides us with options to apply a style to our metric cards.\nYou will need to pip install streamlit-extras if it’s not already installed in your environment.\n\nimport streamlit as st\nimport plotly.express as px\nimport pandas as pd\n1from streamlit_extras.metric_cards import style_metric_cards\n\nst.set_page_config(layout=\"wide\")\n\nst.title(\"Activity Dashboard\")\n\ncol1, col2, col3 = st.columns(3)\n\ncol1.metric(label=\"Total Number of Patients\\nSeen this Week\", value=52)\n\ncol2.metric(label=\"Number of Patients\\nSeen this Week - South\", value=30, delta=-5)\n\ncol2.metric(label=\"Number of Patients\\nSeen this Week - North\", value=12, delta=-7)\n\ncol3.metric(label=\"Number of Patients Seen this Year\", value=1302)\n\n2style_metric_cards(background_color=\"#6434eb\", border_color= \"#eb9234\", border_size_px=3)\n\npatients_seen_df = pd.DataFrame(\n  {\n    'Week': ['2021-01-01', '2021-01-08', '2021-01-15', '2021-01-22', '2021-01-29', '2021-02-05'],\n    'Patients Seen': [24, 12, 43, 23, 32, 25]\n  }\n)\n\nst.plotly_chart(\n  px.line(patients_seen_df, x='Week', y='Patients Seen', title=\"Total Patients Seen per Week\")\n  )\n\n\n1\n\nWe import the function style_metric_cards from streamlit_extras.metric_cards\n\n2\n\nWe then use this function after we’ve created our metric cards, passing in the relevant arguments to change the background colour, border colour, border size and more.\n\n\n\n\nFull details of all the available parameters can be found in the streamlit extras documentation\n\n\n\n\n\n\nTip\n\n\n\nThe six-character alphanumeric codes we passed into the ‘background_color’ and ‘border_color’ arguments are called hex colours and are a common way of specifying colours on computers - particularly in web development.\nThere are lots of sites to help you look up hex colours to find the perfect one for you.\nThis page from w3 schools is a starting point.\nYou can also just go to google and seach ‘hex colour picker’ to bring up an interactive picker straight away!",
+    "text": "7.1.1 Layout\nBy combining metrics with st.columns, we can make better use of the screen to start building up more of a dashboard layout.\n\nimport streamlit as st\nimport plotly.express as px\nimport pandas as pd\n\n1st.set_page_config(layout=\"wide\")\n\nst.title(\"Activity Dashboard\")\n\n2col1, col2, col3 = st.columns(3)\n\n3col1.metric(label=\"Total Number of Patients Seen this Week\", value=52)\n\ncol2.metric(label=\"Number of Patients Seen this Week - South\", value=30, delta=-5)\n\ncol2.metric(label=\"Number of Patients Seen this Week - North\", value=12, delta=-7)\n\ncol3.metric(label=\"Number of Patients Seen this Year\", value=1302)\n\n4patients_seen_df = pd.DataFrame(\n  {\n    'Week': ['2021-01-01', '2021-01-08', '2021-01-15', '2021-01-22', '2021-01-29', '2021-02-05'],\n    'Patients Seen': [24, 12, 43, 23, 32, 25]\n  }\n)\n\n5st.plotly_chart(\n  px.line(patients_seen_df, x='Week', y='Patients Seen', title=\"Total Patients Seen per Week\")\n  )\n\n\n1\n\nHere, we’ve started out by setting the page config to ‘wide’. This just means that the page will use the whole width of the viewer’s screen, rather than limiting itself to the middle third.\n\n2\n\nWe set up 3 columns using the st.columns feature, unpacking them on the left-hand side of our assign (the equals sign) into three separate variables called col1, col2, col3 for easy reference (though we could call them anything!). col1 will be the leftmost column and as we haven’t specified otherwise, they will be of equal width.\n\n3\n\nWe then create our metrics, but instead of using st.metric, we use col1.metric (and so on). This is an easy shorthand to assign the resulting metric to each of the columns we’ve just created.\n\n4\n\nNow we’re just going to quickly make a dummy dataframe so that we can see the impact of putting something underneath the column layout. We wouldn’t usually build the dataframe up like this - we’d load it in from a database or csv.\n\n5\n\nNow we’re just creating a plotly chart container and putting a plotly express line chart in it. Note how rather than being inside one of the columns, it takes up the full width of the screen. This is because we’ve gone back to using st.plotly_chart instead of col1.plotly_chart or similar.\n\n\n\n\n\n\n\n7.1.2 Styling Metric Cards\nThe Streamlit Extras package provides us with options to apply a style to our metric cards.\nYou will need to pip install streamlit-extras if it’s not already installed in your environment.\n\nimport streamlit as st\nimport plotly.express as px\nimport pandas as pd\n1from streamlit_extras.metric_cards import style_metric_cards\n\nst.set_page_config(layout=\"wide\")\n\nst.title(\"Activity Dashboard\")\n\ncol1, col2, col3 = st.columns(3)\n\ncol1.metric(label=\"Total Number of Patients\\nSeen this Week\", value=52)\n\ncol2.metric(label=\"Number of Patients\\nSeen this Week - South\", value=30, delta=-5)\n\ncol2.metric(label=\"Number of Patients\\nSeen this Week - North\", value=12, delta=-7)\n\ncol3.metric(label=\"Number of Patients Seen this Year\", value=1302)\n\n2style_metric_cards(background_color=\"#6434eb\", border_color= \"#eb9234\", border_size_px=3)\n\npatients_seen_df = pd.DataFrame(\n  {\n    'Week': ['2021-01-01', '2021-01-08', '2021-01-15', '2021-01-22', '2021-01-29', '2021-02-05'],\n    'Patients Seen': [24, 12, 43, 23, 32, 25]\n  }\n)\n\nst.plotly_chart(\n  px.line(patients_seen_df, x='Week', y='Patients Seen', title=\"Total Patients Seen per Week\")\n  )\n\n\n1\n\nWe import the function style_metric_cards from streamlit_extras.metric_cards\n\n2\n\nWe then use this function after we’ve created our metric cards, passing in the relevant arguments to change the background colour, border colour, border size and more.\n\n\n\n\nFull details of all the available parameters can be found in the streamlit extras documentation\n\n\n\n\n\n\nTip\n\n\n\nThe six-character alphanumeric codes we passed into the ‘background_color’ and ‘border_color’ arguments are called hex colours and are a common way of specifying colours on computers - particularly in web development.\nThere are lots of sites to help you look up hex colours to find the perfect one for you.\nThis page from w3 schools is a starting point.\nYou can also just go to google and seach ‘hex colour picker’ to bring up an interactive picker straight away!",
     "crumbs": [
       "Outputs",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Metrics and Dials</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Metrics and Dials</span>"
     ]
   },
   {
     "objectID": "metrics.html#indicators",
     "href": "metrics.html#indicators",
-    "title": "6  Metrics and Dials",
-    "section": "6.2 Indicators",
-    "text": "6.2 Indicators\nTo get other sorts of displays that we might be familiar with in other dashboarding software, we may need to instead move to plotly or another graphing library rather than using things built in to Streamlit.\n\nTake a look at this documentation from plotly to see how to enhance these charts further, such as\n\nadding a target\nadding segments/reference points to the arc\nchanging the colour of the bar\n\nThis page contains additional things you can do with the indicator graph object in Plotly, such as overlaying a metric card on a plotly chart.",
+    "title": "7  Metrics and Dials",
+    "section": "7.2 Indicators",
+    "text": "7.2 Indicators\nTo get other sorts of displays that we might be familiar with in other dashboarding software, we may need to instead move to plotly or another graphing library rather than using things built in to Streamlit.\n\n\nTake a look at this documentation from plotly to see how to enhance these charts further, such as\n\nadding a target\nadding segments/reference points to the arc\nchanging the colour of the bar\n\nThis page contains additional things you can do with the indicator graph object in Plotly, such as overlaying a metric card on a plotly chart.",
     "crumbs": [
       "Outputs",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Metrics and Dials</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Metrics and Dials</span>"
     ]
   },
   {
@@ -841,6 +841,39 @@
     "crumbs": [
       "Additional Resources",
       "<span class='chapter-number'>45</span>  <span class='chapter-title'>Streamlit Cheat Sheet</span>"
+    ]
+  },
+  {
+    "objectID": "interactive_charts.html#an-overview-of-supported-interactive-chart-types-in-streamlit",
+    "href": "interactive_charts.html#an-overview-of-supported-interactive-chart-types-in-streamlit",
+    "title": "6  Interactive Charts",
+    "section": "",
+    "text": "Plotly\nBokeh\nAltair\nVega-lite\n\n\n\n\n\n\n\n\nTip\n\n\n\nWhile all of these are valid options to use in your own dashboards, we will be focussing on plotly - specifically the ‘plotly express’ module, which makes it very quick and easy to create relatively complex interactive charts.\nArguably plotly express is simpler to use than the built-in streamlit plot types! It’s also generally more customisable.\n\n\n\n\n\n\n\n\nTip\n\n\n\nEach of the plot types mentioned above require a different streamlit command to display them.\n\nPlotly - st.plotly_chart()\nBokeh - st.bokeh_chart()\nAltair - st.altair_chart()\nVega-lite - st.vega_lite_chart()\n\nThe details and specific arguments that are available for each can be found in the Streamlit documentation here.",
+    "crumbs": [
+      "Outputs",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Interactive Charts</span>"
+    ]
+  },
+  {
+    "objectID": "interactive_charts.html#an-example-plotly-chart-in-streamlit",
+    "href": "interactive_charts.html#an-example-plotly-chart-in-streamlit",
+    "title": "6  Interactive Charts",
+    "section": "6.2 An example plotly chart in Streamlit",
+    "text": "6.2 An example plotly chart in Streamlit\n\nimport streamlit as st\n1from palmerpenguins import load_penguins\n2import plotly.express as px\n\n3penguins = load_penguins()\n\n4fig = px.scatter(\n5       penguins,\n6       x='bill_length_mm',\n       y='bill_depth_mm',\n7       color=\"sex\",\n8       title=f\"Penguins Dataset - Bill Length (mm) vs Bill Depth (mm), coloured by Sex\"\n       )\n\nst.plotly_chart(fig)\n\n\n1\n\nHere we load in a package that will provide access to a dataset of penguin measurements.\n\n2\n\nWe also need to load in the plotly.express module. The standard alias for this library is px.\n\n3\n\nWe use the load_penguins() function to pull in the pandas dataframe of penguin measurements, assigning it to the variable penguin.\n\n4\n\nPlotly express (px) provides access to a wide range of simple plot types. Here, px.scatter sets up the chart as a scatterplot which expects, as a minimum, two columns of numeric values to assign the x and y position of a series of points on an axis. We save the output of this function to a variable, as we’ll need to pass that variable to the relevant streamlit function later. A common variable name to use for this is fig.\n\n5\n\nWe pass in the dataframe we want to plot as the first argument.\n\n6\n\nWe specify the names of the columns we want to plot the values of on the x (horizontal) and y (vertical) axes. These can be surrounded by single ’ or double ” quotes. Note that we don’t need to respecify the dataframe name here - purely the column name as a string.\n\n7\n\nOptionally we can pass in a column containing a categorical variable (which can just be a column of strings) to use to colour the points. Here, we have a column called ‘sex’ which just contains the values ‘Male’ or ‘Female’; passing this in will mean our male penguin points will have one colour, and female another.\n\n8\n\nFinally, we pass the variable corresponding to our plotly plot object to the st.plotly_plot() function.",
+    "crumbs": [
+      "Outputs",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Interactive Charts</span>"
+    ]
+  },
+  {
+    "objectID": "interactive_charts.html#sneak-peak-reacting-to-user-inputs",
+    "href": "interactive_charts.html#sneak-peak-reacting-to-user-inputs",
+    "title": "6  Interactive Charts",
+    "section": "6.4 Sneak Peak: Reacting to user inputs",
+    "text": "6.4 Sneak Peak: Reacting to user inputs\nWhile we haven’t gone into detail about user inputs yet, here is an example of a plotly chart updating based on the options a user is selecting.\n\nimport streamlit as st\nfrom palmerpenguins import load_penguins\nimport plotly.express as px\n\npenguins = load_penguins()\n\naxis_options = [\n       'bill_length_mm', 'bill_depth_mm' 'flipper_length_mm'\n1       ]\n\ncol_1 = st.selectbox(\n       \"Select the column to use for the x axis\", axis_options\n2       )\n\nfig = px.scatter(\n       penguins,\n3       x=col_1,\n       y='body_mass_g',\n       color='species',\n4       title=f\"Penguins Dataset - {col_1} vs Body Mass (g), coloured by Species\"\n       )\n\nst.plotly_chart(fig)\n\n\n1\n\nIn this example, we want users to be able to choose one of three columns to use for the x axis values, with the y axis values and column used for colour being pre-set. We start by creating a list of the column names; these must exact match the way the column name is written in the dataframe, including case, spaces and any underscores.\n\n2\n\nNext, we use one of streamlit’s built-in user input gathering functions. A selectbox gives the user a drop-down list of predefined options to select from. We pass this a label (to indicate to the user what they are selecting) and the list of possible column names. We store the output of this in a variable, which we’ve called col_1 here. The contents of col_1 will be whichever of the three provided column names the user has selected. By default, the first column name in the list will be selected when the app loads.\n\n3\n\nHere, we pass in col_1 when creating our plotly plot. When the app executes, the variable col_1 will be replaced with the name of the column the user has selected, which will then be used by plotly when constructing the plot.\n\n4\n\nWe can also use this input to make the title of the plot update in response to the selected variable.",
+    "crumbs": [
+      "Outputs",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Interactive Charts</span>"
     ]
   }
 ]
