@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>HSMA - Web Apps with Streamlit - 13&nbsp; File Uploads</title>
+<title>HSMA - Web Apps with Streamlit - 13&nbsp; Uploading Data Files, Images and More</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./editable_dataframes.html" rel="next">
+<link href="./bidirectional_plots_and_maps.html" rel="next">
 <link href="./text_numeric_and_selection_inputs.html" rel="prev">
 <link href="./resources/logos/hsma_logo_transparent_background_large.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -147,7 +147,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction_to_inputs.html">User Inputs</a></li><li class="breadcrumb-item"><a href="./file_uploads.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">File Uploads</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction_to_inputs.html">User Inputs</a></li><li class="breadcrumb-item"><a href="./file_uploads.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uploading Data Files, Images and More</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -284,19 +284,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./file_uploads.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">File Uploads</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./editable_dataframes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">(Coming Soon!) Editable Dataframes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uploading Data Files, Images and More</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bidirectional_plots_and_maps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Bidirectional Inputs - Dataframes, Charts and Maps</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Bidirectional Inputs - Dataframes, Charts and Maps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./editable_dataframes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">(Coming Soon!) Editable Dataframes</span></span></a>
   </div>
 </li>
       </ul>
@@ -597,7 +597,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#uploading-image-files" id="toc-uploading-image-files" class="nav-link" data-scroll-target="#uploading-image-files"><span class="header-section-number">13.2</span> Uploading image files</a>
   <ul class="collapse">
-  <li><a href="#manipulating-uploaded-image-files" id="toc-manipulating-uploaded-image-files" class="nav-link" data-scroll-target="#manipulating-uploaded-image-files"><span class="header-section-number">13.2.1</span> Manipulating uploaded image files</a></li>
+  <li><a href="#advanced-manipulating-uploaded-image-files" id="toc-advanced-manipulating-uploaded-image-files" class="nav-link" data-scroll-target="#advanced-manipulating-uploaded-image-files"><span class="header-section-number">13.2.1</span> Advanced: Manipulating uploaded image files</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -605,9 +605,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction_to_inputs.html">User Inputs</a></li><li class="breadcrumb-item"><a href="./file_uploads.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">File Uploads</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction_to_inputs.html">User Inputs</a></li><li class="breadcrumb-item"><a href="./file_uploads.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uploading Data Files, Images and More</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">File Uploads</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uploading Data Files, Images and More</span></h1>
 </div>
 
 
@@ -648,23 +648,45 @@ Note
 </ul>
 </div>
 </div>
-<div id="26dd99a5" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>uploaded_file <span class="op">=</span> st.file_uploader(<span class="st">"Please upload a data file"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> uploaded_file <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    uploaded_df <span class="op">=</span> pd.read_csv(uploaded_file)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    st.write(<span class="ss">f"Your dataframe has </span><span class="sc">{</span><span class="bu">len</span>(uploaded_df)<span class="sc">}</span><span class="ss"> rows."</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    st.write(<span class="ss">f"Your dataframe has </span><span class="sc">{</span><span class="bu">len</span>(uploaded_df.columns)<span class="sc">}</span><span class="ss"> columns."</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    st.write(<span class="ss">f"The columns in your dataframe are </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(uploaded_df.columns)<span class="sc">}</span><span class="ss">."</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> uploaded_df.columns:</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        st.write(<span class="ss">f"The first 5 values in column </span><span class="sc">{</span>col<span class="sc">}</span><span class="ss"> are </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(uploaded_df[col].head().astype(<span class="st">'str'</span>))<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7fcbfb3e" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-4" class="code-annotation-target"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>uploaded_file <span class="op">=</span> st.file_uploader(</span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Please upload a data file"</span></span>
+<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-8" class="code-annotation-target"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> uploaded_file <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-1-9" class="code-annotation-target"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a>    uploaded_df <span class="op">=</span> pd.read_csv(uploaded_file)</span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-1-11" class="code-annotation-target"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a>    st.write(<span class="ss">f"Your dataframe has </span><span class="sc">{</span><span class="bu">len</span>(uploaded_df)<span class="sc">}</span><span class="ss"> rows."</span>)</span>
+<span id="annotated-cell-1-12"><a href="#annotated-cell-1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-13"><a href="#annotated-cell-1-13" aria-hidden="true" tabindex="-1"></a>    st.write(<span class="ss">f"Your dataframe has </span><span class="sc">{</span><span class="bu">len</span>(uploaded_df.columns)<span class="sc">}</span><span class="ss"> columns."</span>)</span>
+<span id="annotated-cell-1-14"><a href="#annotated-cell-1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-15"><a href="#annotated-cell-1-15" aria-hidden="true" tabindex="-1"></a>    st.write(<span class="ss">f"The columns in your dataframe are </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(uploaded_df.columns)<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="annotated-cell-1-16"><a href="#annotated-cell-1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-17"><a href="#annotated-cell-1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> uploaded_df.columns:</span>
+<span id="annotated-cell-1-18"><a href="#annotated-cell-1-18" aria-hidden="true" tabindex="-1"></a>        st.write(<span class="ss">f"The first 5 values in column </span><span class="sc">{</span>col<span class="sc">}</span><span class="ss"> are </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(uploaded_df[col].head().astype(<span class="st">'str'</span>))<span class="sc">}</span><span class="ss">"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="4" data-code-annotation="1">We use the <code>st.file_uploader()</code> function and assign the output to a variable of our choice.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="8" data-code-annotation="2">Here, we check whether the user has uploaded a file yet. If they have not, the value of our variable will be the special Python value <code>None</code>. If this is the case, we will not run the indented code. However, if they have uploaded something, we will attempt to run the indented code.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="9" data-code-annotation="3">To turn the csv the user has uploaded into something we can use, we will use the <code>pd.read_csv()</code> function on it - just like with a normal csv file that we are trying to load in Python. We will save this to a different variable - here we have called it <code>uploaded_df</code>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="11" data-code-annotation="4">Now that we have created this <code>uploaded_df</code> variable, it is an entirely normal pandas dataframe - and we can use any of the usual functions we would use on it.</span>
+</dd>
+</dl>
+</div>
 </div>
 <iframe src="https://share.stlite.net/?embed=true#code=import%20streamlit%20as%20st%0Aimport%20pandas%20as%20pd%0A%0Auploaded_file%20%3D%20st.file_uploader%28%22Please%20upload%20a%20data%20file%22%29%0A%0Aif%20uploaded_file%20is%20not%20None%3A%0A%20%20%20%20uploaded_df%20%3D%20pd.read_csv%28uploaded_file%29%0A%0A%20%20%20%20st.write%28f%22Your%20dataframe%20has%20%7Blen%28uploaded_df%29%7D%20rows.%22%29%0A%0A%20%20%20%20st.write%28f%22Your%20dataframe%20has%20%7Blen%28uploaded_df.columns%29%7D%20columns.%22%29%0A%0A%20%20%20%20st.write%28f%22The%20columns%20in%20your%20dataframe%20are%20%7B%27%2C%20%27.join%28uploaded_df.columns%29%7D.%22%29%0A%0A%20%20%20%20for%20col%20in%20uploaded_df.columns%3A%0A%20%20%20%20%20%20%20%20st.write%28f%22The%20first%205%20values%20in%20column%20%7Bcol%7D%20are%20%7B%27%2C%20%27.join%28uploaded_df%5Bcol%5D.head%28%29.astype%28%27str%27%29%29%7D%22%29
 
@@ -673,16 +695,27 @@ Note
 <h3 data-number="13.1.1" class="anchored" data-anchor-id="limiting-the-file-types"><span class="header-section-number">13.1.1</span> Limiting the file types</h3>
 <p>By default, we haven’t restricted the file types that can be uploaded.</p>
 <p>Let’s do that now!</p>
-<div id="9d9321f9" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>uploaded_file <span class="op">=</span> st.file_uploader(<span class="st">"Please upload a csv data file"</span>, <span class="bu">type</span><span class="op">=</span>[<span class="st">'csv'</span>])</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> uploaded_file <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    uploaded_df <span class="op">=</span> pd.read_csv(uploaded_file)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    st.write(uploaded_df.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="22c5f34c" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>uploaded_file <span class="op">=</span> st.file_uploader(</span>
+<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Please upload a csv data file"</span>,</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-2-6" class="code-annotation-target"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">type</span><span class="op">=</span>[<span class="st">'csv'</span>]</span>
+<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="annotated-cell-2-8"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> uploaded_file <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="annotated-cell-2-10"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a>    uploaded_df <span class="op">=</span> pd.read_csv(uploaded_file)</span>
+<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-12"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a>    st.write(uploaded_df.head())</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="6" data-code-annotation="1">We pass in a list of acceptable file types for the upload. This will filter the files on the user’s system to the acceptable types unless they manually choose to view all file types, and if they attempt to upload the wrong file type, it will tell the user that it is not a valid file.</span>
+</dd>
+</dl>
+</div>
 </div>
 <iframe src="https://share.stlite.net/?embed=true#code=import%20streamlit%20as%20st%0Aimport%20pandas%20as%20pd%0A%0Auploaded_file%20%3D%20st.file_uploader%28%22Please%20upload%20a%20csv%20data%20file%22%2C%20type%3D%5B%27csv%27%5D%29%0A%0Aif%20uploaded_file%20is%20not%20None%3A%0A%20%20%20%20uploaded_df%20%3D%20pd.read_csv%28uploaded_file%29%0A%0A%20%20%20%20st.write%28uploaded_df.head%28%29%29
 
@@ -698,20 +731,43 @@ Note
 <h2 data-number="13.2" class="anchored" data-anchor-id="uploading-image-files"><span class="header-section-number">13.2</span> Uploading image files</h2>
 <p>We can easily upload image files too.</p>
 <p>Let’s try loading an image file and displaying it for the user.</p>
-<div id="b0ddbded" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>uploaded_image <span class="op">=</span> st.file_uploader(<span class="st">"Please upload an image file"</span>, <span class="bu">type</span><span class="op">=</span>[<span class="st">'png'</span>,<span class="st">'jpg'</span>,<span class="st">'jpeg'</span>,<span class="st">'bmp'</span>, <span class="st">'bitmap'</span>])</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> uploaded_image <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    st.image(uploaded_image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="379e521c" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="annotated-cell-3"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-3-3" class="code-annotation-target"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a>uploaded_image <span class="op">=</span> st.file_uploader(</span>
+<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Please upload an image file"</span>,</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-3-5" class="code-annotation-target"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">type</span><span class="op">=</span>[<span class="st">'png'</span>, <span class="st">'jpg'</span>, <span class="st">'jpeg'</span>, <span class="st">'bmp'</span>, <span class="st">'bitmap'</span>]</span>
+<span id="annotated-cell-3-6"><a href="#annotated-cell-3-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="annotated-cell-3-7"><a href="#annotated-cell-3-7" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-3-8" class="code-annotation-target"><a href="#annotated-cell-3-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> uploaded_image <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="annotated-cell-3-9"><a href="#annotated-cell-3-9" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-3-10" class="code-annotation-target"><a href="#annotated-cell-3-10" aria-hidden="true" tabindex="-1"></a>    st.image(uploaded_image)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="3" data-code-annotation="1">We use the same <code>st.file_uploader()</code> function and save the output to a variable with a name of our choosing.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="5" data-code-annotation="2">This time, we specify a list of several different acceptable image types. These are a good starting point if you want to restrict a user to uploading images.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="8" data-code-annotation="3">We check whether the user has uploaded something - if they have not, this value will be the special Python value ‘None’ and the indented code will not run.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="10" data-code-annotation="4">We do not have to do any additional processing to use the uploaded image file. In this case, we go ahead and use it in <code>st.image()</code> to display the image the user has uploaded.</span>
+</dd>
+</dl>
+</div>
 </div>
 <iframe src="https://share.stlite.net/?embed=true#code=import%20streamlit%20as%20st%0A%0Auploaded_image%20%3D%20st.file_uploader%28%22Please%20upload%20an%20image%20file%22%2C%20type%3D%5B%27png%27%2C%27jpg%27%2C%27jpeg%27%2C%27bmp%27%2C%20%27bitmap%27%5D%29%0A%0Aif%20uploaded_image%20is%20not%20None%3A%0A%0A%20%20%20%20st.image%28uploaded_image%29%0A
 
 " class="stlite"></iframe>
-<section id="manipulating-uploaded-image-files" class="level3" data-number="13.2.1">
-<h3 data-number="13.2.1" class="anchored" data-anchor-id="manipulating-uploaded-image-files"><span class="header-section-number">13.2.1</span> Manipulating uploaded image files</h3>
+<section id="advanced-manipulating-uploaded-image-files" class="level3" data-number="13.2.1">
+<h3 data-number="13.2.1" class="anchored" data-anchor-id="advanced-manipulating-uploaded-image-files"><span class="header-section-number">13.2.1</span> Advanced: Manipulating uploaded image files</h3>
 <p>We have to undertake a few extra steps to be able to manipulate image files people have uploaded.</p>
 <p>We’ll be using the pillow library (referred to as PIL in code) - but it expects the image to be converted to a series of bytes first.</p>
 <p>Once we’ve adjusted the image into the format pillow expects, we can use the library to run a range of edits and enhancements to our image.</p>
@@ -729,39 +785,39 @@ Tip
 </div>
 </div>
 <p>Let’s have a go at it here.</p>
-<div id="143f4b47" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image, ImageEnhance</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> PIL.ImageOps</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>uploaded_image <span class="op">=</span> st.file_uploader(<span class="st">"Please upload an image file"</span>, <span class="bu">type</span><span class="op">=</span>[<span class="st">'png'</span>,<span class="st">'jpg'</span>,<span class="st">'jpeg'</span>,<span class="st">'bmp'</span>, <span class="st">'bitmap'</span>])</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> uploaded_image <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    imagefile <span class="op">=</span> io.BytesIO(uploaded_image.read())</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> Image.<span class="bu">open</span>(imagefile)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    threshold <span class="op">=</span> st.slider(<span class="st">"Choose a threshold"</span>, <span class="dv">1</span>, <span class="dv">100</span>, value<span class="op">=</span><span class="dv">80</span>, step<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    contrast_factor <span class="op">=</span> st.slider(<span class="st">"Contrast Enhancement Strength"</span>, <span class="fl">0.0</span>, <span class="fl">2.0</span>, value<span class="op">=</span><span class="fl">1.0</span>, step<span class="op">=</span><span class="fl">0.05</span>)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    invert <span class="op">=</span> st.checkbox(<span class="st">"Invert Output Image?"</span>)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    enhancer <span class="op">=</span> ImageEnhance.Contrast(im)</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    img_edited <span class="op">=</span> enhancer.enhance(contrast_factor)</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    img_edited <span class="op">=</span> img_edited.convert(<span class="st">"L"</span>).point(</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">lambda</span> x: <span class="dv">255</span> <span class="cf">if</span> x <span class="op">&gt;</span> threshold <span class="cf">else</span> <span class="dv">0</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> invert:</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        img_edited <span class="op">=</span> PIL.ImageOps.invert(img_edited)</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    st.write(<span class="st">"Original Image"</span>)</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    st.image(uploaded_image)</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    st.write(<span class="st">"Edited Image"</span>)</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    st.image(img_edited)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="eb5f954f" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image, ImageEnhance</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> PIL.ImageOps</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>uploaded_image <span class="op">=</span> st.file_uploader(<span class="st">"Please upload an image file"</span>, <span class="bu">type</span><span class="op">=</span>[<span class="st">'png'</span>,<span class="st">'jpg'</span>,<span class="st">'jpeg'</span>,<span class="st">'bmp'</span>, <span class="st">'bitmap'</span>])</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> uploaded_image <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    imagefile <span class="op">=</span> io.BytesIO(uploaded_image.read())</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> Image.<span class="bu">open</span>(imagefile)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    threshold <span class="op">=</span> st.slider(<span class="st">"Choose a threshold"</span>, <span class="dv">1</span>, <span class="dv">100</span>, value<span class="op">=</span><span class="dv">80</span>, step<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    contrast_factor <span class="op">=</span> st.slider(<span class="st">"Contrast Enhancement Strength"</span>, <span class="fl">0.0</span>, <span class="fl">2.0</span>, value<span class="op">=</span><span class="fl">1.0</span>, step<span class="op">=</span><span class="fl">0.05</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    invert <span class="op">=</span> st.checkbox(<span class="st">"Invert Output Image?"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    enhancer <span class="op">=</span> ImageEnhance.Contrast(im)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    img_edited <span class="op">=</span> enhancer.enhance(contrast_factor)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    img_edited <span class="op">=</span> img_edited.convert(<span class="st">"L"</span>).point(</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">lambda</span> x: <span class="dv">255</span> <span class="cf">if</span> x <span class="op">&gt;</span> threshold <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> invert:</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        img_edited <span class="op">=</span> PIL.ImageOps.invert(img_edited)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    st.write(<span class="st">"Original Image"</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    st.image(uploaded_image)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    st.write(<span class="st">"Edited Image"</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    st.image(img_edited)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <iframe src="https://share.stlite.net/?embed=true#code=import%20streamlit%20as%20st%0Aimport%20io%0Afrom%20PIL%20import%20Image%2C%20ImageEnhance%0Aimport%20PIL.ImageOps%0A%0Auploaded_image%20%3D%20st.file_uploader%28%22Please%20upload%20an%20image%20file%22%2C%20type%3D%5B%27png%27%2C%27jpg%27%2C%27jpeg%27%2C%27bmp%27%2C%20%27bitmap%27%5D%29%0A%0Aif%20uploaded_image%20is%20not%20None%3A%0A%0A%20%20%20%20imagefile%20%3D%20io.BytesIO%28uploaded_image.read%28%29%29%0A%0A%20%20%20%20im%20%3D%20Image.open%28imagefile%29%0A%0A%20%20%20%20threshold%20%3D%20st.slider%28%22Choose%20a%20threshold%22%2C%201%2C%20100%2C%20value%3D80%2C%20step%3D1%29%0A%20%20%20%20contrast_factor%20%3D%20st.slider%28%22Contrast%20Enhancement%20Strength%22%2C%200.0%2C%202.0%2C%20value%3D1.0%2C%20step%3D0.05%29%0A%20%20%20%20invert%20%3D%20st.checkbox%28%22Invert%20Output%20Image%3F%22%29%0A%0A%20%20%20%20enhancer%20%3D%20ImageEnhance.Contrast%28im%29%0A%20%20%20%20img_edited%20%3D%20enhancer.enhance%28contrast_factor%29%0A%0A%20%20%20%20img_edited%20%3D%20img_edited.convert%28%22L%22%29.point%28%0A%20%20%20%20%20%20%20%20lambda%20x%3A%20255%20if%20x%20%3E%20threshold%20else%200%0A%20%20%20%20%29%0A%0A%20%20%20%20if%20invert%3A%0A%20%20%20%20%20%20%20%20img_edited%20%3D%20PIL.ImageOps.invert%28img_edited%29%0A%0A%20%20%20%20st.write%28%22Original%20Image%22%29%0A%20%20%20%20st.image%28uploaded_image%29%0A%0A%20%20%20%20st.write%28%22Edited%20Image%22%29%0A%20%20%20%20st.image%28img_edited%29
 
@@ -772,41 +828,34 @@ Tip
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Background removal
+Extra Advanced: Background removal
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>We could take this even further with the <code>rembg</code> library, which removes the image’s background.</p>
 <p>We can’t demonstrate this interactively on this page, but the code below would work for a standard streamlit app run or hosted locally, or on streamlit community cloud.</p>
-<p><em>It doesn’t work with stlite/browser-based Python due to dependencies of the <code>rembg</code> library that are unavailable via that method.</em></p>
-<div id="03272cba" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rembg <span class="im">import</span> remove</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>uploaded_image <span class="op">=</span> st.file_uploader(<span class="st">"Please upload an image file"</span>, <span class="bu">type</span><span class="op">=</span>[<span class="st">'png'</span>,<span class="st">'jpg'</span>,<span class="st">'jpeg'</span>,<span class="st">'bmp'</span>, <span class="st">'bitmap'</span>])</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> uploaded_image <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    imagefile <span class="op">=</span> io.BytesIO(uploaded_image.read())</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> Image.<span class="bu">open</span>(imagefile)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    img_edited <span class="op">=</span> remove(im)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    st.write(<span class="st">"Original Image"</span>)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    st.image(uploaded_image)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    st.write(<span class="st">"Edited Image"</span>)</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    st.image(img_edited)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>2024-09-22 17:59:10.979 
-  Warning: to view this Streamlit app on a browser, run it with the following
-  command:
-
-    streamlit run c:\HSMA\streamlit_book\.venv\Lib\site-packages\ipykernel_launcher.py [ARGUMENTS]</code></pre>
-</div>
+<p><em>This doesn’t work with stlite/browser-based Python due to dependencies of the <code>rembg</code> library that are unavailable via that method.</em></p>
+<div id="0de42fc5" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rembg <span class="im">import</span> remove</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>uploaded_image <span class="op">=</span> st.file_uploader(<span class="st">"Please upload an image file"</span>, <span class="bu">type</span><span class="op">=</span>[<span class="st">'png'</span>,<span class="st">'jpg'</span>,<span class="st">'jpeg'</span>,<span class="st">'bmp'</span>, <span class="st">'bitmap'</span>])</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> uploaded_image <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    imagefile <span class="op">=</span> io.BytesIO(uploaded_image.read())</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> Image.<span class="bu">open</span>(imagefile)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    img_edited <span class="op">=</span> remove(im)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    st.write(<span class="st">"Original Image"</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    st.image(uploaded_image)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    st.write(<span class="st">"Edited Image"</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    st.image(img_edited)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1713,8 +1762,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./editable_dataframes.html" class="pagination-link" aria-label="(Coming Soon!) Editable Dataframes">
-        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">(Coming Soon!) Editable Dataframes</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./bidirectional_plots_and_maps.html" class="pagination-link" aria-label="Bidirectional Inputs - Dataframes, Charts and Maps">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Bidirectional Inputs - Dataframes, Charts and Maps</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
