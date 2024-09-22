@@ -15,24 +15,33 @@ Let's start by loading in and displaying a simple csv dataset.
 :::{.callout-tip}
 `st.write()` is a handy command.
 
-When you pass a variable to it, it will automatically work out a good way to display it.
+When you pass a variable to it - like some data you've loaded in and saved as a Python variable - it will automatically work out a good way to display it.
 
 Other functions that we talk about in later chapters give you more control over exactly how data or files are displayed - but `st.write()` can often be a useful starting point.
 :::
 
 ```{python}
 #| eval: false
-import pandas as pd
-import streamlit as st
+import pandas as pd # <1>
+import streamlit as st # <2>
 
-st.title("Loading in a data file from a publically-accessible csv")
+st.title("Loading in a data file from a publically-accessible csv") # <3>
 
-url = 'https://files.catbox.moe/eor4ta.csv'
-dataframe = pd.read_csv(url)
+url = 'https://files.catbox.moe/eor4ta.csv' # <4>
+dataframe = pd.read_csv(url) # <5>
 
-st.write(dataframe)
+st.write(dataframe) # <6>
 
 ```
+
+1. We are going to be loading in and displaying some tabular data that's stored as a .csv file, so we need to load in pandas. We choose to use the standard alias 'pd' for it.
+2. We then load in streamlit. The standard alias is st - this is useful as in more complex apps we'll refer to the streamlit library a lot of times!
+3. Next we add a title to our app. This will appear at the top of the page in large text. We pass the title to the `st.title()` function as a string.
+4. We then pass in a url for a dataframe. Alternatively, we could point to a dataframe stored locally on our machine, just like with a normal Python script - we'll talk more about how that would work when we *deploy* our app to the web in a later chapter.
+5. We pass the url (or the local filepath) to our `pd.read_csv()` function - we could specify some additional arguments here if we wanted to.
+6. We use the `st.write()` function to prompt streamlit to display the dataframe, passing the variable we stored the dataframe into to the function.
+
+Let's take a look at how this app will look in the live Streamlit app below.
 
 ```{stlite-python}
 
@@ -62,7 +71,7 @@ The focus of this book is on giving you the tools to create simple Streamlit app
 
 However, in real-world usage, there may be some instances where connecting to a database may be required to allow automated access to data without requiring it to be passed to the app, rather than relying on intermediate exports to formats like csv from the database.
 
-Connecting directly to a production database is certainly possible and can be done safely and securely - but beyond the scope of this book.
+Connecting directly to a production database is certainly possible and can be done safely and securely - but beyond the scope of the first version of the book.
 
 **If this is your first time working with streamlit, it is highly recommended to work through the book first to learn the core concepts of streamlit apps. Building a proof of concept version of your app with a .csv export or dummy dataset can be done before worrying about the task of connecting to a data source - and often a good proof of concept will provide the motivation within your organisation to unblock the things that may make connecting to data sources difficult!**
 
