@@ -614,22 +614,69 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p><code>st.write()</code> is a handy command.</p>
-<p>When you pass a variable to it, it will automatically work out a good way to display it.</p>
+<p>When you pass a variable to it - like some data you’ve loaded in and saved as a Python variable - it will automatically work out a good way to display it.</p>
 <p>Other functions that we talk about in later chapters give you more control over exactly how data or files are displayed - but <code>st.write()</code> can often be a useful starting point.</p>
 </div>
 </div>
-<div id="4e1a4c13" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>st.title(<span class="st">"Loading in a data file from a publically-accessible csv"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://files.catbox.moe/eor4ta.csv'</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>dataframe <span class="op">=</span> pd.read_csv(url)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>st.write(dataframe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="5b2eb3f2" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-1-4" class="code-annotation-target"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>st.title(<span class="st">"Loading in a data file from a publically-accessible csv"</span>)</span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-1-6" class="code-annotation-target"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://files.catbox.moe/eor4ta.csv'</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-1-7" class="code-annotation-target"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a>dataframe <span class="op">=</span> pd.read_csv(url)</span>
+<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-1-9" class="code-annotation-target"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a>st.write(dataframe)</span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-1-11" class="code-annotation-target"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a>st.write(<span class="st">"This is some text"</span>)</span>
+<span id="annotated-cell-1-12"><a href="#annotated-cell-1-12" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-1-13" class="code-annotation-target"><a href="#annotated-cell-1-13" aria-hidden="true" tabindex="-1"></a>st.write(<span class="dv">123</span>)</span>
+<span id="annotated-cell-1-14"><a href="#annotated-cell-1-14" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-1-15" class="code-annotation-target"><a href="#annotated-cell-1-15" aria-hidden="true" tabindex="-1"></a>st.write(<span class="st">"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Felis_catus-cat_on_snow.jpg/"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1">We are going to be loading in and displaying some tabular data that’s stored as a .csv file, so we need to load in pandas. We choose to use the standard alias ‘pd’ for it.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="2" data-code-annotation="2">We then load in streamlit. The standard alias is st - this is useful as in more complex apps we’ll refer to the streamlit library a lot of times!</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="4" data-code-annotation="3">Next we add a title to our app. This will appear at the top of the page in large text. We pass the title to the <code>st.title()</code> function as a string.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="6" data-code-annotation="4">We then pass in a url for a dataframe. Alternatively, we could point to a dataframe stored locally on our machine, just like with a normal Python script - we’ll talk more about how that would work when we <em>deploy</em> our app to the web in a later chapter.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="7" data-code-annotation="5">We pass the url (or the local filepath) to our <code>pd.read_csv()</code> function - we could specify some additional arguments here if we wanted to.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="9" data-code-annotation="6">We use the <code>st.write()</code> function to prompt streamlit to display the dataframe, passing the variable we stored the dataframe into to the function.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="11" data-code-annotation="7">We can also pass in a text string to <code>st.write()</code> to make it display in our app.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="8">8</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="13" data-code-annotation="8">This also works with numbers…</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="9">9</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="15" data-code-annotation="9">… and web links.</span>
+</dd>
+</dl>
 </div>
-<iframe src="https://share.stlite.net/?embed=true#code=%0Aimport%20pandas%20as%20pd%0Aimport%20streamlit%20as%20st%0A%0Ast.title%28%22Loading%20in%20a%20data%20file%20from%20a%20publically-accessible%20csv%22%29%0A%0Aurl%20%3D%20%27https%3A//files.catbox.moe/eor4ta.csv%27%0Adataframe%20%3D%20pd.read_csv%28url%29%0A%0Ast.write%28dataframe%29%0A
+</div>
+<p>Let’s take a look at how this app will look in the live Streamlit app below.</p>
+<iframe src="https://share.stlite.net/?embed=true#code=%0Aimport%20pandas%20as%20pd%0Aimport%20streamlit%20as%20st%0A%0Ast.title%28%22Loading%20in%20a%20data%20file%20from%20a%20publically-accessible%20csv%22%29%0A%0Aurl%20%3D%20%27https%3A//files.catbox.moe/eor4ta.csv%27%0Adataframe%20%3D%20pd.read_csv%28url%29%0A%0Ast.write%28dataframe%29%0A%0Ast.write%28%22This%20is%20some%20text%22%29%0A%0Ast.write%28123%29%0A%0Ast.write%28%22https%3A//upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Felis_catus-cat_on_snow.jpg/%22%29%0A%0A
 
 " class="stlite"></iframe>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -662,7 +709,7 @@ Tip
 <div class="callout-body-container callout-body">
 <p>The focus of this book is on giving you the tools to create simple Streamlit apps. For this, we will mainly focus on using csv files that are stored on the web or locally, or are uploaded by users. In other cases, we will look at data that is generated by simply running the app, as in the case of discrete event simulation apps where the act of running it produces the data for the graphs and tables that we want to analyse!</p>
 <p>However, in real-world usage, there may be some instances where connecting to a database may be required to allow automated access to data without requiring it to be passed to the app, rather than relying on intermediate exports to formats like csv from the database.</p>
-<p>Connecting directly to a production database is certainly possible and can be done safely and securely - but beyond the scope of this book.</p>
+<p>Connecting directly to a production database is certainly possible and can be done safely and securely - but beyond the scope of the first version of the book.</p>
 <p><strong>If this is your first time working with streamlit, it is highly recommended to work through the book first to learn the core concepts of streamlit apps. Building a proof of concept version of your app with a .csv export or dummy dataset can be done before worrying about the task of connecting to a data source - and often a good proof of concept will provide the motivation within your organisation to unblock the things that may make connecting to data sources difficult!</strong></p>
 <p>Streamlit does provide tools and guidance around connecting to data sources for apps that are going into production; to learn more about connecting to other data sources, like SQL databases, you can take a look at <a href="https://docs.streamlit.io/develop/concepts/connections/connecting-to-data">this page from the streamlit documentation</a>.</p>
 <p><a href="https://docs.streamlit.io/develop/tutorials/databases">This page</a> gives an overview of how to connect to a range of different SQL database types, public and private google sheets, and more.</p>

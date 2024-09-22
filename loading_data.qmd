@@ -32,6 +32,12 @@ dataframe = pd.read_csv(url) # <5>
 
 st.write(dataframe) # <6>
 
+st.write("This is some text") # <7>
+
+st.write(123) # <8>
+
+st.write("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Felis_catus-cat_on_snow.jpg/") # <9>
+
 ```
 
 1. We are going to be loading in and displaying some tabular data that's stored as a .csv file, so we need to load in pandas. We choose to use the standard alias 'pd' for it.
@@ -40,6 +46,9 @@ st.write(dataframe) # <6>
 4. We then pass in a url for a dataframe. Alternatively, we could point to a dataframe stored locally on our machine, just like with a normal Python script - we'll talk more about how that would work when we *deploy* our app to the web in a later chapter.
 5. We pass the url (or the local filepath) to our `pd.read_csv()` function - we could specify some additional arguments here if we wanted to.
 6. We use the `st.write()` function to prompt streamlit to display the dataframe, passing the variable we stored the dataframe into to the function.
+7. We can also pass in a text string to `st.write()` to make it display in our app.
+8. This also works with numbers...
+9. ... and web links.
 
 Let's take a look at how this app will look in the live Streamlit app below.
 
@@ -54,6 +63,13 @@ url = 'https://files.catbox.moe/eor4ta.csv'
 dataframe = pd.read_csv(url)
 
 st.write(dataframe)
+
+st.write("This is some text")
+
+st.write(123)
+
+st.write("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Felis_catus-cat_on_snow.jpg/")
+
 
 ```
 
