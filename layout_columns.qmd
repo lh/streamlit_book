@@ -116,8 +116,61 @@ The outputs of both of these bits of code are identical!
 
 ## Adjusting Column Width
 
-Column width can be controlled by
+Column width can be controlled by passing in a list with the same number of decimals in as the number of columns you want to create. These numbers must sum to 1.
 
+```{python}
+#| eval: False
+
+import streamlit as st
+col_a, col_b = st.columns([0.2, 0.8])
+
+with col_a:
+    st.text("This is some content within column 1")
+
+with col_b:
+    st.text("This is some content within column 2")
+```
+
+```{stlite-python}
+import streamlit as st
+col_a, col_b = st.columns([0.2, 0.8])
+
+with col_a:
+    st.text("This is some content within column 1")
+
+with col_b:
+    st.text("This is some content within column 2")
+```
+
+```{python}
+#| eval: False
+
+import streamlit as st
+col_a, col_b, col_c = st.columns([0.15, 0.7, 0.15])
+
+with col_a:
+    st.text("This is some content within column 1")
+
+with col_b:
+    st.text("This is some content within column 2")
+
+with col_c:
+    st.text("This is some content within column 3")
+```
+
+```{stlite-python}
+import streamlit as st
+col_a, col_b, col_c = st.columns([0.15, 0.7, 0.15])
+
+with col_a:
+    st.text("This is some content within column 1")
+
+with col_b:
+    st.text("This is some content within column 2")
+
+with col_c:
+    st.text("This is some content within column 3")
+```
 
 ## Advanced Column Layouts
 

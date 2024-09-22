@@ -348,7 +348,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./layout_divider.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">(Coming Soon!) Page Dividers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Page Dividers</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -643,7 +643,7 @@ Warning
 <p>Let’s load in the penguins dataset.</p>
 <p>Notice that we have now saved the output of <code>st.dataframe</code> to a variable, and also added the parameter <code>on_select="rerun"</code>.</p>
 <p>Before we start filtering by what is returned, let’s first just see what actually is returned and explore how this updates.</p>
-<div id="1b502a69" class="cell" data-execution_count="1">
+<div id="47c1b3d5" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
@@ -676,7 +676,7 @@ Tip
 </div>
 </div>
 <p>We can then use the selected row indices to restrict the rows we use for subsequent calculations.</p>
-<div id="c1db703e" class="cell" data-execution_count="2">
+<div id="eb8af246" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -744,7 +744,7 @@ Note
 <p><img src="assets/2024-08-19-14-41-40.png" class="img-fluid"></p>
 <p>Let’s start by creating a scatterplot of the penguins dataset.</p>
 <p>Notice that we have now saved the output of <code>st.plotly_chart</code> to a variable, and also added the parameter <code>on_select="rerun"</code>.</p>
-<div id="74489b9b" class="cell" data-execution_count="3">
+<div id="5429016d" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
@@ -762,7 +762,7 @@ Note
 
 " class="stlite"></iframe>
 <p>Now let’s see how we could use this to update some outputs.</p>
-<div id="f5da2213" class="cell" data-execution_count="4">
+<div id="bac3e752" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
@@ -811,7 +811,7 @@ Warning
 <h3 data-number="14.3.1" class="anchored" data-anchor-id="filtering-with-the-bidirectional-folium-component"><span class="header-section-number">14.3.1</span> Filtering with the bidirectional Folium Component</h3>
 <p>When using this component, data is constantly being returned as the map is updated.</p>
 <p>Let’s take a look at what is being returned as the map is updated.</p>
-<div id="06c507d2" class="cell" data-execution_count="5">
+<div id="525a52fb" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -853,7 +853,7 @@ Warning
 <section id="using-the-returned-data" class="level4" data-number="14.3.1.1">
 <h4 data-number="14.3.1.1" class="anchored" data-anchor-id="using-the-returned-data"><span class="header-section-number">14.3.1.1</span> Using the returned data</h4>
 <p>Let’s get the bounds of the map to filter a dataframe to just contain the points within the area the user has zoomed to.</p>
-<div id="1af17254" class="cell" data-execution_count="6">
+<div id="10506a26" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>

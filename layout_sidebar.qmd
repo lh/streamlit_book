@@ -176,6 +176,32 @@ More detail about theming with `config.toml` can be found in a [later chapter](a
 
 With custom CSS, we can make the sidebar expander button more obvious.
 
+```{python}
+#| eval: false
+import streamlit as st
+
+st.markdown(
+  """
+<style>
+    /* Expander */
+    div[data-testid=stExpander] > details > summary > span > div > p
+    {
+        font-size: 30px;
+    }
+</style>
+  """,
+  unsafe_allow_html=True
+)
+
+with st.sidebar:
+  st.header("I'm a sidebar")
+
+st.title("Sidebar Demo!")
+
+st.write("The button to expand or close the sidebar is bigger in this example")
+```
+
+
 ```{stlite-python}
 import streamlit as st
 

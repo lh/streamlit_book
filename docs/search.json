@@ -63,6 +63,39 @@
     ]
   },
   {
+    "objectID": "text_markdown_and_titles.html",
+    "href": "text_markdown_and_titles.html",
+    "title": "3  (Coming Soon!) Text, Markdown, and Titles",
+    "section": "",
+    "text": "3.1 Text Types",
+    "crumbs": [
+      "Outputs",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>(Coming Soon!) Text, Markdown, and Titles</span>"
+    ]
+  },
+  {
+    "objectID": "text_markdown_and_titles.html#text-types",
+    "href": "text_markdown_and_titles.html#text-types",
+    "title": "3  (Coming Soon!) Text, Markdown, and Titles",
+    "section": "",
+    "text": "3.1.1 Titles\n\nst.title(\"This is a title\")\n\n\n\n3.1.2 Subheaders\n\nst.title(\"This is a title\")\n\n\n\n3.1.3 Text\n\nst.subheader(\"This is a subheader\")\n\n\n\n3.1.4 Interactive Examples",
+    "crumbs": [
+      "Outputs",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>(Coming Soon!) Text, Markdown, and Titles</span>"
+    ]
+  },
+  {
+    "objectID": "text_markdown_and_titles.html#markdown",
+    "href": "text_markdown_and_titles.html#markdown",
+    "title": "3  (Coming Soon!) Text, Markdown, and Titles",
+    "section": "3.2 Markdown",
+    "text": "3.2 Markdown\n\nimport streamlit as st\n\nst.markdown(\"# This is header level 1\")\n\nst.markdown(\"## This is header level 2\")\n\nst.markdown(\"### This is header level 3\")\n\nst.markdown(\"#### This is header level 4\")\n\nst.markdown(\"##### This is header level 5\")\n\nst.markdown(\"This is standard text\")\n\nst.markdown(\"You can use emojis :sunglasses:\")\n\nst.markdown(\"Or Google material icons :material/favorite:\")\n\nst.markdown(\"You can colour text :red[text to be colored]\")\n\nst.markdown(\"Or colour the background of text :blue-background[text to be colored]\")\n\nst.markdown(\"\"\"\nYou can also do multiline text.\n\nThis allows you to more easily do multi-line text.\nNotice\nthe\nimpact\n\nof different numbers of newlines between the lines.\n\"\"\")",
+    "crumbs": [
+      "Outputs",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>(Coming Soon!) Text, Markdown, and Titles</span>"
+    ]
+  },
+  {
     "objectID": "dataframes.html",
     "href": "dataframes.html",
     "title": "4  Dataframes",
@@ -514,6 +547,17 @@
     ]
   },
   {
+    "objectID": "layout_divider.html",
+    "href": "layout_divider.html",
+    "title": "20  Page Dividers",
+    "section": "",
+    "text": "The divider is a simple function that puts a horizontal line across the width of the page.\nThis can make it easier to indicate different sections of the page that should be looked at together.\n\nimport streamlit as st\n\nst.title(\"This is a title\")\n\nst.write(\"Here's a first line of text\")\n\nst.divider()\n\nst.write(\"Here's some more text\")\n\nst.divider()\n\nst.write(\"Here's the final text\")\n\n2024-09-22 23:17:15.852 \n  Warning: to view this Streamlit app on a browser, run it with the following\n  command:\n\n    streamlit run c:\\HSMA\\streamlit_book\\.venv\\Lib\\site-packages\\ipykernel_launcher.py [ARGUMENTS]\n\n\n\nThere are no additional parameters you can pass into st.divider().",
+    "crumbs": [
+      "Layout",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Page Dividers</span>"
+    ]
+  },
+  {
     "objectID": "layout_columns.html",
     "href": "layout_columns.html",
     "title": "21  Columns",
@@ -540,7 +584,7 @@
     "href": "layout_columns.html#adjusting-column-width",
     "title": "21  Columns",
     "section": "21.3 Adjusting Column Width",
-    "text": "21.3 Adjusting Column Width\nColumn width can be controlled by",
+    "text": "21.3 Adjusting Column Width\nColumn width can be controlled by passing in a list with the same number of decimals in as the number of columns you want to create. These numbers must sum to 1.\n\nimport streamlit as st\ncol_a, col_b = st.columns([0.2, 0.8])\n\nwith col_a:\n    st.text(\"This is some content within column 1\")\n\nwith col_b:\n    st.text(\"This is some content within column 2\")\n\n\n\nimport streamlit as st\ncol_a, col_b, col_c = st.columns([0.15, 0.7, 0.15])\n\nwith col_a:\n    st.text(\"This is some content within column 1\")\n\nwith col_b:\n    st.text(\"This is some content within column 2\")\n\nwith col_c:\n    st.text(\"This is some content within column 3\")",
     "crumbs": [
       "Layout",
       "<span class='chapter-number'>21</span>  <span class='chapter-title'>Columns</span>"
@@ -617,7 +661,7 @@
     "href": "layout_sidebar.html#sidebar-styling",
     "title": "22  Sidebar",
     "section": "22.5 Sidebar styling",
-    "text": "22.5 Sidebar styling\n\n22.5.1 Sidebar Colour\nThe sidebar colour can be updated using Streamlit’s theming feature.\nThe colour that needs changing is the secondaryBackgroundColor in the config.toml file.\nMore detail about theming with config.toml can be found in a later chapter.\n\n\n22.5.2 Making the sidebar expander more obvious\nWith custom CSS, we can make the sidebar expander button more obvious.\n\n\n\n22.5.3 Sidebar Font colour and size\nIf using multipage apps, you may need some futher customisations to make the sidebar look good with the colour changes you make. However, more advanced customisations require using CSS.\nHere is an example where we change the default font colour of the auto-generated navigation items.\n\n\n\n\n\n\nWarning\n\n\n\nAs the streamlit library evolves, the names of various elements on the page may change, meaning that these may not remain consistent over time.\n\n\n\n# Credit to Amy H in the PenCHORD team for this!\n# https://github.com/kailo-beewell/kailo_beewell_dashboard_package/blob/be249c515d5cfd7d168abf14f03927322b72322b/kailo_beewell_dashboard/css/style.css#L2\n\nst.markdown(\n  \"\"\"\n&lt;style&gt;\n/* Sidebar font color as default is to set non-selected to more transparent */\n[data-testid=stSidebarNavItems] &gt; li &gt; div &gt; a &gt; span\n{\n    color: #05291F;\n}\n\n/* Sidebar font size */\n    [data-testid=stSidebarNavItems]\n    {\n        font-size: 25px;\n    }\n\n&lt;/style&gt;\n  \"\"\",\n  unsafe_allow_html=True\n)",
+    "text": "22.5 Sidebar styling\n\n22.5.1 Sidebar Colour\nThe sidebar colour can be updated using Streamlit’s theming feature.\nThe colour that needs changing is the secondaryBackgroundColor in the config.toml file.\nMore detail about theming with config.toml can be found in a later chapter.\n\n\n22.5.2 Making the sidebar expander more obvious\nWith custom CSS, we can make the sidebar expander button more obvious.\n\nimport streamlit as st\n\nst.markdown(\n  \"\"\"\n&lt;style&gt;\n    /* Expander */\n    div[data-testid=stExpander] &gt; details &gt; summary &gt; span &gt; div &gt; p\n    {\n        font-size: 30px;\n    }\n&lt;/style&gt;\n  \"\"\",\n  unsafe_allow_html=True\n)\n\nwith st.sidebar:\n  st.header(\"I'm a sidebar\")\n\nst.title(\"Sidebar Demo!\")\n\nst.write(\"The button to expand or close the sidebar is bigger in this example\")\n\n\n\n\n22.5.3 Sidebar Font colour and size\nIf using multipage apps, you may need some futher customisations to make the sidebar look good with the colour changes you make. However, more advanced customisations require using CSS.\nHere is an example where we change the default font colour of the auto-generated navigation items.\n\n\n\n\n\n\nWarning\n\n\n\nAs the streamlit library evolves, the names of various elements on the page may change, meaning that these may not remain consistent over time.\n\n\n\n# Credit to Amy H in the PenCHORD team for this!\n# https://github.com/kailo-beewell/kailo_beewell_dashboard_package/blob/be249c515d5cfd7d168abf14f03927322b72322b/kailo_beewell_dashboard/css/style.css#L2\n\nst.markdown(\n  \"\"\"\n&lt;style&gt;\n/* Sidebar font color as default is to set non-selected to more transparent */\n[data-testid=stSidebarNavItems] &gt; li &gt; div &gt; a &gt; span\n{\n    color: #05291F;\n}\n\n/* Sidebar font size */\n    [data-testid=stSidebarNavItems]\n    {\n        font-size: 25px;\n    }\n\n&lt;/style&gt;\n  \"\"\",\n  unsafe_allow_html=True\n)",
     "crumbs": [
       "Layout",
       "<span class='chapter-number'>22</span>  <span class='chapter-title'>Sidebar</span>"
@@ -863,17 +907,6 @@
     "crumbs": [
       "Additional Resources",
       "<span class='chapter-number'>47</span>  <span class='chapter-title'>Streamlit Cheat Sheet</span>"
-    ]
-  },
-  {
-    "objectID": "layout_divider.html",
-    "href": "layout_divider.html",
-    "title": "20  Page Dividers",
-    "section": "",
-    "text": "The divider is a simple function that puts a horizontal line across the width of the page.\nThis can make it easier to indicate different sections of the page that should be looked at together.\n\nimport streamlit as st\n\nst.title(\"This is a title\")\n\nst.write(\"Here's a first line of text\")\n\nst.divider()\n\nst.write(\"Here's some more text\")\n\nst.divider()\n\nst.write(\"Here's the final text\")\n\n\nThere are no additional parameters you can pass into st.divider().",
-    "crumbs": [
-      "Layout",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Page Dividers</span>"
     ]
   }
 ]

@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -44,6 +78,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="site_libs/quarto-contrib/stlite/iframeResizer.min.js"></script>
+<script src="site_libs/quarto-contrib/stlite/stlite.js"></script>
+<link href="site_libs/quarto-contrib/stlite/style.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -311,7 +348,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./layout_divider.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">(Coming Soon!) Page Dividers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Page Dividers</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -550,7 +587,20 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#text-types" id="toc-text-types" class="nav-link active" data-scroll-target="#text-types"><span class="header-section-number">3.1</span> Text Types</a>
+  <ul class="collapse">
+  <li><a href="#titles" id="toc-titles" class="nav-link" data-scroll-target="#titles"><span class="header-section-number">3.1.1</span> Titles</a></li>
+  <li><a href="#subheaders" id="toc-subheaders" class="nav-link" data-scroll-target="#subheaders"><span class="header-section-number">3.1.2</span> Subheaders</a></li>
+  <li><a href="#text" id="toc-text" class="nav-link" data-scroll-target="#text"><span class="header-section-number">3.1.3</span> Text</a></li>
+  <li><a href="#interactive-examples" id="toc-interactive-examples" class="nav-link" data-scroll-target="#interactive-examples"><span class="header-section-number">3.1.4</span> Interactive Examples</a></li>
+  </ul></li>
+  <li><a href="#markdown" id="toc-markdown" class="nav-link" data-scroll-target="#markdown"><span class="header-section-number">3.2</span> Markdown</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -574,8 +624,76 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Most apps will require a good amount of titles, subheaders and general text.</p>
+<section id="text-types" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="text-types"><span class="header-section-number">3.1</span> Text Types</h2>
+<section id="titles" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="titles"><span class="header-section-number">3.1.1</span> Titles</h3>
+<div id="d43cb3c4" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>st.title(<span class="st">"This is a title"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="subheaders" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="subheaders"><span class="header-section-number">3.1.2</span> Subheaders</h3>
+<div id="43b70afb" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>st.title(<span class="st">"This is a title"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="text" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="text"><span class="header-section-number">3.1.3</span> Text</h3>
+<div id="db884127" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>st.subheader(<span class="st">"This is a subheader"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="interactive-examples" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="interactive-examples"><span class="header-section-number">3.1.4</span> Interactive Examples</h3>
+<iframe src="https://share.stlite.net/?embed=true#code=import%20streamlit%20as%20st%0A%0Ast.title%28%22This%20is%20a%20title%22%29%0A%0Ast.subheader%28%22This%20is%20a%20subheader%22%29%0A%0Ast.text%28%22This%20is%20text%22%29
+
+" class="stlite"></iframe>
+</section>
+</section>
+<section id="markdown" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="markdown"><span class="header-section-number">3.2</span> Markdown</h2>
+<div id="81fe9f89" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>st.markdown(<span class="st">"# This is header level 1"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>st.markdown(<span class="st">"## This is header level 2"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>st.markdown(<span class="st">"### This is header level 3"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>st.markdown(<span class="st">"#### This is header level 4"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>st.markdown(<span class="st">"##### This is header level 5"</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>st.markdown(<span class="st">"This is standard text"</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>st.markdown(<span class="st">"You can use emojis :sunglasses:"</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>st.markdown(<span class="st">"Or Google material icons :material/favorite:"</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>st.markdown(<span class="st">"You can colour text :red[text to be colored]"</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>st.markdown(<span class="st">"Or colour the background of text :blue-background[text to be colored]"</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>st.markdown(<span class="st">"""</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="st">You can also do multiline text.</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="st">This allows you to more easily do multi-line text.</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="st">Notice</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="st">the</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="st">impact</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="st">of different numbers of newlines between the lines.</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<iframe src="https://share.stlite.net/?embed=true#code=import%20streamlit%20as%20st%0A%0Ast.markdown%28%22%23%20This%20is%20header%20level%201%22%29%0A%0Ast.markdown%28%22%23%23%20This%20is%20header%20level%202%22%29%0A%0Ast.markdown%28%22%23%23%23%20This%20is%20header%20level%203%22%29%0A%0Ast.markdown%28%22%23%23%23%23%20This%20is%20header%20level%204%22%29%0A%0Ast.markdown%28%22%23%23%23%23%23%20This%20is%20header%20level%205%22%29%0A%0Ast.markdown%28%22This%20is%20standard%20text%22%29%0A%0Ast.markdown%28%22You%20can%20use%20emojis%20%3Asunglasses%3A%22%29%0A%0Ast.markdown%28%22Or%20Google%20material%20icons%20%3Amaterial/favorite%3A%22%29%0A%0Ast.markdown%28%22You%20can%20colour%20text%20%3Ared%5Btext%20to%20be%20colored%5D%22%29%0A%0Ast.markdown%28%22Or%20colour%20the%20background%20of%20text%20%3Agreen-background%5Btext%20to%20be%20colored%5D%22%29%0A%0Ast.markdown%28%22%22%22%0AYou%20can%20also%20do%20multiline%20text.%0A%0AThis%20allows%20you%20to%20more%20easily%20do%20multi-line%20text.%0ANotice%0Athe%0Aimpact%0A%0Aof%20different%20numbers%20of%20newlines%20between%20the%20lines.%0A%22%22%22%29
+
+" class="stlite"></iframe>
 
 
+</section>
 
 </main> <!-- /main -->
 <script>
