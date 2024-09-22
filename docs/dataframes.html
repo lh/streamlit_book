@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -548,11 +582,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#st.table" id="toc-st.table" class="nav-link active" data-scroll-target="#st.table"><span class="header-section-number">3.1</span> st.table()</a></li>
   <li><a href="#st.dataframe" id="toc-st.dataframe" class="nav-link" data-scroll-target="#st.dataframe"><span class="header-section-number">3.2</span> st.dataframe()</a>
   <ul class="collapse">
-  <li><a href="#the-column-api" id="toc-the-column-api" class="nav-link" data-scroll-target="#the-column-api"><span class="header-section-number">3.2.1</span> The column API</a></li>
+  <li><a href="#polishing-the-display-of-different-data-types-with-the-column-api" id="toc-polishing-the-display-of-different-data-types-with-the-column-api" class="nav-link" data-scroll-target="#polishing-the-display-of-different-data-types-with-the-column-api"><span class="header-section-number">3.2.1</span> Polishing the display of different data types with the column API</a></li>
   <li><a href="#pandas-stylers" id="toc-pandas-stylers" class="nav-link" data-scroll-target="#pandas-stylers"><span class="header-section-number">3.2.2</span> Pandas stylers</a></li>
+  <li><a href="#other-kinds-of-tabular-data" id="toc-other-kinds-of-tabular-data" class="nav-link" data-scroll-target="#other-kinds-of-tabular-data"><span class="header-section-number">3.2.3</span> Other kinds of tabular data</a></li>
+  <li><a href="#additional-arguments" id="toc-additional-arguments" class="nav-link" data-scroll-target="#additional-arguments"><span class="header-section-number">3.2.4</span> Additional arguments</a></li>
   </ul></li>
-  <li><a href="#other-kinds-of-tabular-data" id="toc-other-kinds-of-tabular-data" class="nav-link" data-scroll-target="#other-kinds-of-tabular-data"><span class="header-section-number">3.3</span> Other kinds of tabular data</a></li>
-  <li><a href="#additional-arguments" id="toc-additional-arguments" class="nav-link" data-scroll-target="#additional-arguments"><span class="header-section-number">3.4</span> Additional arguments</a></li>
   </ul>
 </nav>
     </div>
@@ -599,7 +633,8 @@ Tip
 </ul>
 </div>
 </div>
-<p>In this example, we use <code>pd.read_csv</code> to read a dataframe from a URL.</p>
+<p>In this example, we use <code>pd.read_csv</code> to read a dataframe from a URL - take a look at the previous chapter for more details on this.</p>
+<p>We then use one of the available dataframe-displaying functions from streamlit. In the previous chapter, we used <code>st.write()</code>, which automatically chose one of these to display our dataframe with, but by specifying the precise method ourselves, we can exercise more control and pass in a range of additional parameters to refine the output.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -612,13 +647,67 @@ Tip
 <div class="callout-body-container callout-body">
 <p>As mentioned in the previous chapter, you can also use a relative path to point towards a csv that is stored locally.</p>
 <p>If doing this, you will just need to ensure the csv is also supplied when <em>deploying</em> your final app. This is covered more in a later chapter.</p>
-<p>Loading a file from a public web-based data option is an easy way to ensure you don’t run into issues with actually finding the files.</p>
+<p>However - loading a file from a public web-based data option is an easy way to ensure you don’t run into issues with actually finding the files, as you don’t have to worry so much about working out where the file actually is relative to your app on your machine, or to your deployed app!</p>
 </div>
 </div>
-<p>We then use one of the available dataframe-displaying functions from streamlit.</p>
 <section id="st.table" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="st.table"><span class="header-section-number">3.1</span> st.table()</h2>
 <p>Let’s start with <code>st.table</code>.</p>
+<div id="daf7933a" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>st.title(<span class="st">"Most common names per year"</span>)</span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://files.catbox.moe/eor4ta.csv'</span></span>
+<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-8" class="code-annotation-target"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a>name_lookup_df <span class="op">=</span> pd.read_csv(url)</span>
+<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a>name_lookup_df <span class="op">=</span> (name_lookup_df</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-11" class="code-annotation-target"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a>    .melt(id_vars<span class="op">=</span>[<span class="st">"Name"</span>, <span class="st">"Gender"</span>])</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-1-12" class="code-annotation-target"><a href="#annotated-cell-1-12" aria-hidden="true" tabindex="-1"></a>    .dropna()</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-1-13" class="code-annotation-target"><a href="#annotated-cell-1-13" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{<span class="st">"variable"</span>: <span class="st">"Year"</span>, <span class="st">"value"</span>: <span class="st">"Rank"</span>})</span>
+<span id="annotated-cell-1-14"><a href="#annotated-cell-1-14" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="annotated-cell-1-15"><a href="#annotated-cell-1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-16"><a href="#annotated-cell-1-16" aria-hidden="true" tabindex="-1"></a>name_lookup_df <span class="op">=</span> (</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-1-17" class="code-annotation-target"><a href="#annotated-cell-1-17" aria-hidden="true" tabindex="-1"></a>    name_lookup_df[name_lookup_df[<span class="st">"Rank"</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-1-18" class="code-annotation-target"><a href="#annotated-cell-1-18" aria-hidden="true" tabindex="-1"></a>    .pivot(values<span class="op">=</span><span class="st">"Name"</span>, index<span class="op">=</span><span class="st">"Year"</span>, columns<span class="op">=</span><span class="st">"Gender"</span>)</span>
+<span id="annotated-cell-1-19"><a href="#annotated-cell-1-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="annotated-cell-1-20"><a href="#annotated-cell-1-20" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-1-21" class="code-annotation-target"><a href="#annotated-cell-1-21" aria-hidden="true" tabindex="-1"></a>st.table(name_lookup_df)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="8" data-code-annotation="1">As before, we pass in the url of the dataframe to the pandas <code>.read_csv()</code> function.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="11" data-code-annotation="2">While this isn’t directly related to the streamlit aspect of the display of the dataframe - you can skip to point 7 for that - it’s worth noting that you can choose to do some processing and manipulation of your data from within your Streamlit app. Here we first convert our dataframe from a ‘wide’ to a ‘long’ format with the melt function…</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="12" data-code-annotation="3">… then remove any rows with missing values…</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="13" data-code-annotation="4">… then rename the ‘variable’ column to ‘Year’ and the ‘value’ columns to ‘Rank’.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="17" data-code-annotation="5">Next, we filter the dataframe to only contain rows where the ‘Rank’ is equal to 1 - i.e.&nbsp;we just want the top ranked name for each year.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="18" data-code-annotation="6">Finally, we make our dataframe wider again, making a column for ‘M’ and a column for ‘F’, with the years forming the index of the dataframe and the most popular name in each year being the cell.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="21" data-code-annotation="7">Finally, we make use of the <code>st.table()</code> function to display our final dataframe as a non-interactie table.</span>
+</dd>
+</dl>
+</div>
+</div>
 <iframe src="https://share.stlite.net/?embed=true#code=import%20pandas%20as%20pd%0Aimport%20streamlit%20as%20st%0A%0Ast.title%28%22Most%20common%20names%20per%20year%22%29%0A%0Aurl%20%3D%20%27https%3A//files.catbox.moe/eor4ta.csv%27%0A%0Aname_lookup_df%20%3D%20pd.read_csv%28url%29.melt%28id_vars%3D%5B%22Name%22%2C%20%22Gender%22%5D%29.dropna%28%29.rename%28%0A%20%20%20%20columns%3D%7B%22variable%22%3A%20%22Year%22%2C%20%22value%22%3A%20%22Rank%22%7D%0A%20%20%20%20%29%0A%0Aname_lookup_df%20%3D%20name_lookup_df%5Bname_lookup_df%5B%22Rank%22%5D%20%3D%3D%201%5D.pivot%28values%3D%22Name%22%2C%20index%3D%22Year%22%2C%20columns%3D%22Gender%22%29%0A%0Ast.table%28name_lookup_df%29
 
 " class="stlite"></iframe>
@@ -627,19 +716,150 @@ Tip
 </section>
 <section id="st.dataframe" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="st.dataframe"><span class="header-section-number">3.2</span> st.dataframe()</h2>
-<p><code>st.dataframe</code> gives more interactivity.</p>
+<p><code>st.dataframe</code> gives more interactivity by default.</p>
+<p>There are also more ways in <code>st.dataframe</code> than <code>st.table</code> in which we can tweak the display of the final data, which we go on to later.</p>
+<div id="e9608656" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>st.title(<span class="st">"Most common names per year"</span>)</span>
+<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-6"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://files.catbox.moe/eor4ta.csv'</span></span>
+<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-8"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a>name_lookup_df <span class="op">=</span> (</span>
+<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a>    pd.read_csv(url)</span>
+<span id="annotated-cell-2-10"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a>    .melt(id_vars<span class="op">=</span>[<span class="st">"Name"</span>, <span class="st">"Gender"</span>])</span>
+<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a>    .dropna()</span>
+<span id="annotated-cell-2-12"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{<span class="st">"variable"</span>: <span class="st">"Year"</span>, <span class="st">"value"</span>: <span class="st">"Rank"</span>})</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-2-13" class="code-annotation-target"><a href="#annotated-cell-2-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="annotated-cell-2-14"><a href="#annotated-cell-2-14" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-2-15" class="code-annotation-target"><a href="#annotated-cell-2-15" aria-hidden="true" tabindex="-1"></a>st.dataframe(name_lookup_df)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="13" data-code-annotation="1">Once again, we load in data from a url, make it long, remove any missing values, and rename the columns to something more user-friendly.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="15" data-code-annotation="2">Next, we pass in our dataframe.</span>
+</dd>
+</dl>
+</div>
+</div>
 <iframe src="https://share.stlite.net/?embed=true#code=import%20pandas%20as%20pd%0Aimport%20streamlit%20as%20st%0A%0Ast.title%28%22Most%20common%20names%20per%20year%22%29%0A%0Aurl%20%3D%20%27https%3A//files.catbox.moe/eor4ta.csv%27%0A%0Aname_lookup_df%20%3D%20pd.read_csv%28url%29.melt%28id_vars%3D%5B%22Name%22%2C%20%22Gender%22%5D%29.dropna%28%29.rename%28%0A%20%20%20%20columns%3D%7B%22variable%22%3A%20%22Year%22%2C%20%22value%22%3A%20%22Rank%22%7D%0A%20%20%20%20%29%0A%0Ast.dataframe%28name_lookup_df%29
 
 " class="stlite"></iframe>
 <p>A simple search functionality is available when hovering over it, as well as the option to make the table take up the full screen.</p>
 <p><img src="assets/2024-08-19-15-56-02.png" class="img-fluid"></p>
-<section id="the-column-api" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="the-column-api"><span class="header-section-number">3.2.1</span> The column API</h3>
+<section id="polishing-the-display-of-different-data-types-with-the-column-api" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="polishing-the-display-of-different-data-types-with-the-column-api"><span class="header-section-number">3.2.1</span> Polishing the display of different data types with the column API</h3>
 <p>The column configuration API is a powerful way to enhance the display of data tables in Streamlit.</p>
 <p>This allows you to change the displayed column name without having to rename it via Pandas commands, but it also gives more control over how columns display.</p>
 <p>For example, you can set a numeric column to include a prefix or suffix, or to add a comma to break up long numbers.</p>
 <p>You can set links to be clickable, images to preview, and add things like sparklines and progress bars.</p>
 <p>Let’s build up a simple dataset manually so we can explore the use of some of these values.</p>
+<div id="d79e33b8" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="annotated-cell-3"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a>st.title(<span class="st">"Column Configuration API Demonstration"</span>)</span>
+<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-6"><a href="#annotated-cell-3-6" aria-hidden="true" tabindex="-1"></a>data_df <span class="op">=</span> pd.DataFrame(</span>
+<span id="annotated-cell-3-7"><a href="#annotated-cell-3-7" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="annotated-cell-3-8"><a href="#annotated-cell-3-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"project"</span>: [<span class="st">"Project 1"</span>, <span class="st">"Project 2"</span>, <span class="st">"Project 3"</span>, <span class="st">"Project 4"</span>],</span>
+<span id="annotated-cell-3-9"><a href="#annotated-cell-3-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"project_mascot"</span>: [<span class="st">"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Felis_catus-cat_on_snow.jpg/1920px-Felis_catus-cat_on_snow.jpg"</span>, <span class="st">"https://upload.wikimedia.org/wikipedia/commons/2/25/Siam_lilacpoint.jpg"</span>,</span>
+<span id="annotated-cell-3-10"><a href="#annotated-cell-3-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg/800px-Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg"</span>, <span class="st">"https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Sheba1.JPG/800px-Sheba1.JPG"</span>],</span>
+<span id="annotated-cell-3-11"><a href="#annotated-cell-3-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"progress"</span>: [<span class="dv">70</span>, <span class="dv">40</span>, <span class="dv">10</span>, <span class="dv">100</span>],</span>
+<span id="annotated-cell-3-12"><a href="#annotated-cell-3-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"logged_minutes"</span>: [<span class="dv">1040</span>, <span class="dv">700</span>, <span class="dv">90</span>, <span class="dv">830</span>],</span>
+<span id="annotated-cell-3-13"><a href="#annotated-cell-3-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"client_link"</span>: [<span class="st">"https://www.morgensternsnyc.com/"</span>, <span class="st">"https://www.thelittleicecreamshop.com/"</span>,  <span class="st">"https://www.fredericksicecream.co.uk/"</span>, <span class="st">"https://www.solleys.co.uk/"</span>]</span>
+<span id="annotated-cell-3-14"><a href="#annotated-cell-3-14" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-3-15" class="code-annotation-target"><a href="#annotated-cell-3-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-3-16" class="code-annotation-target"><a href="#annotated-cell-3-16" aria-hidden="true" tabindex="-1"></a>).set_index(<span class="st">"project"</span>)</span>
+<span id="annotated-cell-3-17"><a href="#annotated-cell-3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-18"><a href="#annotated-cell-3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-19"><a href="#annotated-cell-3-19" aria-hidden="true" tabindex="-1"></a>st.dataframe(</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-3-20" class="code-annotation-target"><a href="#annotated-cell-3-20" aria-hidden="true" tabindex="-1"></a>    data_df,</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-3-21" class="code-annotation-target"><a href="#annotated-cell-3-21" aria-hidden="true" tabindex="-1"></a>    column_config<span class="op">=</span>{</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-3-22" class="code-annotation-target"><a href="#annotated-cell-3-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"progress"</span>: st.column_config.ProgressColumn(</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-3-23" class="code-annotation-target"><a href="#annotated-cell-3-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Project Progress"</span>,</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-3-24" class="code-annotation-target"><a href="#annotated-cell-3-24" aria-hidden="true" tabindex="-1"></a>            <span class="bu">help</span><span class="op">=</span><span class="st">"The </span><span class="sc">% o</span><span class="st">f project tasks completed"</span>,</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-3-25" class="code-annotation-target"><a href="#annotated-cell-3-25" aria-hidden="true" tabindex="-1"></a>            <span class="bu">format</span><span class="op">=</span><span class="st">"</span><span class="sc">%f</span><span class="st">%"</span>,</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-3-26" class="code-annotation-target"><a href="#annotated-cell-3-26" aria-hidden="true" tabindex="-1"></a>            min_value<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="annotated-cell-3-27"><a href="#annotated-cell-3-27" aria-hidden="true" tabindex="-1"></a>            max_value<span class="op">=</span><span class="dv">100</span>, <span class="co">#</span></span>
+<span id="annotated-cell-3-28"><a href="#annotated-cell-3-28" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="10" onclick="event.preventDefault();">10</a><span id="annotated-cell-3-29" class="code-annotation-target"><a href="#annotated-cell-3-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">"project_mascot"</span>: st.column_config.ImageColumn(</span>
+<span id="annotated-cell-3-30"><a href="#annotated-cell-3-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Mascot"</span>,</span>
+<span id="annotated-cell-3-31"><a href="#annotated-cell-3-31" aria-hidden="true" tabindex="-1"></a>            <span class="bu">help</span><span class="op">=</span><span class="st">"The cat mascot of this project"</span></span>
+<span id="annotated-cell-3-32"><a href="#annotated-cell-3-32" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="11" onclick="event.preventDefault();">11</a><span id="annotated-cell-3-33" class="code-annotation-target"><a href="#annotated-cell-3-33" aria-hidden="true" tabindex="-1"></a>         <span class="st">"client_link"</span>: st.column_config.LinkColumn(</span>
+<span id="annotated-cell-3-34"><a href="#annotated-cell-3-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Client Website Link"</span>,</span>
+<span id="annotated-cell-3-35"><a href="#annotated-cell-3-35" aria-hidden="true" tabindex="-1"></a>            <span class="bu">help</span><span class="op">=</span><span class="st">"Link to the website of the client"</span>,</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="12" onclick="event.preventDefault();">12</a><span id="annotated-cell-3-36" class="code-annotation-target"><a href="#annotated-cell-3-36" aria-hidden="true" tabindex="-1"></a>            display_text<span class="op">=</span><span class="st">"Open link"</span></span>
+<span id="annotated-cell-3-37"><a href="#annotated-cell-3-37" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="13" onclick="event.preventDefault();">13</a><span id="annotated-cell-3-38" class="code-annotation-target"><a href="#annotated-cell-3-38" aria-hidden="true" tabindex="-1"></a>         <span class="st">"logged_minutes"</span>: st.column_config.NumberColumn(</span>
+<span id="annotated-cell-3-39"><a href="#annotated-cell-3-39" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Minutes Logged on Project"</span>,</span>
+<span id="annotated-cell-3-40"><a href="#annotated-cell-3-40" aria-hidden="true" tabindex="-1"></a>            <span class="bu">help</span><span class="op">=</span><span class="st">"Minutes Logged for Client Billing"</span></span>
+<span id="annotated-cell-3-41"><a href="#annotated-cell-3-41" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="annotated-cell-3-42"><a href="#annotated-cell-3-42" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="annotated-cell-3-43"><a href="#annotated-cell-3-43" aria-hidden="true" tabindex="-1"></a>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="15" data-code-annotation="1">This time we are building a dataframe from scratch, passing in a dictionary where the keys will form the column names and the lists associated with the keys will be the values.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="16" data-code-annotation="2">We set ‘project’ - one of the provided columns in our dictionary - to be the index of the dataframe.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="20" data-code-annotation="3">As before, we pass in the dataframe as the first argument to <code>st.dataframe</code>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="21" data-code-annotation="4">To the <code>column_config</code> argument we pass a dictionary, where the keys again correspond to the column names but the values are a streamlit column_config type with a number of optional arguments.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="22" data-code-annotation="5">The ProgressColumn type creates a small progress bar, which can be useful for displaying progress towards a percentage of completion or a total number of values. All values in the progress column must have the same maximum.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="23" data-code-annotation="6">The first argument to a st.column_config is the column title to display to the user, allowing your columns to have polished-looking names without having to adjust the underlying dataframe, allowing you to more easily continue working with the dataframe itself in later calculations.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="24" data-code-annotation="7">The value passed to the ‘help’ argument will appear when the user hovers over the column name.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="8">8</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="25" data-code-annotation="8">The format argument adjusts the way in which the number displays; here, for example, %f indicates it’s should display as a float (decimal) number, with the second % sign indicating a % symbol should be displayed after the number. More details about the available formats can be found on the Streamlit website.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="9">9</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="26" data-code-annotation="9">The minimum and maximum values relate to the upper and lower possible values the progress could take.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="10">10</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="29" data-code-annotation="10">The ImageColumn will, if passed a local or web-based image path, display a small version of the image within the table instead of the text of the link.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="11">11</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="33" data-code-annotation="11">The LinkColumn converts any hyperlinks to a clickable link instead of just being text.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="12">12</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="36" data-code-annotation="12">The display_text argument can be used to display more user-friendly text instead of the full link itself.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="13">13</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="38" data-code-annotation="13">The NumberColumn just gives some control over the way a number is displayed; by default, a number column will include commas to make it easier to read large numbers, but this can be overriden with the <code>format</code> argument.</span>
+</dd>
+</dl>
+</div>
+</div>
 <iframe src="https://share.stlite.net/?embed=true#code=%0Aimport%20streamlit%20as%20st%0Aimport%20pandas%20as%20pd%0A%0Ast.title%28%22Column%20Configuration%20API%20Demonstration%22%29%0A%0Adata_df%20%3D%20pd.DataFrame%28%0A%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%22project%22%3A%20%5B%22Project%201%22%2C%20%22Project%202%22%2C%20%22Project%203%22%2C%20%22Project%204%22%5D%2C%0A%20%20%20%20%20%20%20%20%22project_mascot%22%3A%20%5B%22https%3A//upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Felis_catus-cat_on_snow.jpg/1920px-Felis_catus-cat_on_snow.jpg%22%2C%20%22https%3A//upload.wikimedia.org/wikipedia/commons/2/25/Siam_lilacpoint.jpg%22%2C%0A%20%20%20%20%20%20%20%20%22https%3A//upload.wikimedia.org/wikipedia/commons/thumb/6/68/Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg/800px-Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg%22%2C%20%22https%3A//upload.wikimedia.org/wikipedia/commons/thumb/5/53/Sheba1.JPG/800px-Sheba1.JPG%22%5D%2C%0A%20%20%20%20%20%20%20%20%22progress%22%3A%20%5B70%2C%2040%2C%2010%2C%20100%5D%2C%0A%20%20%20%20%20%20%20%20%22logged_minutes%22%3A%20%5B1040%2C%20700%2C%2090%2C%20830%5D%2C%0A%20%20%20%20%20%20%20%20%22client_link%22%3A%20%5B%22https%3A//www.morgensternsnyc.com/%22%2C%20%22https%3A//www.thelittleicecreamshop.com/%22%2C%20%20%22https%3A//www.fredericksicecream.co.uk/%22%2C%20%22https%3A//www.solleys.co.uk/%22%5D%0A%0A%20%20%20%20%7D%0A%29.set_index%28%22project%22%29%0A%0A%0Ast.dataframe%28%0A%20%20%20%20data_df%2C%0A%20%20%20%20column_config%3D%7B%0A%20%20%20%20%20%20%20%20%22progress%22%3A%20st.column_config.ProgressColumn%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%22Project%20Progress%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20help%3D%22The%20%25%20of%20project%20tasks%20completed%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20format%3D%22%25f%25%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20min_value%3D0%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20max_value%3D100%2C%0A%20%20%20%20%20%20%20%20%29%2C%0A%20%20%20%20%20%20%20%20%22project_mascot%22%3A%20st.column_config.ImageColumn%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%22Mascot%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20help%3D%22The%20cat%20mascot%20of%20this%20project%22%0A%20%20%20%20%20%20%20%20%29%2C%0A%20%20%20%20%20%20%20%20%20%22client_link%22%3A%20st.column_config.LinkColumn%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%22Client%20Website%20Link%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20help%3D%22Link%20to%20the%20website%20of%20the%20client%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20display_text%3D%22Open%20link%22%0A%20%20%20%20%20%20%20%20%29%2C%0A%20%20%20%20%20%20%20%20%20%22logged_minutes%22%3A%20st.column_config.NumberColumn%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%22Minutes%20Logged%20on%20Project%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20help%3D%22Minutes%20Logged%20for%20Client%20Billing%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%29%0A%20%20%20%20%7D%0A%29%0A
 
 " class="stlite"></iframe>
@@ -660,18 +880,18 @@ Note
 </section>
 <section id="pandas-stylers" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="pandas-stylers"><span class="header-section-number">3.2.2</span> Pandas stylers</h3>
-<p>Pandas has a ‘styler’ API</p>
+<p>Pandas has a ‘styler’ API, which can be used to enhance table displays with conditional formatting and other stylistic enhancements. At present, within Streamlit, cell background colours, font colours and custom value displays are supported. Take a look at the pandas styler documentation for more information, and pass in the pandas styler object instead of the basic dataframe to <code>st.dataframe</code>.</p>
 </section>
-</section>
-<section id="other-kinds-of-tabular-data" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="other-kinds-of-tabular-data"><span class="header-section-number">3.3</span> Other kinds of tabular data</h2>
+<section id="other-kinds-of-tabular-data" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="other-kinds-of-tabular-data"><span class="header-section-number">3.2.3</span> Other kinds of tabular data</h3>
 <p>st.dataframe works with Pandas, PyArrow, Snowpark, pySpark, Numpy arrays, lists, sets and dictionaries.</p>
 </section>
-<section id="additional-arguments" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="additional-arguments"><span class="header-section-number">3.4</span> Additional arguments</h2>
+<section id="additional-arguments" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="additional-arguments"><span class="header-section-number">3.2.4</span> Additional arguments</h3>
 <p>You can find out more about the available options in <a href="https://docs.streamlit.io/develop/api-reference/data/st.dataframe">the documentation</a>.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

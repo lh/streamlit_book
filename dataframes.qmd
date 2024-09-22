@@ -17,7 +17,9 @@ Later chapters cover a range of additional dataframe topics, such as
 - saving dataframes to csv or Excel files
 :::
 
-In this example, we use `pd.read_csv` to read a dataframe from a URL.
+In this example, we use `pd.read_csv` to read a dataframe from a URL - take a look at the previous chapter for more details on this.
+
+We then use one of the available dataframe-displaying functions from streamlit. In the previous chapter, we used `st.write()`, which automatically chose one of these to display our dataframe with, but by specifying the precise method ourselves, we can exercise more control and pass in a range of additional parameters to refine the output.
 
 :::{.callout-tip}
 As mentioned in the previous chapter, you can also use a relative path to point towards a csv that is stored locally.
@@ -25,14 +27,45 @@ As mentioned in the previous chapter, you can also use a relative path to point 
 If doing this, you will just need to ensure the csv is also supplied when *deploying* your final app.
 This is covered more in a later chapter.
 
-Loading a file from a public web-based data option is an easy way to ensure you don't run into issues with actually finding the files.
+However - loading a file from a public web-based data option is an easy way to ensure you don't run into issues with actually finding the files, as you don't have to worry so much about working out where the file actually is relative to your app on your machine, or to your deployed app!
 :::
-
-We then use one of the available dataframe-displaying functions from streamlit.
 
 ## st.table()
 
 Let's start with `st.table`.
+
+```{python}
+#| eval: false
+import pandas as pd
+import streamlit as st
+
+st.title("Most common names per year")
+
+url = 'https://files.catbox.moe/eor4ta.csv'
+
+name_lookup_df = pd.read_csv(url) # <1>
+
+name_lookup_df = (name_lookup_df
+    .melt(id_vars=["Name", "Gender"]) # <2>
+    .dropna() # <3>
+    .rename(columns={"variable": "Year", "value": "Rank"}) # <4>
+ )
+
+name_lookup_df = (
+    name_lookup_df[name_lookup_df["Rank"] == 1] # <5>
+    .pivot(values="Name", index="Year", columns="Gender") # <6>
+    )
+
+st.table(name_lookup_df) # <7>
+```
+
+1. As before, we pass in the url of the dataframe to the pandas `.read_csv()` function.
+2. While this isn't directly related to the streamlit aspect of the display of the dataframe - you can skip to point 7 for that - it's worth noting that you can choose to do some processing and manipulation of your data from within your Streamlit app. Here we first convert our dataframe from a 'wide' to a 'long' format with the melt function...
+3. ... then remove any rows with missing values...
+4. ... then rename the 'variable' column to 'Year' and the 'value' columns to 'Rank'.
+5. Next, we filter the dataframe to only contain rows where the 'Rank' is equal to 1 - i.e. we just want the top ranked name for each year.
+6. Finally, we make our dataframe wider again, making a column for 'M' and a column for 'F', with the years forming the index of the dataframe and the most popular name in each year being the cell.
+7. Finally, we make use of the `st.table()` function to display our final dataframe as a non-interactie table.
 
 ```{stlite-python}
 import pandas as pd
@@ -57,7 +90,31 @@ This can be useful when we don't want users to be able to do things like sort th
 
 ## st.dataframe()
 
-`st.dataframe` gives more interactivity.
+`st.dataframe` gives more interactivity by default.
+
+There are also more ways in `st.dataframe` than `st.table` in which we can tweak the display of the final data, which we go on to later.
+
+```{python}
+#| eval: false
+import pandas as pd
+import streamlit as st
+
+st.title("Most common names per year")
+
+url = 'https://files.catbox.moe/eor4ta.csv'
+
+name_lookup_df = (
+    pd.read_csv(url)
+    .melt(id_vars=["Name", "Gender"])
+    .dropna()
+    .rename(columns={"variable": "Year", "value": "Rank"})
+) # <1>
+
+st.dataframe(name_lookup_df) # <2>
+```
+
+1. Once again, we load in data from a url, make it long, remove any missing values, and rename the columns to something more user-friendly.
+2. Next, we pass in our dataframe.
 
 ```{stlite-python}
 import pandas as pd
@@ -78,7 +135,7 @@ A simple search functionality is available when hovering over it, as well as the
 
 ![](assets/2024-08-19-15-56-02.png)
 
-### The column API
+### Polishing the display of different data types with the column API
 
 The column configuration API is a powerful way to enhance the display of data tables in Streamlit.
 
@@ -89,6 +146,69 @@ For example, you can set a numeric column to include a prefix or suffix, or to a
 You can set links to be clickable, images to preview, and add things like sparklines and progress bars.
 
 Let's build up a simple dataset manually so we can explore the use of some of these values.
+
+```{python}
+#| eval: false
+
+import streamlit as st
+import pandas as pd
+
+st.title("Column Configuration API Demonstration")
+
+data_df = pd.DataFrame(
+    {
+        "project": ["Project 1", "Project 2", "Project 3", "Project 4"],
+        "project_mascot": ["https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Felis_catus-cat_on_snow.jpg/1920px-Felis_catus-cat_on_snow.jpg", "https://upload.wikimedia.org/wikipedia/commons/2/25/Siam_lilacpoint.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg/800px-Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Sheba1.JPG/800px-Sheba1.JPG"],
+        "progress": [70, 40, 10, 100],
+        "logged_minutes": [1040, 700, 90, 830],
+        "client_link": ["https://www.morgensternsnyc.com/", "https://www.thelittleicecreamshop.com/",  "https://www.fredericksicecream.co.uk/", "https://www.solleys.co.uk/"]
+
+    } # <1>
+).set_index("project") # <2>
+
+
+st.dataframe(
+    data_df, # <3>
+    column_config={ # <4>
+        "progress": st.column_config.ProgressColumn( # <5>
+            "Project Progress", # <6>
+            help="The % of project tasks completed", # <7>
+            format="%f%", # <8>
+            min_value=0, # <9>
+            max_value=100, #
+        ),
+        "project_mascot": st.column_config.ImageColumn( # <10>
+            "Mascot",
+            help="The cat mascot of this project"
+        ),
+         "client_link": st.column_config.LinkColumn( # <11>
+            "Client Website Link",
+            help="Link to the website of the client",
+            display_text="Open link" # <12>
+        ),
+         "logged_minutes": st.column_config.NumberColumn( # <13>
+            "Minutes Logged on Project",
+            help="Minutes Logged for Client Billing"
+                    )
+    }
+)
+
+```
+
+1. This time we are building a dataframe from scratch, passing in a dictionary where the keys will form the column names and the lists associated with the keys will be the values.
+2. We set 'project' - one of the provided columns in our dictionary - to be the index of the dataframe.
+3. As before, we pass in the dataframe as the first argument to `st.dataframe`.
+4. To the `column_config` argument we pass a dictionary, where the keys again correspond to the column names but the values are a streamlit column_config type with a number of optional arguments.
+5. The ProgressColumn type creates a small progress bar, which can be useful for displaying progress towards a percentage of completion or a total number of values. All values in the progress column must have the same maximum.
+6. The first argument to a st.column_config is the column title to display to the user, allowing your columns to have polished-looking names without having to adjust the underlying dataframe, allowing you to more easily continue working with the dataframe itself in later calculations.
+7. The value passed to the 'help' argument will appear when the user hovers over the column name.
+8. The format argument adjusts the way in which the number displays; here, for example, %f indicates it's should display as a float (decimal) number, with the second % sign indicating a % symbol should be displayed after the number. More details about the available formats can be found on the Streamlit website.
+9. The minimum and maximum values relate to the upper and lower possible values the progress could take.
+10. The ImageColumn will, if passed a local or web-based image path, display a small version of the image within the table instead of the text of the link.
+11. The LinkColumn converts any hyperlinks to a clickable link instead of just being text.
+12. The display_text argument can be used to display more user-friendly text instead of the full link itself.
+13. The NumberColumn just gives some control over the way a number is displayed; by default, a number column will include commas to make it easier to read large numbers, but this can be overriden with the `format` argument.
 
 ```{stlite-python}
 
@@ -148,13 +268,13 @@ The full documentation can be found [here](https://docs.streamlit.io/develop/api
 
 ### Pandas stylers
 
-Pandas has a 'styler' API
+Pandas has a 'styler' API, which can be used to enhance table displays with conditional formatting and other stylistic enhancements. At present, within Streamlit, cell background colours, font colours and custom value displays are supported. Take a look at the pandas styler documentation for more information, and pass in the pandas styler object instead of the basic dataframe to `st.dataframe`.
 
 
-## Other kinds of tabular data
+### Other kinds of tabular data
 
 st.dataframe works with Pandas, PyArrow, Snowpark, pySpark, Numpy arrays, lists, sets and dictionaries.
 
-## Additional arguments
+### Additional arguments
 
 You can find out more about the available options in [the documentation](https://docs.streamlit.io/develop/api-reference/data/st.dataframe).
