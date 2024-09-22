@@ -8,9 +8,58 @@ If using Streamlit to create a dashboard, there will often be a requirement to c
 
 ## Metrics
 
+```{python}
+#| eval: false
+
+import streamlit as st
+
+st.metric( # <1>
+  label="Number of Patients Seen this Week", # <2>
+  value=52 # <3>
+  )
+
+st.metric(
+  label="Number of Patients Seen this Week - South",
+  value=30,
+  delta=7 # <4>
+  )
+
+st.metric(
+  label="Number of Patients Seen this Week - North",
+  value=12,
+  delta=-4 # <5>
+  )
+
+st.metric(
+  label="Waiting List Length",
+  value=147,
+  delta=-15,
+  delta_color="inverse" # <6>
+  )
+
+st.subheader("A metric without its own header") # <7>
+
+st.metric(
+  label="This Won't Be Displayed", # <8>
+  value=5,
+  delta=3,
+  label_visibility="collapsed" # <9>
+  )
+
+```
+
+1. We are going to be using the `st.metric()` function.
+2. We pass in a string to be used as the metric card's label.
+3. Then we pass in a value to display on the card.
+4. We can also provide an optional `delta` parameter, which is designed to show the difference between the current metric value and a comparison figure, such as the figure in the previous time period.
+5. This delta value can also be negative, and this will display in a different colour.
+6. If an increase is actually a bad thing and a decrease is a good thing, passing the 'inverse' parameter will invert the colours used.
+7. If we wanted to make a title that stood out more, we could instead use a subheader.
+8. Note that we are going to specify a parameter that means any label passed in here won't actually get displayed - but you should still specify one.
+9. Finally, we use the `label_visibility` parameter with the argument `collapsed` to hide the provided label.
+
 ```{stlite-python}
 import streamlit as st
-import micropip
 
 st.metric(label="Number of Patients Seen this Week", value=52)
 
@@ -27,7 +76,11 @@ st.metric(label="This Won't Be Displayed", value=5, delta=3, label_visibility="c
 
 ### Layout
 
-By combining metrics with [st.columns](layout_columns.qmd), we can make better use of the screen to start building up more of a dashboard layout.
+By combining metrics with [st.columns](layout_columns.qmd), we can make better use of the screen to start building up more of a dashboard layout. The column layout is covered in more detail in the linked chapter.
+
+:::{.callout-warning}
+To ensure Streamlit apps display well on all screen sizes, on narrower screens you may find that your defined columns are ignored and instead the metrics return to displaying as a single column. If you increase the width of the window, it should automatially update the layout and, if the screen is wide enough, it will respect the column assignments you have provided.
+:::
 
 ```{python}
 #| eval: False
@@ -148,6 +201,7 @@ st.plotly_chart(
 ```
 
 1. We import the function `style_metric_cards` from `streamlit_extras.metric_cards`
+
 2. We then use this function after we've created our metric cards, passing in the relevant arguments to change the background colour, border colour, border size and more.
 
 Full details of all the available parameters can be found in the [streamlit extras documentation](https://arnaudmiribel.github.io/streamlit-extras/extras/metric_cards/)
@@ -205,11 +259,55 @@ st.plotly_chart(
 
 To get other sorts of displays that we might be familiar with in other dashboarding software, we may need to instead move to plotly or another graphing library rather than using things built in to Streamlit.
 
+```{python}
+#| eval: false
+
+import streamlit as st
+import plotly.graph_objects as go # <1>
+
+def indicator(value, title, lower_limit=0, upper_limit=1): # <2>
+    return go.Figure(
+      go.Indicator(
+        mode = "gauge+number",
+        value = value,
+        title = {'text': title},
+        domain = {'x': [0, 1], 'y': [0, 1]},
+        gauge = {
+        'axis': {'range': [lower_limit, upper_limit]}
+      }
+    )
+  )
+
+st.plotly_chart(
+  indicator( # <3>
+    value=80, # <4>
+    title="Percentage of Tasks Completed",
+    upper_limit=100
+    )
+  )
+
+st.plotly_chart(
+  indicator(
+    value=3,
+    title="Number of Patients Seen Today",
+    upper_limit=10
+    )
+  )
+
+```
+
+1. Instead of importing the `plotly.express` module, this time we import the `graph_objects` module as `go`. This gives us finer control over plotly objects.
+
+2. We define our own custom 'indicator' function to make it easier. Don't worry too much about the code in this function; you could copy it into your own Streamlit dashboards as-is.
+
+3. We can then pass the output of this 'indicator' function to `st.plotly_chart` like usual. We could save this to a `fig` first if we wished, before passing the `fig` into `st.plotly_chart`.
+
+4. We pass in the actual value of the metric, the title to display above the gauge and optionally the relative upper and lower limits that this value could take or should be measured relative to.
+
 ```{stlite-python}
 import streamlit as st
 import micropip
 await micropip.install("plotly")
-await micropip.install("streamlit-extras")
 import plotly.graph_objects as go
 
 def indicator(value, title, lower_limit=0, upper_limit=1):
