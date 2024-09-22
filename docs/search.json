@@ -864,5 +864,16 @@
       "Additional Resources",
       "<span class='chapter-number'>47</span>  <span class='chapter-title'>Streamlit Cheat Sheet</span>"
     ]
+  },
+  {
+    "objectID": "layout_divider.html",
+    "href": "layout_divider.html",
+    "title": "20  Page Dividers",
+    "section": "",
+    "text": "The divider is a simple function that puts a horizontal line across the width of the page.\nThis can make it easier to indicate different sections of the page that should be looked at together.\n\nimport streamlit as st\n\nst.title(\"This is a title\")\n\nst.write(\"Here's a first line of text\")\n\nst.divider()\n\nst.write(\"Here's some more text\")\n\nst.divider()\n\nst.write(\"Here's the final text\")\n\n\nThere are no additional parameters you can pass into st.divider().",
+    "crumbs": [
+      "Layout",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Page Dividers</span>"
+    ]
   }
 ]

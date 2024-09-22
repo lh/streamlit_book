@@ -1,5 +1,47 @@
 ---
-title: "(Coming Soon!) Page Dividers"
+title: "Page Dividers"
 filters:
   - whitphx/stlite
 ---
+
+The divider is a simple function that puts a horizontal line across the width of the page.
+
+This can make it easier to indicate different sections of the page that should be looked at together.
+
+```{python}
+import streamlit as st
+
+st.title("This is a title")
+
+st.write("Here's a first line of text")
+
+st.divider()
+
+st.write("Here's some more text")
+
+st.divider()
+
+st.write("Here's the final text")
+
+```
+
+```{stlite-python}
+import streamlit as st
+
+st.title("This is a title")
+
+st.write("Here's a first line of text")
+
+st.divider()
+
+st.write("Here's some more text")
+
+st.write("And an extra line - you can put as many things as you want between each divider")
+
+st.divider()
+
+st.write("Here's the final text - though you don't have to have anything after the final divider if you don't want to (though arguably it's not necessary in that case!)")
+
+```
+
+There are no additional parameters you can pass into `st.divider()`.
