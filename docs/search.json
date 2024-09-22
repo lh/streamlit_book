@@ -265,7 +265,7 @@
     "href": "text_numeric_and_selection_inputs.html",
     "title": "12  An Overview of Available Input Types",
     "section": "",
-    "text": "12.1 Using inputs in calculations\nIn addition to text, we often want to be able to get numeric inputs from users.\nNumber boxes and sliders are two good ways to do this.\nThe benefit of this is that the resulting output can be guaranteed to be a number - unlike using a text input, where the user could choose to enter a non-numeric value which may break later steps of your app.\nLet’s take a look at how we can use these two kinds of inputs.\nimport streamlit as st\n\nst.subheader(\"Numeric Input\")\n\nchosen_number = st.number_input(\"Pick a Number\")\n\nst.write(f\"The number you have chosen is {chosen_number}\")\n\nchosen_number_multiplied_by_5 = chosen_number * 5\n\nst.write(f\"Your number multiplied by 5 is {chosen_number_multiplied_by_5}\")\n\nst.write(f\"Your number plus 7 is {chosen_number + 7}\")\n\nst.subheader(\"Numeric Slider\")\n\nchosen_number_slider = st.slider(\"Pick a Number on the slider\")\n\nst.write(f\"The number you have chosen is {chosen_number_slider}\")\n\nchosen_number_slider_multiplied_by_8 = chosen_number * 8\n\nst.write(f\"Your number multiplied by 8 is {chosen_number_slider_multiplied_by_8}\")\n\nst.write(f\"Your number plus 3 is {chosen_number_slider + 3}\")",
+    "text": "12.1 Using inputs in calculations\nIn addition to text, we often want to be able to get numeric inputs from users.\nNumber boxes and sliders are two good ways to do this.\nThe benefit of this is that the resulting output can be guaranteed to be a number - unlike using a text input, where the user could choose to enter a non-numeric value which may break later steps of your app.\nLet’s take a look at how we can use these two kinds of inputs.",
     "crumbs": [
       "User Inputs",
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>An Overview of Available Input Types</span>"
@@ -287,7 +287,7 @@
     "href": "text_numeric_and_selection_inputs.html#other-useful-input-types",
     "title": "12  An Overview of Available Input Types",
     "section": "12.3 Other useful input types",
-    "text": "12.3 Other useful input types\nLet’s have a very quick look at some of the other inputs available to us within Streamlit.\nThe desired type of the output will be inferred from the default value you pass into the slider.",
+    "text": "12.3 Other useful input types\nLet’s have a very quick look at some of the other inputs available to us within Streamlit.\nThe desired type of the output will be inferred from the default value you pass into the slider.\n\n12.3.1 Range Slider\n\nlower_value, upper_value = st.slider(\n    \"Pick a lower and upper limit\",\n    min_value=0,\n    max_value=100,\n    value=(35, 80)\n    )\n\n\n\n12.3.2 Time Slider\n\nchosen_time = st.slider(\n    \"Select a time:\",\n    time(11, 30)\n)\n\n\n\n12.3.3 Date Slider\n\nselected_date = st.slider(\n    \"Select a date\",\n    value=datetime(2022, 1, 1),\n    format=\"DD/MM/YYYY\",\n)\n\n\n\n12.3.4 Date Range Slider\n\nstart_date, end_date = st.slider(\n    \"Select a date\",\n    value=(datetime(2022, 1, 1), datetime(2023, 6, 1)),\n    format=\"DD/MM/YYYY\"\n)\n\n\n\n12.3.5 Time Range Slider\n\nstart_time, end_time = st.slider(\n    \"Select a time:\",\n    value=(time(11, 30), time(12, 45))\n)\n\n\n\n12.3.6 Datetime Slider\n\nchosen_datetime = st.slider(\n    \"Select a date and time\",\n    value=datetime(2022, 1, 1, 12, 0),\n    format=\"DD/MM/YYYY @ hh:mm\",\n)\n\n\n\n12.3.7 Date Calendar Picker\n\nselected_date = st.date_input(\n    \"Choose a date on the calendar picker\"\n    )\n\n\n\n12.3.8 Time Calendar Picker\n\nselected_time = st.time_input(\n    \"Select a time\"\n    )\n\n\n\n12.3.9 Interactive Examples",
     "crumbs": [
       "User Inputs",
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>An Overview of Available Input Types</span>"
@@ -298,7 +298,7 @@
     "href": "text_numeric_and_selection_inputs.html#selection-inputs",
     "title": "12  An Overview of Available Input Types",
     "section": "12.4 Selection inputs",
-    "text": "12.4 Selection inputs\nSelection inputs are a very useful class of inputs. They allow you to give users a distinct number of options to choose from.",
+    "text": "12.4 Selection inputs\nSelection inputs are a very useful class of inputs. They allow you to give users a distinct number of options to choose from.\n\n\n\n\n\n\nTip\n\n\n\nAll of the input types given below can take a huge range of additional parameters to further refine their behaviour.\nFor example, you can adjust which default value is selected, have an optional tooltip that appears on hover, or change the number of allowed options in some cases.\nIt’s highly recommended that you take a look at the documentation to understand the full range of options available.\n\n\n\n12.4.1 Radio\n\nradio_colour_select = st.radio(\n    \"Which of these colours is your favourite?\",\n    options=[\"Green\", \"Blue\", \"Red\", \"Yellow\", \"Purple\"]\n    )\n\n\n\n12.4.2 Selectbox\n\nselectbox_colour_select = st.selectbox(\n    \"Which of these colours is your favourite?\",\n    options=[\"Green\", \"Blue\", \"Red\", \"Yellow\", \"Purple\"]\n    )\n\n\n\n12.4.3 Multiselect\n\nmultiselect_colour_select = st.multiselect(\n    \"Which of these colours are your favourite? You can pick more than one!\",\n    options=[\"Green\", \"Blue\", \"Red\", \"Yellow\", \"Purple\"]\n    )\n\n\n\n12.4.4 Select Slider\n\nslider_colour_select = st.select_slider(\n    \"Which of these colours is your favourite?\",\n    options=[\"Green\", \"Blue\", \"Red\", \"Yellow\", \"Purple\"]\n    )\n\n\n\n12.4.5 Interactive Examples",
     "crumbs": [
       "User Inputs",
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>An Overview of Available Input Types</span>"
@@ -309,7 +309,7 @@
     "href": "text_numeric_and_selection_inputs.html#other-useful-inputs",
     "title": "12  An Overview of Available Input Types",
     "section": "12.5 Other useful inputs",
-    "text": "12.5 Other useful inputs\nThe final inputs we’ll take a quick look at are checkbox and toggle inputs.\nThese are useful as they return boolean values - True or False.",
+    "text": "12.5 Other useful inputs\nThe final inputs we’ll take a quick look at are checkbox and toggle inputs.\nThese are useful as they return boolean values - True or False.\n\nimport streamlit as st\n\ncheckbox_value = st.checkbox(\"Tick or untick me!\")\n\nst.write(f\"The value of the checkbox is {checkbox_value}\")\n\ntoggle_value = st.toggle(\"Tick or untick me!\")\n\nst.write(f\"The value of the toggle is {toggle_value}\")",
     "crumbs": [
       "User Inputs",
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>An Overview of Available Input Types</span>"
@@ -852,6 +852,50 @@
     "crumbs": [
       "Outputs",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Static Maps</span>"
+    ]
+  },
+  {
+    "objectID": "text_numeric_and_selection_inputs.html#other-numeric-date-and-time-inputs",
+    "href": "text_numeric_and_selection_inputs.html#other-numeric-date-and-time-inputs",
+    "title": "12  An Overview of Available Input Types",
+    "section": "12.2 Other numeric, date and time inputs",
+    "text": "12.2 Other numeric, date and time inputs\nLet’s have a very quick look at some of the other inputs available to us within Streamlit.\nThe desired type of the output will be inferred from the default value you pass into the slider.\n\n\n\n\n\n\nTip\n\n\n\nAll of the input types given below can take a huge range of additional parameters to further refine their behaviour.\nFor example, many can take default values, have an optional tooltip that appears on hover, or have the way in which their values appear adjusted.\nThe maximum and minimum allowed values for numeric, date and time sliders can be set, and the input can be disabled (e.g. in response to another input).\nIt’s highly recommended that you take a look at the documentation to understand the full range of options available.\n\n\n\n12.2.1 Range Slider\n\nlower_value, upper_value = st.slider(\n    \"Pick a lower and upper limit\",\n    min_value=0,\n    max_value=100,\n    value=(35, 80)\n    )\n\n\n\n12.2.2 Time Slider\n\nchosen_time = st.slider(\n    \"Select a time:\",\n    time(11, 30)\n)\n\n\n\n12.2.3 Date Slider\n\nselected_date = st.slider(\n    \"Select a date\",\n    value=datetime(2022, 1, 1),\n    format=\"DD/MM/YYYY\",\n)\n\n\n\n12.2.4 Date Range Slider\n\nstart_date, end_date = st.slider(\n    \"Select a date\",\n    value=(datetime(2022, 1, 1), datetime(2023, 6, 1)),\n    format=\"DD/MM/YYYY\"\n)\n\n\n\n12.2.5 Time Range Slider\n\nstart_time, end_time = st.slider(\n    \"Select a time:\",\n    value=(time(11, 30), time(12, 45))\n)\n\n\n\n12.2.6 Datetime Slider\n\nchosen_datetime = st.slider(\n    \"Select a date and time\",\n    value=datetime(2022, 1, 1, 12, 0),\n    format=\"DD/MM/YYYY @ hh:mm\",\n)\n\n\n\n12.2.7 Date Calendar Picker\n\nselected_date = st.date_input(\n    \"Choose a date on the calendar picker\"\n    )\n\n\n\n12.2.8 Time Calendar Picker\n\nselected_time = st.time_input(\n    \"Select a time\"\n    )\n\n\n\n12.2.9 Interactive Examples",
+    "crumbs": [
+      "User Inputs",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>An Overview of Available Input Types</span>"
+    ]
+  },
+  {
+    "objectID": "text_numeric_and_selection_inputs.html#text-inputs",
+    "href": "text_numeric_and_selection_inputs.html#text-inputs",
+    "title": "12  An Overview of Available Input Types",
+    "section": "12.3 Text Inputs",
+    "text": "12.3 Text Inputs\n\n\n\n\n\n\nTip\n\n\n\nAll of the input types given below can take a huge range of additional parameters to further refine their behaviour.\nFor example, many can take default values, have an optional tooltip that appears on hover, have a placeholder appear to further guide the user’s input, or have a maximum length set.\nIt’s highly recommended that you take a look at the documentation to understand the full range of options available.\n\n\n\n12.3.1 Long text\n\nlonger_text_input = st.text_area(\n    \"Use this input to enter a larger piece of text\"\n    )\n\n\n\n12.3.2 Short text\n\nshorter_text_input = st.text_input(\n    \"We saw this before - this is an input for a short bit of text\"\n    )\n\n\n\n12.3.3 Interactive Examples",
+    "crumbs": [
+      "User Inputs",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>An Overview of Available Input Types</span>"
+    ]
+  },
+  {
+    "objectID": "text_numeric_and_selection_inputs.html#other-useful-inputs---boolean-truefalse-flags",
+    "href": "text_numeric_and_selection_inputs.html#other-useful-inputs---boolean-truefalse-flags",
+    "title": "12  An Overview of Available Input Types",
+    "section": "12.5 Other useful inputs - Boolean (True/False) Flags",
+    "text": "12.5 Other useful inputs - Boolean (True/False) Flags\nThe final inputs we’ll take a quick look at are checkbox and toggle inputs.\nThese are useful as they return boolean values - True or False.\n\n\n\n\n\n\nTip\n\n\n\nWhile the input types below don’t have quite as many additional parameters as some of the others, it’s highly recommended that you take a look at the documentation to understand the full range of options available.\n\n\n\n12.5.1 Checkbox\n\ncheckbox_value = st.checkbox(\"Tick or untick me!\")\n\n\n\n12.5.2 Toggle\n\ntoggle_value = st.toggle(\"Tick or untick me!\")\n\n\n\n12.5.3 Interactive Examples",
+    "crumbs": [
+      "User Inputs",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>An Overview of Available Input Types</span>"
+    ]
+  },
+  {
+    "objectID": "text_numeric_and_selection_inputs.html#using-inputs-in-calculations",
+    "href": "text_numeric_and_selection_inputs.html#using-inputs-in-calculations",
+    "title": "12  An Overview of Available Input Types",
+    "section": "",
+    "text": "Tip\n\n\n\nAll of the input types given below can take a huge range of additional parameters to further refine their behaviour.\nFor example, many can take default values, have an optional tooltip that appears on hover, or have the way in which their values appear adjusted.\nThe maximum and minimum allowed values can be set, and the input can be disabled (e.g. in response to another input).\nIt’s highly recommended that you take a look at the documentation to understand the full range of options available.\n\n\n\n12.1.1 Numeric Input\n\nimport streamlit as st\n\nst.subheader(\"Numeric Input\")\n\nchosen_number = st.number_input(\n    \"Pick a Number\"\n    )\n\nst.write(f\"The number you have chosen is {chosen_number}\")\n\nchosen_number_multiplied_by_5 = chosen_number * 5\n\nst.write(f\"Your number multiplied by 5 is {chosen_number_multiplied_by_5}\")\n\nst.write(f\"Your number plus 7 is {chosen_number + 7}\")\n\n\n\n12.1.2 Numeric Slider\n\nst.subheader(\"Numeric Slider\")\n\nchosen_number_slider = st.slider(\n    \"Pick a Number on the slider\",\n    min_value=0,\n    max_value=250,\n    value=50\n    )\n\nst.write(f\"The number you have chosen is {chosen_number_slider}\")\n\nchosen_number_slider_multiplied_by_8 = chosen_number * 8\n\nst.write(f\"Your number multiplied by 8 is {chosen_number_slider_multiplied_by_8}\")\n\nst.write(f\"Your number plus 3 is {chosen_number_slider + 3}\")\n\n\n\n12.1.3 Interactive Example",
+    "crumbs": [
+      "User Inputs",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>An Overview of Available Input Types</span>"
     ]
   }
 ]

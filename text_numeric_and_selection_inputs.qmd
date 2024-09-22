@@ -13,6 +13,7 @@ Let's start by having a text input to greet the user.
 Try changing the value in the input box each time, pressing enter when you have finished typing. Notice how the sentence underneath the text box updates.
 
 ```{python}
+#| eval: false
 import streamlit as st
 
 name = st.text_input("Enter your name")
@@ -40,13 +41,28 @@ The benefit of this is that the resulting output can be guaranteed to be a numbe
 
 Let's take a look at how we can use these two kinds of inputs.
 
+:::{.callout-tip}
+All of the input types given below can take a huge range of additional parameters to further refine their behaviour.
+
+For example, many can take default values, have an optional tooltip that appears on hover, or have the way in which their values appear adjusted.
+
+The maximum and minimum allowed values can be set, and the input can be disabled (e.g. in response to another input).
+
+It's highly recommended that you take a look at the [documentation](https://docs.streamlit.io/develop/api-reference/widgets) to understand the full range of options available.
+:::
+
+
+### Numeric Input
+
 ```{python}
 #| eval: False
 import streamlit as st
 
 st.subheader("Numeric Input")
 
-chosen_number = st.number_input("Pick a Number")
+chosen_number = st.number_input(
+    "Pick a Number"
+    )
 
 st.write(f"The number you have chosen is {chosen_number}")
 
@@ -55,10 +71,20 @@ chosen_number_multiplied_by_5 = chosen_number * 5
 st.write(f"Your number multiplied by 5 is {chosen_number_multiplied_by_5}")
 
 st.write(f"Your number plus 7 is {chosen_number + 7}")
+```
 
+### Numeric Slider
+
+```{python}
+#| eval: false
 st.subheader("Numeric Slider")
 
-chosen_number_slider = st.slider("Pick a Number on the slider")
+chosen_number_slider = st.slider(
+    "Pick a Number on the slider",
+    min_value=0,
+    max_value=250,
+    value=50
+    )
 
 st.write(f"The number you have chosen is {chosen_number_slider}")
 
@@ -69,6 +95,7 @@ st.write(f"Your number multiplied by 8 is {chosen_number_slider_multiplied_by_8}
 st.write(f"Your number plus 3 is {chosen_number_slider + 3}")
 ```
 
+### Interactive Example
 
 ```{stlite-python}
 
@@ -76,6 +103,12 @@ import streamlit as st
 
 st.subheader("Numeric Input")
 
+st.code("""
+chosen_number = st.number_input(
+    "Pick a Number"
+    )
+""")
+
 chosen_number = st.number_input("Pick a Number")
 
 st.write(f"The number you have chosen is {chosen_number}")
@@ -88,7 +121,18 @@ st.write(f"Your number plus 7 is {chosen_number + 7}")
 
 st.subheader("Numeric Slider")
 
-chosen_number_slider = st.number_input("Pick a Number on the slider")
+st.code(
+    """
+chosen_number_slider = st.slider(
+    "Pick a Number on the slider",
+    min_value=0,
+    max_value=250,
+    value=50
+    )
+    """
+)
+
+chosen_number_slider = st.slider("Pick a Number on the slider", min_value=0, max_value=250, value=50)
 
 st.write(f"The number you have chosen is {chosen_number_slider}")
 
@@ -99,13 +143,106 @@ st.write(f"Your number multiplied by 8 is {chosen_number_slider_multiplied_by_8}
 st.write(f"Your number plus 3 is {chosen_number_slider + 3}")
 ```
 
-## Other numeric and date inputs
-
-## Other useful input types
+## Other numeric, date and time inputs
 
 Let's have a very quick look at some of the other inputs available to us within Streamlit.
 
 The desired type of the output will be **inferred** from the default value you pass into the slider.
+
+:::{.callout-tip}
+All of the input types given below can take a huge range of additional parameters to further refine their behaviour.
+
+For example, many can take default values, have an optional tooltip that appears on hover, or have the way in which their values appear adjusted.
+
+The maximum and minimum allowed values for numeric, date and time sliders can be set, and the input can be disabled (e.g. in response to another input).
+
+It's highly recommended that you take a look at the [documentation](https://docs.streamlit.io/develop/api-reference/widgets) to understand the full range of options available.
+:::
+
+### Range Slider
+
+```{python}
+#| eval: false
+lower_value, upper_value = st.slider(
+    "Pick a lower and upper limit",
+    min_value=0,
+    max_value=100,
+    value=(35, 80)
+    )
+```
+
+### Time Slider
+
+```{python}
+#| eval: false
+chosen_time = st.slider(
+    "Select a time:",
+    time(11, 30)
+)
+```
+
+### Date Slider
+
+```{python}
+#| eval: false
+selected_date = st.slider(
+    "Select a date",
+    value=datetime(2022, 1, 1),
+    format="DD/MM/YYYY",
+)
+```
+
+### Date Range Slider
+
+```{python}
+#| eval: false
+start_date, end_date = st.slider(
+    "Select a date",
+    value=(datetime(2022, 1, 1), datetime(2023, 6, 1)),
+    format="DD/MM/YYYY"
+)
+```
+
+### Time Range Slider
+
+```{python}
+#| eval: false
+start_time, end_time = st.slider(
+    "Select a time:",
+    value=(time(11, 30), time(12, 45))
+)
+```
+
+### Datetime Slider
+
+```{python}
+#| eval: false
+chosen_datetime = st.slider(
+    "Select a date and time",
+    value=datetime(2022, 1, 1, 12, 0),
+    format="DD/MM/YYYY @ hh:mm",
+)
+```
+
+### Date Calendar Picker
+
+```{python}
+#| eval: false
+selected_date = st.date_input(
+    "Choose a date on the calendar picker"
+    )
+```
+
+### Time Calendar Picker
+
+```{python}
+#| eval: false
+selected_time = st.time_input(
+    "Select a time"
+    )
+```
+
+### Interactive Examples
 
 ```{stlite-python}
 
@@ -115,54 +252,181 @@ from datetime import datetime, time
 
 st.subheader("Range Slider")
 
-lower_value, upper_value = st.slider("Pick a lower and upper limit",  (35, 80))
+st.code("""
+lower_value, upper_value = st.slider("Pick a lower and upper limit",  min_value=0, max_value=100, value=(35, 80))
+""")
+
+lower_value, upper_value = st.slider("Pick a lower and upper limit",  min_value=0, max_value=100, value=(35, 80))
+
+st.write(f"Your inputs are {lower_value} and {upper_value}")
+st.write(f"They are of type {type(lower_value)} and {type(upper_value)}")
 
 st.subheader("Time Slider")
+
+st.code("""
+chosen_time = st.slider(
+    "Select a time:", time(11, 30)
+)
+""")
 
 chosen_time = st.slider(
     "Select a time:", time(11, 30)
 )
 
+st.write(f"Your input is {chosen_time}")
+st.write(f"It is of type {type(chosen_time)}")
+
 st.subheader("Date Slider")
 
-start_time = st.slider(
-    "Select a date?",
+st.code("""
+selected_date = st.slider(
+    "Select a date",
+    value=datetime(2022, 1, 1),
+    format="DD/MM/YYYY",
+)
+""")
+
+selected_date = st.slider(
+    "Select a date",
     value=datetime(2022, 1, 1),
     format="DD/MM/YYYY",
 )
 
+st.write(f"Your input is {selected_date}")
+st.write(f"It is of type {type(selected_date)}")
+
 st.subheader("Date Range Slider")
-start_time = st.slider(
+
+st.code("""
+start_date, end_date = st.slider(
+    "Select a date?",
+    value=(datetime(2022, 1, 1), datetime(2023, 6, 1)),
+    format="DD/MM/YYYY",
+)
+""")
+
+start_date, end_date = st.slider(
     "Select a date?",
     value=(datetime(2022, 1, 1), datetime(2023, 6, 1)),
 
     format="DD/MM/YYYY",
 )
 
+st.write(f"Your inputs are {start_date} and {end_date}")
+st.write(f"They are of type {type(start_date)} and {end_date}")
+
 st.subheader("Time Range Slider")
-chosen_time = st.slider(
+
+st.code("""
+start_time, end_time = st.slider(
+    "Select a time:", value=(time(11, 30), time(12, 45))
+)
+""")
+
+start_time, end_time = st.slider(
     "Select a time:", value=(time(11, 30), time(12, 45))
 )
 
+st.write(f"Your inputs are {start_time} and {end_time}")
+st.write(f"They are of type {type(start_time)} and {end_time}")
+
 st.subheader("Datetime Sliders")
 
-start_time = st.slider(
+st.code("""
+chosen_datetime = st.slider(
+    "Select a date and time",
+    value=datetime(2022, 1, 1, 12, 0),
+    format="DD/MM/YYYY @ hh:mm",
+)
+""")
+
+chosen_datetime = st.slider(
     "Select a date and time",
     value=datetime(2022, 1, 1, 12, 0),
     format="DD/MM/YYYY @ hh:mm",
 )
 
+st.write(f"Your input is {chosen_datetime}")
+st.write(f"It is of type {type(chosen_datetime)}")
+
 st.header("Date and time input elements")
+
+st.code("""
+selected_date = st.date_input("Choose a date on the calendar picker")
+""")
 
 selected_date = st.date_input("Choose a date on the calendar picker")
 
+st.write(f"Your input is {selected_date}")
+st.write(f"It is of type {type(selected_date)}")
+
+st.code("""
 selected_time = st.time_input("Select a time")
+""")
+
+selected_time = st.time_input("Select a time")
+
+st.write(f"Your input is {selected_time}")
+st.write(f"It is of type {type(selected_time)}")
+```
+
+## Text Inputs
+
+:::{.callout-tip}
+All of the input types given below can take a huge range of additional parameters to further refine their behaviour.
+
+For example, many can take default values, have an optional tooltip that appears on hover, have a placeholder appear to further guide the user's input, or have a maximum length set.
+
+It's highly recommended that you take a look at the [documentation](https://docs.streamlit.io/develop/api-reference/widgets) to understand the full range of options available.
+:::
+
+
+### Long text
+
+```{python}
+#| eval: false
+longer_text_input = st.text_area(
+    "Use this input to enter a larger piece of text"
+    )
+```
+
+### Short text
+
+```{python}
+#| eval: false
+shorter_text_input = st.text_input(
+    "We saw this before - this is an input for a short bit of text"
+    )
+```
+
+### Interactive Examples
+
+```{stlite-python}
+import streamlit as st
 
 st.header("Text Inputs")
 
+st.code("""
+longer_text_input = st.text_area(
+    "Use this input to enter a larger piece of text"
+    )
+""")
+
 longer_text_input = st.text_area("Use this input to enter a larger piece of text")
 
+st.write(f"Your input is {longer_text_input}")
+st.write(f"It is of type {type(longer_text_input)}")
+
+st.code("""
+shorter_text_input = st.text_input(
+    "We saw this before - this is an input for a short bit of text"
+    )
+""")
+
 shorter_text_input = st.text_input("We saw this before - this is an input for a short bit of text")
+
+st.write(f"Your input is {shorter_text_input}")
+st.write(f"It is of type {type(shorter_text_input)}")
 
 ```
 
@@ -171,34 +435,183 @@ shorter_text_input = st.text_input("We saw this before - this is an input for a 
 
 Selection inputs are a very useful class of inputs. They allow you to give users a distinct number of options to choose from.
 
-```{stlite-python}
-import streamlit as st
+:::{.callout-tip}
+All of the input types given below can take a huge range of additional parameters to further refine their behaviour.
 
-options = ["Green", "Blue", "Red", "Yellow", "Purple"]
+For example, you can adjust which default value is selected, have an optional tooltip that appears on hover, or change the number of allowed options in some cases.
 
-st.radio("Which of these colours is your favourite?", options)
+It's highly recommended that you take a look at the [documentation](https://docs.streamlit.io/develop/api-reference/widgets) to understand the full range of options available.
+:::
 
-st.selectbox("Which of these colours is your favourite?", options)
 
-st.multiselect("Which of these colours are your favourite? You can pick more than one!", options)
+### Radio
 
-st.select_slider("Which of these colours is your favourite?", options)
+```{python}
+#| eval: false
+
+radio_colour_select = st.radio(
+    "Which of these colours is your favourite?",
+    options=["Green", "Blue", "Red", "Yellow", "Purple"]
+    )
+```
+
+### Selectbox
+
+```{python}
+#| eval: false
+
+selectbox_colour_select = st.selectbox(
+    "Which of these colours is your favourite?",
+    options=["Green", "Blue", "Red", "Yellow", "Purple"]
+    )
 
 ```
 
-## Other useful inputs
+### Multiselect
+
+```{python}
+#| eval: false
+
+multiselect_colour_select = st.multiselect(
+    "Which of these colours are your favourite? You can pick more than one!",
+    options=["Green", "Blue", "Red", "Yellow", "Purple"]
+    )
+
+```
+
+### Select Slider
+
+```{python}
+#| eval: false
+slider_colour_select = st.select_slider(
+    "Which of these colours is your favourite?",
+    options=["Green", "Blue", "Red", "Yellow", "Purple"]
+    )
+```
+
+### Interactive Examples
+
+```{stlite-python}
+import streamlit as st
+
+st.code("""
+colour_options = ["Green", "Blue", "Red", "Yellow", "Purple"]
+""")
+
+colour_options = ["Green", "Blue", "Red", "Yellow", "Purple"]
+
+st.subheader("Radio Select")
+
+st.code("""
+radio_colour_select = st.radio(
+    "Which of these colours is your favourite?",
+    options=colour_options
+    )
+""")
+
+radio_colour_select = st.radio(
+    "Which of these colours is your favourite?", options=colour_options
+    )
+
+st.subheader("Single Selectbox")
+
+st.code("""
+selectbox_colour_select = st.selectbox(
+    "Which of these colours is your favourite?",
+    options=colour_options
+    )
+""")
+
+selectbox_colour_select = st.selectbox(
+    "Which of these colours is your favourite?",
+    options=colour_options
+    )
+
+st.subheader("Multiselect")
+
+st.code(
+    """
+multiselect_colour_select = st.multiselect(
+    "Which of these colours are your favourite? You can pick more than one!",
+    options=colour_options
+    )
+
+    """
+)
+
+multiselect_colour_select = st.multiselect(
+    "Which of these colours are your favourite? You can pick more than one!",
+    options=colour_options
+    )
+
+st.subheader("Select Slider")
+
+st.code("""
+slider_colour_select = st.select_slider(
+    "Which of these colours is your favourite?",
+    options=colour_options
+    )
+""")
+
+slider_colour_select = st.select_slider(
+    "Which of these colours is your favourite?", options=colour_options
+    )
+
+```
+
+## Other useful inputs - Boolean (True/False) Flags
 
 The final inputs we'll take a quick look at are checkbox and toggle inputs.
 
 These are useful as they return boolean values - `True` or `False`.
 
+:::{.callout-tip}
+While the input types below don't have quite as many additional parameters as some of the others, it's highly recommended that you take a look at the [documentation](https://docs.streamlit.io/develop/api-reference/widgets) to understand the full range of options available.
+:::
+
+
+### Checkbox
+
+```{python}
+#| eval: false
+
+checkbox_value = st.checkbox("Tick or untick me!")
+
+```
+
+### Toggle
+
+```{python}
+#| eval: false
+
+toggle_value = st.toggle("Tick or untick me!")
+
+```
+
+### Interactive Examples
+
 ```{stlite-python}
 
 import streamlit as st
 
+st.subheader("Checkbox")
+
+st.code("""
+checkbox_value = st.checkbox(
+    "Tick or untick me!"
+    )
+"""
+)
+
 checkbox_value = st.checkbox("Tick or untick me!")
 
 st.write(f"The value of the checkbox is {checkbox_value}")
+
+st.subheader("Toggle")
+
+st.code("""
+toggle_value = st.toggle("Tick or untick me!")
+""")
 
 toggle_value = st.toggle("Tick or untick me!")
 
