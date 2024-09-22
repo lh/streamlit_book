@@ -109,23 +109,23 @@
   {
     "objectID": "static_charts.html",
     "href": "static_charts.html",
-    "title": "4  Static Charts",
+    "title": "5  Static Charts",
     "section": "",
-    "text": "4.1 Making use of the available space\nMany streamlit components have a parameter called use_container_width.\nWhen set to True in something like st.pyplot, it ensures the output is rescaled to use the maximum available width of the screen.\nThe parameter is set to False by default, which will result in outputs often not optimally using the available space.\nimport streamlit as st\nimport pandas as pd\nimport matplotlib.pyplot as plt\nfrom palmerpenguins import load_penguins\n\npenguins = load_penguins()\n\nfig, ax = plt.subplots(figsize=(15,10))\nplt.scatter(x=penguins[\"body_mass_g\"], y=penguins[\"bill_length_mm\"])\nplt.title(\"Penguin Body Mass (g) versus Bill Length (mm)\")\nax.set_xlabel(\"Body Mass (g)\")\nax.set_ylabel(\"Bill Length (mm)\")\n\nst.subheader(\"use_container_width=False\")\n\nst.pyplot(fig)\n\nst.subheader(\"use_container_width=True\")\n\nst.pyplot(fig, use_container_width=True)",
+    "text": "5.1 Making use of the available space\nMany streamlit components have a parameter called use_container_width.\nWhen set to True in something like st.pyplot, it ensures the output is rescaled to use the maximum available width of the screen.\nThe parameter is set to False by default, which will result in outputs often not optimally using the available space.\nimport streamlit as st\nimport pandas as pd\nimport matplotlib.pyplot as plt\nfrom palmerpenguins import load_penguins\n\npenguins = load_penguins()\n\nfig, ax = plt.subplots(figsize=(15,10))\nplt.scatter(x=penguins[\"body_mass_g\"], y=penguins[\"bill_length_mm\"])\nplt.title(\"Penguin Body Mass (g) versus Bill Length (mm)\")\nax.set_xlabel(\"Body Mass (g)\")\nax.set_ylabel(\"Bill Length (mm)\")\n\n1st.subheader(\"use_container_width=False\")\n\n2st.pyplot(fig)\n\n3st.subheader(\"use_container_width=True\")\n\n4st.pyplot(fig, use_container_width=True)\n\n\n1\n\nLet’s make ourselves a subheader so we can tell the two outputted plots apart\n\n2\n\nFirst, we use st.pyplot without the use_container_width argument specified. If not specified, this defaults to False.\n\n3\n\nNow let’s add another subheader.\n\n4\n\nThis time, we pass in the same figure to st.pyplot, but this time we specify the use_container_width parameter to be True.\nTake a look at the impact this has in the live version of the app below.",
     "crumbs": [
       "Outputs",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Static Charts</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Static Charts</span>"
     ]
   },
   {
     "objectID": "static_charts.html#making-use-of-the-available-space",
     "href": "static_charts.html#making-use-of-the-available-space",
-    "title": "4  Static Charts",
+    "title": "5  Static Charts",
     "section": "",
     "text": "Tip\n\n\n\nThis can become particularly valuable when we start to explore layout options like columns later in the book.",
     "crumbs": [
       "Outputs",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Static Charts</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Static Charts</span>"
     ]
   },
   {

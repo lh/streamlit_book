@@ -13,6 +13,7 @@ book:
   - part: Outputs
     chapters:
     - loading_data.qmd
+    - text_markdown_and_titles.qmd
     - dataframes.qmd
     - static_charts.qmd
     - interactive_charts.qmd
@@ -35,6 +36,7 @@ book:
     - file_downloads_maps_interactive.qmd
   - part: Layout
     chapters:
+    - layout_divider.qmd
     - layout_columns.qmd
     - layout_sidebar.qmd
     - layout_tabs.qmd
