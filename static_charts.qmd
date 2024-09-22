@@ -6,15 +6,23 @@ filters:
 
 When we want to display static charts, we will often be using the `matplotlib` library.
 
-We can use the `st.pyplot()` component to display these charts.
+:::{.callout-tip}
+We can use the `st.pyplot()` component to display charts created using matplotlib.
+
+Note that certain other non-graph outputs still use matplotlib's plotting systems - for example, outputs from the `wordcloud` library and the `geopandas` plot method are still technically matplotlib plots. For those, we can use `st.pyplot()` too! This will be covered more in a later chapter.
+:::
 
 Below, we create a very simple scatterplot of a dataset.
 
+:::{.callout-note}
 We have created the `fig` and `ax` objects by beginning by creating a single subplot with the `plt.subplots` function.
 
 This is sometimes referred to as the object-oriented way of writing matplotlib code.
 
-We can then modify this object using any of the standard matplotlib commands we have become familiar with.
+With this method, we then use one of the matplotlib commands, like scatter or bar, and tell it to plot onto the `ax` object we created.
+
+We can then modify this object using any of the standard matplotlib commands we have become familiar with, such as changing the axis labels.
+:::
 
 The final step to ensure the plot is actually displayed is to pass the `fig` variable to `st.pyplot`.
 
@@ -22,20 +30,37 @@ The final step to ensure the plot is actually displayed is to pass the `fig` var
 #| eval: false
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-from palmerpenguins import load_penguins
+import matplotlib.pyplot as plt # <1>
+from palmerpenguins import load_penguins # <2>
 
-penguins = load_penguins()
+penguins = load_penguins() # <3>
 
-fig, ax = plt.subplots(figsize=(15,10))
-plt.scatter(x=penguins["body_mass_g"], y=penguins["bill_length_mm"])
-plt.title("Penguin Body Mass (g) versus Bill Length (mm)")
-ax.set_xlabel("Body Mass (g)")
+fig, ax = plt.subplots(figsize=(15,10)) # <4>
+
+plt.scatter( # <5>
+  x=penguins["body_mass_g"], # <6>
+  y=penguins["bill_length_mm"],
+  ax=ax
+  )
+
+plt.title("Penguin Body Mass (g) versus Bill Length (mm)") # <7>
+
+ax.set_xlabel("Body Mass (g)") # <8>
 ax.set_ylabel("Bill Length (mm)")
 
-st.pyplot(fig)
+st.pyplot(fig) # <9>
 
 ```
+
+1. We import the pyplot module of matplotlib using the standard alias 'plt'
+2. We also load in a function from a package that gives us easy access to a dataset of penguin body measurements.
+3. We use the load_penguins() function, which returns a pandas dataframe, and assign this to the `penguins` variable.
+4. We then use the `plt.subplots` function. By just passing in the named argument `figsize` we get a single blank plot that is relatively 1.5x wider than it is long. The tuple - the two numbers within brackets, separated by a comma - is the width and height of the image. Notice on the left of the = we have `fig, ax` rather than a single variable name; this is because `plt.subplots` returns two variables, and this means we can easily access both of these. We always write `fig, ax` in the same order - this is just a standard matplotlib convention.
+5. Now we use our chosen plotting function - in this case, we want a scatterplot.
+6. We pass in the values to use for our x column - our horizontal axis - using the format `dataframe_variable["column_name"]`, which passes in our list of values as a pandas *series*. For these purposes, the pandas series is effectively a fancy list - it will primarily just contain the value for that column for each row in the dataframe. We repeat this for our y (vertical) axis.
+7. We pass in a string to use as the title of the graph with the `plt.title()` function.
+8. We can then use various methods of our `ax` variable to update things such as the x and y axis labels.
+9. Finally, we pass the completed figure to the `st.pyplot()` function, which will make sure it gets displayed in our app.
 
 ```{stlite-python}
 import micropip
@@ -49,7 +74,7 @@ from palmerpenguins import load_penguins
 penguins = load_penguins()
 
 fig, ax = plt.subplots(figsize=(15,10))
-plt.scatter(x=penguins["body_mass_g"], y=penguins["bill_length_mm"])
+plt.scatter(x=penguins["body_mass_g"], y=penguins["bill_length_mm"], ax=ax)
 plt.title("Penguin Body Mass (g) versus Bill Length (mm)")
 ax.set_xlabel("Body Mass (g)")
 ax.set_ylabel("Bill Length (mm)")
@@ -57,7 +82,6 @@ ax.set_ylabel("Bill Length (mm)")
 st.pyplot(fig)
 
 ```
-
 
 ## Making use of the available space
 
@@ -86,15 +110,22 @@ plt.title("Penguin Body Mass (g) versus Bill Length (mm)")
 ax.set_xlabel("Body Mass (g)")
 ax.set_ylabel("Bill Length (mm)")
 
-st.subheader("use_container_width=False")
+st.subheader("use_container_width=False") # <1>
 
-st.pyplot(fig)
+st.pyplot(fig) # <2>
 
-st.subheader("use_container_width=True")
+st.subheader("use_container_width=True") # <3>
 
-st.pyplot(fig, use_container_width=True)
+st.pyplot(fig, use_container_width=True) # <4>
 
 ```
+
+1. Let's make ourselves a subheader so we can tell the two outputted plots apart
+2. First, we use `st.pyplot` without the `use_container_width` argument specified. If not specified, this defaults to `False`.
+3. Now let's add another subheader.
+4. This time, we pass in the same figure to `st.pyplot`, but this time we specify the `use_container_width` parameter to be `True`.
+
+Take a look at the impact this has in the live version of the app below.
 
 ```{stlite-python}
 import micropip
