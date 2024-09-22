@@ -430,6 +430,7 @@ import streamlit as st
 from palmerpenguins import load_penguins
 import plotly.express as px
 from io import StringIO
+from base64 import b64encode
 
 penguins = load_penguins()
 
@@ -452,14 +453,15 @@ st.plotly_chart(fig)
 
 buffer = StringIO()
 fig.write_html(buffer)
+html_bytes = buffer.getvalue().encode()
+encoded = b64encode(html_bytes).decode()
 
-with open(buffer, "rb") as html_file:
-    st.download_button(
-        label='Download This Plot as an Interactive HTML file',
-        data=html_file,
-        file_name=f'{col_1}_vs_{col_2}_by_{color_factor}.html',
-        mime='text/html'
-    )
+st.download_button(
+    label='Download This Plot as an Interactive HTML file',
+    data="data:text/html;base64," + encoded,
+    file_name=f'{col_1}_vs_{col_2}_by_{color_factor}.html',
+    mime='text/html'
+)
 ```
 
 ```{stlite-python}
@@ -471,6 +473,7 @@ import streamlit as st
 from palmerpenguins import load_penguins
 import plotly.express as px
 from io import StringIO
+from base64 import b64encode
 
 penguins = load_penguins()
 
@@ -494,13 +497,15 @@ st.plotly_chart(fig)
 buffer = StringIO()
 fig.write_html(buffer)
 
-with open(buffer, "rb") as html_file:
-    st.download_button(
-        label='Download This Plot as an Interactive HTML file',
-        data=html_file,
-        file_name=f'{col_1}_vs_{col_2}_by_{color_factor}.html',
-        mime='text/html'
-    )
+html_bytes = buffer.getvalue().encode()
+encoded = b64encode(html_bytes).decode()
+
+st.download_button(
+    label='Download This Plot as an Interactive HTML file',
+    data="data:text/html;base64," + encoded,
+    file_name=f'{col_1}_vs_{col_2}_by_{color_factor}.html',
+    mime='text/html'
+)
 ```
 :::
 
