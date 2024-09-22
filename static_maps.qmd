@@ -8,13 +8,13 @@ filters:
 
 In the HSMA course, we have generally used the geopandas plot method - which is using matplotlib behind the scenes - to produce static maps.
 
-This means that maps are simple to display as we can just use the `st.pyplot()` function that we used for standard matplotlib charts. 
+This means that maps are simple to display as we can just use the `st.pyplot()` function that we used for standard matplotlib charts.
 
 ```{python}
 #| eval: false
-import geopandas
+import geopandas # <1>
+import matplotlib.pyplot as plt # <2>
 import pandas as pd
-import matplotlib.pyplot as plt
 import streamlit as st
 
 st.title("Crime in Devon by Type")
@@ -23,20 +23,40 @@ st.title("Crime in Devon by Type")
 # Read the geopandas file and create a matplotlib figure
 #########################################################
 
-lsoa_2011_crime_figures_df = geopandas.read_file("https://files.catbox.moe/4o0go1.gpkg")
+lsoa_2011_crime_figures_df = geopandas.read_file(
+  "https://files.catbox.moe/4o0go1.gpkg" # <3>
+  )
 
-fig = lsoa_2011_crime_figures_df.plot(column="sw_5forces_street_by_lsoa_Other crime",
-                                      legend=True)
+fig, ax = plt.subplots() # <4>
 
-st.pyplot(fig)
+lsoa_2011_crime_figures_df.plot( # <5>
+  column="sw_5forces_street_by_lsoa_Other crime", # <6>
+  legend=True, # <7>
+  ax=ax # <8>
+  )
+
+st.pyplot(fig) # <9>
 ```
+
+1. We will need to import the geopandas library to load in and plot a geographic dataset.
+2. We also will need to import the `matplotlib.pyplot` module, which we give the standard alias `plt`. When working with geopandas in a .py script or a jupyter notebook, this is only necessary when further modifying the plot; however, we need to structure our plot in a slightly different way to get it to display in a streamlit fileapp.
+3. We then import a geopackage file from a URL and save it to a variable. As it's a geopackage rather than a csv or similar, we don't need to define the CRS: it's already specified as part of the geopackage file. The same would be true of a geojson.
+4. We use the `plt.subplots()` function, unpacking it to the objects `fig` and `ax` by using the syntax `fig, ax` on the left hand side of our `=` sign. By leaving this blank, we create a single axis - but the value of this step is it gives us access to these objects so we can pass it to the streamlit function for displaying this sort of plot.
+5. We then use the `plot` method on the dataframe. We don't need to save the output of this to a variable,
+6. We pass in a column to colour the plot by, though this is optional; if we did not, it would just plot the points or polygons in the dataset all in the same colour.
+7. We also specify that we want a legend in our plot to give some indication of the range and significance of the clours in the plot.
+8. We tell geopandas/matplotlib to plot on the axis we just created using `plt.subplots`, which we do by passing in `ax=ax` to our `.plot` method.
+9. The output of using the `.plot()` method on the geopandas dataframe is a matplotlib.pyplot object. Therefore, we need to use `st.pyplot()` to display it.
+
 
 ```{stlite-python}
 import micropip
 await micropip.install("geopandas")
+await micropip.install("matplotlib")
+await micropip.install("fiona")
 import geopandas
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 import streamlit as st
 
 st.title("Crime in Devon by Type")
@@ -45,10 +65,23 @@ st.title("Crime in Devon by Type")
 # Read the geopandas file and create a matplotlib figure
 #########################################################
 
-lsoa_2011_crime_figures_df = geopandas.read_file("https://files.catbox.moe/4o0go1.gpkg")
+lsoa_2011_crime_figures_df = geopandas.read_file(
+  "https://files.catbox.moe/4o0go1.gpkg"
+  )
 
-fig = lsoa_2011_crime_figures_df.plot(column="sw_5forces_street_by_lsoa_Other crime",
-                                      legend=True)
+fig, ax = plt.subplots()
+
+lsoa_2011_crime_figures_df.plot(
+  column="sw_5forces_street_by_lsoa_Other crime",
+  legend=True,
+  ax=ax
+  )
 
 st.pyplot(fig)
 ```
+
+:::{.callout-tip}
+Take a look at the [HSMA geographic modelling and visualisation book](https://hsma-programme.github.io/hsma6_geographic_optimisation_and_visualisation_book/python_geopandas_matplotlib.html) to find out more about creating and modifying static maps in python with geopandas and matplotlib.
+
+Note that you will need to adapt the code in those examples slightly to use the same layout as the code above: the main difference is using `fig, ax = plt.subplots()` and the argument `ax=ax` in our plot function, but most other aspects will be unchanged.
+:::

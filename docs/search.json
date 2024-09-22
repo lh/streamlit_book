@@ -199,7 +199,7 @@
     "href": "static_maps.html",
     "title": "8  Static Maps",
     "section": "",
-    "text": "8.1 Static maps\nIn the HSMA course, we have generally used the geopandas plot method - which is using matplotlib behind the scenes - to produce static maps.\nThis means that maps are simple to display as we can just use the st.pyplot() function that we used for standard matplotlib charts.\nimport geopandas\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport streamlit as st\n\nst.title(\"Crime in Devon by Type\")\n\n#########################################################\n# Read the geopandas file and create a matplotlib figure\n#########################################################\n\nlsoa_2011_crime_figures_df = geopandas.read_file(\"https://files.catbox.moe/4o0go1.gpkg\")\n\nfig = lsoa_2011_crime_figures_df.plot(column=\"sw_5forces_street_by_lsoa_Other crime\",\n                                      legend=True)\n\nst.pyplot(fig)",
+    "text": "8.1 Static maps\nIn the HSMA course, we have generally used the geopandas plot method - which is using matplotlib behind the scenes - to produce static maps.\nThis means that maps are simple to display as we can just use the st.pyplot() function that we used for standard matplotlib charts.\n1import geopandas\n2import matplotlib.pyplot as plt\nimport pandas as pd\nimport streamlit as st\n\nst.title(\"Crime in Devon by Type\")\n\n#########################################################\n# Read the geopandas file and create a matplotlib figure\n#########################################################\n\nlsoa_2011_crime_figures_df = geopandas.read_file(\n3  \"https://files.catbox.moe/4o0go1.gpkg\"\n  )\n\n4fig, ax = plt.subplots()\n\n5lsoa_2011_crime_figures_df.plot(\n6  column=\"sw_5forces_street_by_lsoa_Other crime\",\n7  legend=True,\n8  ax=ax\n  )\n\n9st.pyplot(fig)\n\n\n1\n\nWe will need to import the geopandas library to load in and plot a geographic dataset.\n\n2\n\nWe also will need to import the matplotlib.pyplot module, which we give the standard alias plt. When working with geopandas in a .py script or a jupyter notebook, this is only necessary when further modifying the plot; however, we need to structure our plot in a slightly different way to get it to display in a streamlit fileapp.\n\n3\n\nWe then import a geopackage file from a URL and save it to a variable. As it’s a geopackage rather than a csv or similar, we don’t need to define the CRS: it’s already specified as part of the geopackage file. The same would be true of a geojson.\n\n4\n\nWe use the plt.subplots() function, unpacking it to the objects fig and ax by using the syntax fig, ax on the left hand side of our = sign. By leaving this blank, we create a single axis - but the value of this step is it gives us access to these objects so we can pass it to the streamlit function for displaying this sort of plot.\n\n5\n\nWe then use the plot method on the dataframe. We don’t need to save the output of this to a variable,\n\n6\n\nWe pass in a column to colour the plot by, though this is optional; if we did not, it would just plot the points or polygons in the dataset all in the same colour.\n\n7\n\nWe also specify that we want a legend in our plot to give some indication of the range and significance of the clours in the plot.\n\n8\n\nWe tell geopandas/matplotlib to plot on the axis we just created using plt.subplots, which we do by passing in ax=ax to our .plot method.\n\n9\n\nThe output of using the .plot() method on the geopandas dataframe is a matplotlib.pyplot object. Therefore, we need to use st.pyplot() to display it.",
     "crumbs": [
       "Outputs",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Static Maps</span>"
@@ -841,6 +841,17 @@
     "crumbs": [
       "Additional Resources",
       "<span class='chapter-number'>47</span>  <span class='chapter-title'>Streamlit Cheat Sheet</span>"
+    ]
+  },
+  {
+    "objectID": "static_maps.html#static-maps",
+    "href": "static_maps.html#static-maps",
+    "title": "8  Static Maps",
+    "section": "",
+    "text": "Tip\n\n\n\nTake a look at the HSMA geographic modelling and visualisation book to find out more about creating and modifying static maps in python with geopandas and matplotlib.\nNote that you will need to adapt the code in those examples slightly to use the same layout as the code above: the main difference is using fig, ax = plt.subplots() and the argument ax=ax in our plot function, but most other aspects will be unchanged.",
+    "crumbs": [
+      "Outputs",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Static Maps</span>"
     ]
   }
 ]
