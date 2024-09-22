@@ -281,19 +281,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./file_uploads.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">File Uploads</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./editable_dataframes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">(Coming Soon!) Editable Dataframes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uploading Data Files, Images and More</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bidirectional_plots_and_maps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Bidirectional Inputs - Dataframes, Charts and Maps</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Bidirectional Inputs - Dataframes, Charts and Maps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./editable_dataframes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">(Coming Soon!) Editable Dataframes</span></span></a>
   </div>
 </li>
       </ul>
@@ -310,7 +310,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./file_downloads_tabular.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Downloading tabular files</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Downloading tabular data files (e.g.&nbsp;pandas dataframes)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -633,7 +633,7 @@ Tip
 <p>e.g.&nbsp;<code>st.logo("resources/hsma_logo.png")</code></p>
 </div>
 </div>
-<div id="fc1e15b0" class="cell" data-execution_count="1">
+<div id="dbf0dc86" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>st.logo(<span class="st">"resources/hsma_logo.png"</span>)</span>
@@ -658,7 +658,7 @@ Tip
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>st.text(<span class="ss">f"The answer is </span><span class="sc">{</span>output<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If it’s a multi page app or an app using a streamlit sidebar that you have manually defined, it will appear at the top of the sidebar.</p>
-<div id="45d8f579" class="cell" data-execution_count="2">
+<div id="932a17cd" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>st.logo(<span class="st">"resources/hsma_logo.png"</span>)</span>
@@ -702,7 +702,7 @@ Tip
 <p><img src="assets/2024-09-16-22-27-41.png" class="img-fluid"></p>
 <p>The approach requires using some markdown to inject some custom CSS (see the fonts chapter for more details on CSS).</p>
 <p>Here is a reusable function you could adapt to your own use:</p>
-<div id="ea240a4e" class="cell" data-execution_count="3">
+<div id="611e3adb" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_logo():</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Add a logo at the top of the page navigation sidebar</span></span>
@@ -734,7 +734,7 @@ Tip
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        unsafe_allow_html<span class="op">=</span><span class="va">True</span>,</span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="175a92de" class="cell" data-execution_count="4">
+<div id="e1c8964f" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_logo():</span>
