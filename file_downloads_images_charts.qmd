@@ -332,7 +332,10 @@ with open("boxplot_sns_penguins.png", "rb") as file:
 
 ### Plotly
 
-Plotly is a bit different because the plots it produces are interactive.
+Plotly is a bit different because the plots it produces are interactive - but it is possible to save this too.
+
+The resulting file is completely self-contained and can even be used offline. The file could be emailed or placed on a shared site like sharepoint or google drive and would work - though sometimes it requires the user to download the html file to their own machine for it to display correctly rather than just previewing the underlying html data, depending on the platform.
+
 
 #### Built-in method for downloading static plots
 
@@ -420,93 +423,12 @@ with open("plotly_chart.html", "rb") as file:
 :::{.callout-note collapse="true"}
 ##### Advanced Method
 
-We can once again use `StringIO` to save the chart html temporarily to memory, then write that to a html file when the user clicks on a download button.
+We could once again use `StringIO` to save the chart html temporarily to memory, then write that to a html file when the user clicks on a download button, as opposed to actually saving the file to a html file on our storage wherever our app is running and then serving that file.
 
-The resulting file is completely self-contained and can even be used offline. The file could be emailed or placed on a shared site like sharepoint or google drive and would work - though sometimes it requires the user to download the html file to their own machine for it to display correctly rather than just previewing the underlying html data, depending on the platform.
+That is slightly more complex with Plotly; you could attempt to adapt the code in the 'Dash' download button example here.
 
-```{python}
-#| eval: False
-import streamlit as st
-from palmerpenguins import load_penguins
-import plotly.express as px
-from io import StringIO
-from base64 import b64encode
+<https://plotly.com/python/interactive-html-export/#html-export-in-dash>
 
-penguins = load_penguins()
-
-axis_options = ['bill_length_mm', 'bill_depth_mm',
-       'flipper_length_mm', 'body_mass_g']
-
-col_1 = st.selectbox("Select the column to use for the x axis", axis_options)
-
-axis_options.remove(col_1)
-
-col_2 = st.selectbox("Select the column to use for the x axis", axis_options)
-
-color_factor = st.selectbox("Select the column to colour the chart by",
-["species", "sex", "island"])
-
-fig = px.scatter(penguins, x=col_1, y=col_2, color=color_factor,
-title=f"Penguins Dataset - {col_1} vs {col_2}, coloured by {color_factor}")
-
-st.plotly_chart(fig)
-
-buffer = StringIO()
-fig.write_html(buffer)
-html_bytes = buffer.getvalue().encode()
-encoded = b64encode(html_bytes).decode()
-
-st.download_button(
-    label='Download This Plot as an Interactive HTML file',
-    data="data:text/html;base64," + encoded,
-    file_name=f'{col_1}_vs_{col_2}_by_{color_factor}.html',
-    mime='text/html'
-)
-```
-
-```{stlite-python}
-import micropip
-await micropip.install("setuptools")
-await micropip.install("palmerpenguins")
-await micropip.install("plotly")
-import streamlit as st
-from palmerpenguins import load_penguins
-import plotly.express as px
-from io import StringIO
-from base64 import b64encode
-
-penguins = load_penguins()
-
-axis_options = ['bill_length_mm', 'bill_depth_mm',
-       'flipper_length_mm', 'body_mass_g']
-
-col_1 = st.selectbox("Select the column to use for the x axis", axis_options)
-
-axis_options.remove(col_1)
-
-col_2 = st.selectbox("Select the column to use for the x axis", axis_options)
-
-color_factor = st.selectbox("Select the column to colour the chart by",
-["species", "sex", "island"])
-
-fig = px.scatter(penguins, x=col_1, y=col_2, color=color_factor,
-title=f"Penguins Dataset - {col_1} vs {col_2}, coloured by {color_factor}")
-
-st.plotly_chart(fig)
-
-buffer = StringIO()
-fig.write_html(buffer)
-
-html_bytes = buffer.getvalue().encode()
-encoded = b64encode(html_bytes).decode()
-
-st.download_button(
-    label='Download This Plot as an Interactive HTML file',
-    data="data:text/html;base64," + encoded,
-    file_name=f'{col_1}_vs_{col_2}_by_{color_factor}.html',
-    mime='text/html'
-)
-```
 :::
 
 #### Static outputs with a download button

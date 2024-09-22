@@ -623,7 +623,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="17.0.1" class="anchored" data-anchor-id="matplotlib"><span class="header-section-number">17.0.1</span> Matplotlib</h3>
 <p>We can provide two possible ways of downloading the output of a matplotlib plot.</p>
 <p>The first involves saving the resulting plot to a file, then serving that file to the user. This is a reliable and simple method that is probably the best to use in most situations - it will generally work even when the file is deployed.</p>
-<div id="2c0175f2" class="cell" data-execution_count="1">
+<div id="63dba0a0" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -665,7 +665,7 @@ Advanced Method
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The second involves saving the image to tempory memory, then serving that instead.</p>
-<div id="3f79c419" class="cell" data-execution_count="2">
+<div id="84289113" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -703,7 +703,7 @@ Advanced Method
 <p>The popular <code>wordcloud</code> package is actually using matplotlib for its plotting!</p>
 <p>This means that the same approach works for saving a wordcloud.</p>
 <p>Here, we are just showing the approach of saving and then serving the image - both to display it in the app and to offer it up to the end user for download.</p>
-<div id="0d9ab120" class="cell" data-execution_count="3">
+<div id="86e8a328" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> wordcloud <span class="im">import</span> WordCloud, STOPWORDS</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> string</span>
@@ -763,7 +763,7 @@ Advanced Method
 <section id="seaborn" class="level3" data-number="17.0.2">
 <h3 data-number="17.0.2" class="anchored" data-anchor-id="seaborn"><span class="header-section-number">17.0.2</span> Seaborn</h3>
 <p>Saving the file and then serving this is a good way to work with seaborn as well.</p>
-<div id="527d9eed" class="cell" data-execution_count="4">
+<div id="28186487" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -800,7 +800,8 @@ Advanced Method
 </section>
 <section id="plotly" class="level3" data-number="17.0.3">
 <h3 data-number="17.0.3" class="anchored" data-anchor-id="plotly"><span class="header-section-number">17.0.3</span> Plotly</h3>
-<p>Plotly is a bit different because the plots it produces are interactive.</p>
+<p>Plotly is a bit different because the plots it produces are interactive - but it is possible to save this too.</p>
+<p>The resulting file is completely self-contained and can even be used offline. The file could be emailed or placed on a shared site like sharepoint or google drive and would work - though sometimes it requires the user to download the html file to their own machine for it to display correctly rather than just previewing the underlying html data, depending on the platform.</p>
 <section id="built-in-method-for-downloading-static-plots" class="level4" data-number="17.0.3.1">
 <h4 data-number="17.0.3.1" class="anchored" data-anchor-id="built-in-method-for-downloading-static-plots"><span class="header-section-number">17.0.3.1</span> Built-in method for downloading static plots</h4>
 <p>When using plotly, users can hover over the plot and choose ‘Download plot as a png’.</p>
@@ -808,7 +809,7 @@ Advanced Method
 </section>
 <section id="downloading-the-interactive-plots" class="level4" data-number="17.0.3.2">
 <h4 data-number="17.0.3.2" class="anchored" data-anchor-id="downloading-the-interactive-plots"><span class="header-section-number">17.0.3.2</span> Downloading the interactive plots</h4>
-<div id="ffad6d5d" class="cell" data-execution_count="5">
+<div id="d3133abc" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
@@ -857,47 +858,9 @@ Advanced Method
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>We can once again use <code>StringIO</code> to save the chart html temporarily to memory, then write that to a html file when the user clicks on a download button.</p>
-<p>The resulting file is completely self-contained and can even be used offline. The file could be emailed or placed on a shared site like sharepoint or google drive and would work - though sometimes it requires the user to download the html file to their own machine for it to display correctly rather than just previewing the underlying html data, depending on the platform.</p>
-<div id="892091c2" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> io <span class="im">import</span> StringIO</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> load_penguins()</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>axis_options <span class="op">=</span> [<span class="st">'bill_length_mm'</span>, <span class="st">'bill_depth_mm'</span>,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>       <span class="st">'flipper_length_mm'</span>, <span class="st">'body_mass_g'</span>]</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>col_1 <span class="op">=</span> st.selectbox(<span class="st">"Select the column to use for the x axis"</span>, axis_options)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>axis_options.remove(col_1)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>col_2 <span class="op">=</span> st.selectbox(<span class="st">"Select the column to use for the x axis"</span>, axis_options)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>color_factor <span class="op">=</span> st.selectbox(<span class="st">"Select the column to colour the chart by"</span>,</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>[<span class="st">"species"</span>, <span class="st">"sex"</span>, <span class="st">"island"</span>])</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(penguins, x<span class="op">=</span>col_1, y<span class="op">=</span>col_2, color<span class="op">=</span>color_factor,</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>title<span class="op">=</span><span class="ss">f"Penguins Dataset - </span><span class="sc">{</span>col_1<span class="sc">}</span><span class="ss"> vs </span><span class="sc">{</span>col_2<span class="sc">}</span><span class="ss">, coloured by </span><span class="sc">{</span>color_factor<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>st.plotly_chart(fig)</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="bu">buffer</span> <span class="op">=</span> StringIO()</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>fig.write_html(<span class="bu">buffer</span>)</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="bu">buffer</span>, <span class="st">"rb"</span>) <span class="im">as</span> html_file:</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    st.download_button(</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span><span class="st">'Download This Plot as an Interactive HTML file'</span>,</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>html_file,</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        file_name<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>col_1<span class="sc">}</span><span class="ss">_vs_</span><span class="sc">{</span>col_2<span class="sc">}</span><span class="ss">_by_</span><span class="sc">{</span>color_factor<span class="sc">}</span><span class="ss">.html'</span>,</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>        mime<span class="op">=</span><span class="st">'text/html'</span></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<iframe src="https://share.stlite.net/?embed=true#code=import%20micropip%0Aawait%20micropip.install%28%22setuptools%22%29%0Aawait%20micropip.install%28%22palmerpenguins%22%29%0Aawait%20micropip.install%28%22plotly%22%29%0Aimport%20streamlit%20as%20st%0Afrom%20palmerpenguins%20import%20load_penguins%0Aimport%20plotly.express%20as%20px%0Afrom%20io%20import%20StringIO%0A%0Apenguins%20%3D%20load_penguins%28%29%0A%0Aaxis_options%20%3D%20%5B%27bill_length_mm%27%2C%20%27bill_depth_mm%27%2C%0A%20%20%20%20%20%20%20%27flipper_length_mm%27%2C%20%27body_mass_g%27%5D%0A%0Acol_1%20%3D%20st.selectbox%28%22Select%20the%20column%20to%20use%20for%20the%20x%20axis%22%2C%20axis_options%29%0A%0Aaxis_options.remove%28col_1%29%0A%0Acol_2%20%3D%20st.selectbox%28%22Select%20the%20column%20to%20use%20for%20the%20x%20axis%22%2C%20axis_options%29%0A%0Acolor_factor%20%3D%20st.selectbox%28%22Select%20the%20column%20to%20colour%20the%20chart%20by%22%2C%0A%5B%22species%22%2C%20%22sex%22%2C%20%22island%22%5D%29%0A%0Afig%20%3D%20px.scatter%28penguins%2C%20x%3Dcol_1%2C%20y%3Dcol_2%2C%20color%3Dcolor_factor%2C%0Atitle%3Df%22Penguins%20Dataset%20-%20%7Bcol_1%7D%20vs%20%7Bcol_2%7D%2C%20coloured%20by%20%7Bcolor_factor%7D%22%29%0A%0Ast.plotly_chart%28fig%29%0A%0Abuffer%20%3D%20StringIO%28%29%0Afig.write_html%28buffer%29%0A%0Awith%20open%28buffer%2C%20%22rb%22%29%20as%20html_file%3A%0A%20%20%20%20st.download_button%28%0A%20%20%20%20%20%20%20%20label%3D%27Download%20This%20Plot%20as%20an%20Interactive%20HTML%20file%27%2C%0A%20%20%20%20%20%20%20%20data%3Dhtml_file%2C%0A%20%20%20%20%20%20%20%20file_name%3Df%27%7Bcol_1%7D_vs_%7Bcol_2%7D_by_%7Bcolor_factor%7D.html%27%2C%0A%20%20%20%20%20%20%20%20mime%3D%27text/html%27%0A%20%20%20%20%29
-
-" class="stlite"></iframe>
+<p>We could once again use <code>StringIO</code> to save the chart html temporarily to memory, then write that to a html file when the user clicks on a download button, as opposed to actually saving the file to a html file on our storage wherever our app is running and then serving that file.</p>
+<p>That is slightly more complex with Plotly; you could attempt to adapt the code in the ‘Dash’ download button example here.</p>
+<p><a href="https://plotly.com/python/interactive-html-export/#html-export-in-dash" class="uri">https://plotly.com/python/interactive-html-export/#html-export-in-dash</a></p>
 </div>
 </div>
 </div>
@@ -923,40 +886,40 @@ Warning
 <p>The kaleido library is not possible to use with stlite, so we cannot provide an interactive demo here.</p>
 </div>
 </div>
-<div id="6b74f36d" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> io <span class="im">import</span> StringIO</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># the kaleido package must also be installed in the environment for the saving of static plots</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># to work</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> load_penguins()</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>axis_options <span class="op">=</span> [<span class="st">'bill_length_mm'</span>, <span class="st">'bill_depth_mm'</span>,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>       <span class="st">'flipper_length_mm'</span>, <span class="st">'body_mass_g'</span>]</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>col_1 <span class="op">=</span> st.selectbox(<span class="st">"Select the column to use for the x axis"</span>, axis_options)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>axis_options.remove(col_1)</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>col_2 <span class="op">=</span> st.selectbox(<span class="st">"Select the column to use for the x axis"</span>, axis_options)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>color_factor <span class="op">=</span> st.selectbox(<span class="st">"Select the column to colour the chart by"</span>,</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>[<span class="st">"species"</span>, <span class="st">"sex"</span>, <span class="st">"island"</span>])</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(penguins, x<span class="op">=</span>col_1, y<span class="op">=</span>col_2, color<span class="op">=</span>color_factor,</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>title<span class="op">=</span><span class="ss">f"Penguins Dataset - </span><span class="sc">{</span>col_1<span class="sc">}</span><span class="ss"> vs </span><span class="sc">{</span>col_2<span class="sc">}</span><span class="ss">, coloured by </span><span class="sc">{</span>color_factor<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>fig.write_image(<span class="st">"temp.png"</span>, engine<span class="op">=</span><span class="st">"kaleido"</span>)</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>st.plotly_chart(fig)</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"temp.png"</span>, <span class="st">"rb"</span>) <span class="im">as</span> img:</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    btn <span class="op">=</span> st.download_button(</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span><span class="st">'Download This Plot as an Static Image File'</span>,</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>fig.to_image(engine<span class="op">=</span><span class="st">'kaleido'</span>),</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>        file_name<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>col_1<span class="sc">}</span><span class="ss">_vs_</span><span class="sc">{</span>col_2<span class="sc">}</span><span class="ss">_by_</span><span class="sc">{</span>color_factor<span class="sc">}</span><span class="ss">.png'</span>,</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>        mime<span class="op">=</span><span class="st">'img/png'</span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="1c400871" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> io <span class="im">import</span> StringIO</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># the kaleido package must also be installed in the environment for the saving of static plots</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># to work</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> load_penguins()</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>axis_options <span class="op">=</span> [<span class="st">'bill_length_mm'</span>, <span class="st">'bill_depth_mm'</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>       <span class="st">'flipper_length_mm'</span>, <span class="st">'body_mass_g'</span>]</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>col_1 <span class="op">=</span> st.selectbox(<span class="st">"Select the column to use for the x axis"</span>, axis_options)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>axis_options.remove(col_1)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>col_2 <span class="op">=</span> st.selectbox(<span class="st">"Select the column to use for the x axis"</span>, axis_options)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>color_factor <span class="op">=</span> st.selectbox(<span class="st">"Select the column to colour the chart by"</span>,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>[<span class="st">"species"</span>, <span class="st">"sex"</span>, <span class="st">"island"</span>])</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(penguins, x<span class="op">=</span>col_1, y<span class="op">=</span>col_2, color<span class="op">=</span>color_factor,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>title<span class="op">=</span><span class="ss">f"Penguins Dataset - </span><span class="sc">{</span>col_1<span class="sc">}</span><span class="ss"> vs </span><span class="sc">{</span>col_2<span class="sc">}</span><span class="ss">, coloured by </span><span class="sc">{</span>color_factor<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>fig.write_image(<span class="st">"temp.png"</span>, engine<span class="op">=</span><span class="st">"kaleido"</span>)</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>st.plotly_chart(fig)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"temp.png"</span>, <span class="st">"rb"</span>) <span class="im">as</span> img:</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    btn <span class="op">=</span> st.download_button(</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span><span class="st">'Download This Plot as an Static Image File'</span>,</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>fig.to_image(engine<span class="op">=</span><span class="st">'kaleido'</span>),</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        file_name<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>col_1<span class="sc">}</span><span class="ss">_vs_</span><span class="sc">{</span>col_2<span class="sc">}</span><span class="ss">_by_</span><span class="sc">{</span>color_factor<span class="sc">}</span><span class="ss">.png'</span>,</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        mime<span class="op">=</span><span class="st">'img/png'</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
