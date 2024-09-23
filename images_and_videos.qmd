@@ -1,0 +1,97 @@
+---
+title: "Images and Videos"
+filters:
+  - whitphx/stlite
+---
+
+## Images
+
+Images can be displayed using the `st.image()` command.
+
+You can use
+
+- local images (e.g. an image on your local drive) by passing a filepath that is relative to where your .py file is.
+    - note that you will have to make sure that the file is available in the same relative position when you *deploy* your app.
+    - e.g. `st.image("resources/cover_image_robot.jpeg")`
+- web-based images via a URL
+    - e.g. `st.image("https://upload.wikimedia.org/wikipedia/en/d/d2/Back_to_the_Future.jpg")`
+
+
+Additional parameters allow you to specify
+
+- the image width
+- a caption
+- whether the image should auto-scale to the width of the page element it is in (e.g. a column)
+
+
+See details of these options in the documentation [here](https://docs.streamlit.io/develop/api-reference/media/st.image).
+
+## Videos
+
+Videos can be displayed using the `st.video()` command.
+
+You can use
+
+- local videos (e.g. a video file on your local drive) by passing a filepath that is relative to where your .py file is.
+    - note that you will have to make sure that the file is available in the same relative position when you *deploy* your app.
+    - e.g. `st.video("resources/my_instruction_video.mp4")`
+- web-based videos via a URL, including those hosted on youtube
+    - e.g. `st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")`
+
+Additional parameters allow you to specify
+
+- start time
+- end time
+- looping
+- subtitles
+- whether audio should play
+- whether the video should automatically play
+- whether the video should loop after finishing
+
+See details of these options in the documentation [here](https://docs.streamlit.io/develop/api-reference/media/st.video).
+
+## Interactive Examples
+
+```{stlite-python}
+import streamlit as st
+
+show_code = st.toggle("Click to show or hide the code", value=True)
+
+st.header("Images")
+st.subheader("Local/Relative Image")
+
+if show_code:
+
+    st.code(
+        """
+    st.image("cover_image_robot.jpeg")
+
+        """
+    )
+
+# This is playing up because of the embedding when trying to load locally
+# provided code should work fine on normal non-stlite app
+st.image("https://files.catbox.moe/8rtpf7.jpeg")
+
+st.subheader("Web Image")
+if show_code:
+    st.code(
+        """
+    st.image("https://upload.wikimedia.org/wikipedia/en/d/d2/Back_to_the_Future.jpg")
+
+        """
+    )
+
+st.image("https://upload.wikimedia.org/wikipedia/en/d/d2/Back_to_the_Future.jpg")
+
+st.header("Videos")
+if show_code:
+    st.code(
+        """
+    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+        """
+    )
+
+st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+```

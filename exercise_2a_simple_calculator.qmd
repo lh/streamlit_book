@@ -1,0 +1,51 @@
+# Exercise 2a: Hello Streamlit!
+
+Your first task is to just create and run a simple Streamlit app.
+
+It should have a title.
+
+It should ask the user for
+
+- their name (a text input)
+- their monthly take home pay, their housing costs, their food costs, and their utility costs (a number input per field)
+
+It should then
+
+- Display their name
+- Display the percentage of their monthly take home pay that is spent on housing
+- Display the amount of money they have left after all costs are accounted for
+
+(for now, don’t worry if it displays an error until the user has entered all of the information!)
+
+You might remember this from week 1 of Python coding!
+
+Look in exercises/2a to find the code to get you started - or copy it from below.
+
+```{python}
+#| eval: false
+
+# Get inputs from user, cast as integers and store in variables
+monthly_take_home = int(input("What's your monthly take home income?"))
+housing_costs = int(input("What's your monthly housing cost (rent/mortgage)?"))
+food_costs = int(input("How much do you spend on food per month?"))
+utility_costs = int(input("How much do you spend on utilities per month?"))
+
+# Calculate remaining money after housing, food and utility costs
+remaining = monthly_take_home - housing_costs - food_costs - utility_costs
+
+# Calculate the percentage of take home that housing costs represent
+housing_perc = housing_costs / monthly_take_home
+
+# Print the message to the user
+print (f"Your monthly amount after housing, food and utility costs is",
+       f"£{remaining}.  Your housing costs represent {housing_perc*100:.2f}%",
+       f"of your monthly take home.")
+```
+
+Once you’ve got the basic calculator working, try
+
+- Adding in an image or video of your choice
+- Adding in some conditional logic so that the calculation won’t run and the messages won’t display if the user hasn’t entered their details
+- Take a look at the documentation to see what is returned from the different kinds of inputs if the user hasn’t entered a value
+- Using st.error, st.warning and st.success to warn the user if the percentage of their income they are spending on housing exceeds a recommended threshold (e.g. over 50% on housing might be red, over 33% might be amber - how could you do that with these functions?)
+- Provide some recommended amounts to the user based on their income

@@ -1,0 +1,9 @@
+# Exercise 1: Into the Future
+
+Spend some time thinking about opportunities for web apps in your organisation.
+
+Is there a calculator in a spreadsheet everyone uses that could be an app instead?
+
+What about some kind of risk score calculator?
+
+Are there interactive dashboards in an out-of-date bit of software that could be redone in something else?

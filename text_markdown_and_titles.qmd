@@ -1,5 +1,5 @@
 ---
-title: "(Coming Soon!) Text, Markdown, and Titles"
+title: "Text, Markdown, and Titles"
 filters:
   - whitphx/stlite
 ---
@@ -19,14 +19,19 @@ st.title("This is a title")
 
 ```{python}
 #| eval: false
-st.title("This is a title")
+st.subheader("This is a subheader")
 ```
 
 ### Text
 
 ```{python}
 #| eval: false
-st.subheader("This is a subheader")
+st.text("This is text displayed with st.text")
+```
+
+```{python}
+#| eval: false
+st.write("This is text displayed with st.write")
 ```
 
 ### Interactive Examples
@@ -38,7 +43,9 @@ st.title("This is a title")
 
 st.subheader("This is a subheader")
 
-st.text("This is text")
+st.text("This is text displayed with st.text")
+
+st.write("This is text displayed with st.write")
 ```
 
 ## Markdown

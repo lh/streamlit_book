@@ -101,13 +101,16 @@ st.write(f"Your number plus 3 is {chosen_number_slider + 3}")
 
 import streamlit as st
 
+show_code = st.toggle("Click to show or hide the code", value=True)
+
 st.subheader("Numeric Input")
 
-st.code("""
-chosen_number = st.number_input(
-    "Pick a Number"
-    )
-""")
+if show_code:
+    st.code("""
+    chosen_number = st.number_input(
+        "Pick a Number"
+        )
+    """)
 
 chosen_number = st.number_input("Pick a Number")
 
@@ -121,16 +124,17 @@ st.write(f"Your number plus 7 is {chosen_number + 7}")
 
 st.subheader("Numeric Slider")
 
-st.code(
-    """
-chosen_number_slider = st.slider(
-    "Pick a Number on the slider",
-    min_value=0,
-    max_value=250,
-    value=50
+if show_code:
+    st.code(
+        """
+    chosen_number_slider = st.slider(
+        "Pick a Number on the slider",
+        min_value=0,
+        max_value=250,
+        value=50
+        )
+        """
     )
-    """
-)
 
 chosen_number_slider = st.slider("Pick a Number on the slider", min_value=0, max_value=250, value=50)
 
@@ -248,13 +252,16 @@ selected_time = st.time_input(
 
 import streamlit as st
 
+show_code = st.toggle("Click to show or hide the code", value=True)
+
 from datetime import datetime, time
 
 st.subheader("Range Slider")
 
-st.code("""
-lower_value, upper_value = st.slider("Pick a lower and upper limit",  min_value=0, max_value=100, value=(35, 80))
-""")
+if show_code:
+    st.code("""
+    lower_value, upper_value = st.slider("Pick a lower and upper limit",  min_value=0, max_value=100, value=(35, 80))
+    """)
 
 lower_value, upper_value = st.slider("Pick a lower and upper limit",  min_value=0, max_value=100, value=(35, 80))
 
@@ -263,11 +270,12 @@ st.write(f"They are of type {type(lower_value)} and {type(upper_value)}")
 
 st.subheader("Time Slider")
 
-st.code("""
-chosen_time = st.slider(
-    "Select a time:", time(11, 30)
-)
-""")
+if show_code:
+    st.code("""
+    chosen_time = st.slider(
+        "Select a time:", time(11, 30)
+    )
+    """)
 
 chosen_time = st.slider(
     "Select a time:", time(11, 30)
@@ -278,13 +286,14 @@ st.write(f"It is of type {type(chosen_time)}")
 
 st.subheader("Date Slider")
 
-st.code("""
-selected_date = st.slider(
-    "Select a date",
-    value=datetime(2022, 1, 1),
-    format="DD/MM/YYYY",
-)
-""")
+if show_code:
+    st.code("""
+    selected_date = st.slider(
+        "Select a date",
+        value=datetime(2022, 1, 1),
+        format="DD/MM/YYYY",
+    )
+    """)
 
 selected_date = st.slider(
     "Select a date",
@@ -297,13 +306,14 @@ st.write(f"It is of type {type(selected_date)}")
 
 st.subheader("Date Range Slider")
 
-st.code("""
-start_date, end_date = st.slider(
-    "Select a date?",
-    value=(datetime(2022, 1, 1), datetime(2023, 6, 1)),
-    format="DD/MM/YYYY",
-)
-""")
+if show_code:
+    st.code("""
+    start_date, end_date = st.slider(
+        "Select a date?",
+        value=(datetime(2022, 1, 1), datetime(2023, 6, 1)),
+        format="DD/MM/YYYY",
+    )
+    """)
 
 start_date, end_date = st.slider(
     "Select a date?",
@@ -317,11 +327,12 @@ st.write(f"They are of type {type(start_date)} and {end_date}")
 
 st.subheader("Time Range Slider")
 
-st.code("""
-start_time, end_time = st.slider(
-    "Select a time:", value=(time(11, 30), time(12, 45))
-)
-""")
+if show_code:
+    st.code("""
+    start_time, end_time = st.slider(
+        "Select a time:", value=(time(11, 30), time(12, 45))
+    )
+    """)
 
 start_time, end_time = st.slider(
     "Select a time:", value=(time(11, 30), time(12, 45))
@@ -332,13 +343,14 @@ st.write(f"They are of type {type(start_time)} and {end_time}")
 
 st.subheader("Datetime Sliders")
 
-st.code("""
-chosen_datetime = st.slider(
-    "Select a date and time",
-    value=datetime(2022, 1, 1, 12, 0),
-    format="DD/MM/YYYY @ hh:mm",
-)
-""")
+if show_code:
+    st.code("""
+    chosen_datetime = st.slider(
+        "Select a date and time",
+        value=datetime(2022, 1, 1, 12, 0),
+        format="DD/MM/YYYY @ hh:mm",
+    )
+    """)
 
 chosen_datetime = st.slider(
     "Select a date and time",
@@ -351,18 +363,20 @@ st.write(f"It is of type {type(chosen_datetime)}")
 
 st.header("Date and time input elements")
 
-st.code("""
-selected_date = st.date_input("Choose a date on the calendar picker")
-""")
+if show_code:
+    st.code("""
+    selected_date = st.date_input("Choose a date on the calendar picker")
+    """)
 
 selected_date = st.date_input("Choose a date on the calendar picker")
 
 st.write(f"Your input is {selected_date}")
 st.write(f"It is of type {type(selected_date)}")
 
-st.code("""
-selected_time = st.time_input("Select a time")
-""")
+if show_code:
+    st.code("""
+    selected_time = st.time_input("Select a time")
+    """)
 
 selected_time = st.time_input("Select a time")
 
@@ -406,22 +420,26 @@ import streamlit as st
 
 st.header("Text Inputs")
 
-st.code("""
-longer_text_input = st.text_area(
-    "Use this input to enter a larger piece of text"
-    )
-""")
+show_code = st.toggle("Click to show or hide the code", value=True)
+
+if show_code:
+    st.code("""
+    longer_text_input = st.text_area(
+        "Use this input to enter a larger piece of text"
+        )
+    """)
 
 longer_text_input = st.text_area("Use this input to enter a larger piece of text")
 
 st.write(f"Your input is {longer_text_input}")
 st.write(f"It is of type {type(longer_text_input)}")
 
-st.code("""
-shorter_text_input = st.text_input(
-    "We saw this before - this is an input for a short bit of text"
-    )
-""")
+if show_code:
+    st.code("""
+    shorter_text_input = st.text_input(
+        "We saw this before - this is an input for a short bit of text"
+        )
+    """)
 
 shorter_text_input = st.text_input("We saw this before - this is an input for a short bit of text")
 
@@ -494,20 +512,24 @@ slider_colour_select = st.select_slider(
 ```{stlite-python}
 import streamlit as st
 
-st.code("""
-colour_options = ["Green", "Blue", "Red", "Yellow", "Purple"]
-""")
+show_code = st.toggle("Click to show or hide the code", value=True)
+
+if show_code:
+    st.code("""
+    colour_options = ["Green", "Blue", "Red", "Yellow", "Purple"]
+    """)
 
 colour_options = ["Green", "Blue", "Red", "Yellow", "Purple"]
 
 st.subheader("Radio Select")
 
-st.code("""
-radio_colour_select = st.radio(
-    "Which of these colours is your favourite?",
-    options=colour_options
-    )
-""")
+if show_code:
+    st.code("""
+    radio_colour_select = st.radio(
+        "Which of these colours is your favourite?",
+        options=colour_options
+        )
+    """)
 
 radio_colour_select = st.radio(
     "Which of these colours is your favourite?", options=colour_options
@@ -515,12 +537,13 @@ radio_colour_select = st.radio(
 
 st.subheader("Single Selectbox")
 
-st.code("""
-selectbox_colour_select = st.selectbox(
-    "Which of these colours is your favourite?",
-    options=colour_options
-    )
-""")
+if show_code:
+    st.code("""
+    selectbox_colour_select = st.selectbox(
+        "Which of these colours is your favourite?",
+        options=colour_options
+        )
+    """)
 
 selectbox_colour_select = st.selectbox(
     "Which of these colours is your favourite?",
@@ -529,15 +552,16 @@ selectbox_colour_select = st.selectbox(
 
 st.subheader("Multiselect")
 
-st.code(
-    """
-multiselect_colour_select = st.multiselect(
-    "Which of these colours are your favourite? You can pick more than one!",
-    options=colour_options
-    )
+if show_code:
+    st.code(
+        """
+    multiselect_colour_select = st.multiselect(
+        "Which of these colours are your favourite? You can pick more than one!",
+        options=colour_options
+        )
 
-    """
-)
+        """
+    )
 
 multiselect_colour_select = st.multiselect(
     "Which of these colours are your favourite? You can pick more than one!",
@@ -546,12 +570,13 @@ multiselect_colour_select = st.multiselect(
 
 st.subheader("Select Slider")
 
-st.code("""
-slider_colour_select = st.select_slider(
-    "Which of these colours is your favourite?",
-    options=colour_options
-    )
-""")
+if show_code:
+    st.code("""
+    slider_colour_select = st.select_slider(
+        "Which of these colours is your favourite?",
+        options=colour_options
+        )
+    """)
 
 slider_colour_select = st.select_slider(
     "Which of these colours is your favourite?", options=colour_options
@@ -594,14 +619,17 @@ toggle_value = st.toggle("Tick or untick me!")
 
 import streamlit as st
 
+show_code = st.toggle("Click to show or hide the code", value=True)
+
 st.subheader("Checkbox")
 
-st.code("""
-checkbox_value = st.checkbox(
-    "Tick or untick me!"
+if show_code:
+    st.code("""
+    checkbox_value = st.checkbox(
+        "Tick or untick me!"
+        )
+    """
     )
-"""
-)
 
 checkbox_value = st.checkbox("Tick or untick me!")
 
@@ -609,9 +637,10 @@ st.write(f"The value of the checkbox is {checkbox_value}")
 
 st.subheader("Toggle")
 
-st.code("""
-toggle_value = st.toggle("Tick or untick me!")
-""")
+if show_code:
+    st.code("""
+    toggle_value = st.toggle("Tick or untick me!")
+    """)
 
 toggle_value = st.toggle("Tick or untick me!")
 

@@ -1,0 +1,121 @@
+---
+title: "Info, Success, Warning and Error Boxes"
+filters:
+  - whitphx/stlite
+---
+
+Streamlit provides several options for displaying text with a background colour to help draw attention to it.
+
+```{python}
+#| eval: false
+import streamlit as st
+
+st.success("This is a good message!")
+
+st.warning("This is a not so good, but not catastrophic, message...")
+
+st.error("This is a bad message!")
+
+st.info("This is just something we wanted to notify you about.")
+```
+
+:::{.callout-note}
+The code won't be displayed when writing your own app - it's just shown here so you can easily see which bits of code creates which output.
+:::
+
+```{stlite-python}
+import streamlit as st
+
+show_code = st.toggle("Click to show or hide the code", value=True)
+
+if show_code:
+    st.code(
+        """
+        st.success("This is a good message!")
+        """
+    )
+
+st.success("This is a good message!")
+
+if show_code:
+    st.code(
+        """
+        st.warning("This is a not so good, but not catastrophic, message...")
+        """
+    )
+
+st.warning("This is a not so good, but not catastrophic, message...")
+
+if show_code:
+    st.code(
+        """
+        st.error("This is a bad message!")
+        """
+    )
+
+st.error("This is a bad message!")
+
+if show_code:
+    st.code(
+        """
+        st.info("This is just something we wanted to notify you about.")
+        """
+    )
+
+st.info("This is just something we wanted to notify you about.")
+```
+
+## Icons
+
+All of the above can also use optional icons.
+
+These icons can either be [emojis](https://emojipedia.org/) or icons from [Google's material-ui library](https://fonts.google.com/icons?icon.set=Material+Symbols&icon.style=Rounded).
+
+To do this, you can just pass the icon to the icon argument.
+
+```{python}
+#| eval: false
+import streamlit as st
+
+st.success("This is a good message!", icon="🚨")
+
+st.warning("This is a not so good, but not catastrophic, message...", icon=":material/bolt:")
+
+st.error("This is a bad message!", icon="🔥")
+
+st.info("This is just something we wanted to notify you about.", icon=":material/thumb_up:")
+```
+
+
+## Using conditional logic with error messages
+
+Often you will want to display a different message depending on a user's input or something similar.
+
+Here's an example where the user's input is checked to see if it can be divided exactly by 5. If it cannot, an error message is displayed. If it can be, a success message is displayed.
+
+```{python}
+#| eval: false
+import streamlit as st
+
+users_number = st.number_input("Please enter a number that can be divided by 5 without leaving a remainder.")
+
+if users_number % 5 == 0:
+    st.success("Great!")
+
+else:
+    st.error("That's not a number that can be divided exactly by 5! Try again.")
+
+```
+
+```{stlite-python}
+import streamlit as st
+
+users_number = st.number_input("Please enter a number that can be divided by 5 without leaving a remainder.")
+
+if users_number % 5 == 0:
+    st.success("Great!")
+
+else:
+    st.error("That's not a number that can be divided exactly by 5! Try again.")
+
+```
