@@ -4,6 +4,8 @@ filters:
   - whitphx/stlite
 ---
 
+## Displaying charts made with matplotlib
+
 When we want to display static charts, we will often be using the `matplotlib` library.
 
 :::{.callout-tip}
@@ -39,8 +41,7 @@ fig, ax = plt.subplots(figsize=(15,10)) # <4>
 
 plt.scatter( # <5>
   x=penguins["body_mass_g"], # <6>
-  y=penguins["bill_length_mm"],
-  ax=ax
+  y=penguins["bill_length_mm"]
   )
 
 plt.title("Penguin Body Mass (g) versus Bill Length (mm)") # <7>
@@ -62,6 +63,10 @@ st.pyplot(fig) # <9>
 8. We can then use various methods of our `ax` variable to update things such as the x and y axis labels.
 9. Finally, we pass the completed figure to the `st.pyplot()` function, which will make sure it gets displayed in our app.
 
+:::{.callout-note}
+Note that we don't have to specify the axis we are plotting on within our `plt.scatter()` call (i.e. we don't include `ax=ax` as one of the arguments) - it's sufficient to just pass in the data we want to plot, and matplotlib will automatically select the appropriate axis.
+:::
+
 ```{stlite-python}
 import micropip
 await micropip.install("setuptools")
@@ -74,12 +79,95 @@ from palmerpenguins import load_penguins
 penguins = load_penguins()
 
 fig, ax = plt.subplots(figsize=(15,10))
-plt.scatter(x=penguins["body_mass_g"], y=penguins["bill_length_mm"], ax=ax)
+plt.scatter(x=penguins["body_mass_g"], y=penguins["bill_length_mm"])
 plt.title("Penguin Body Mass (g) versus Bill Length (mm)")
 ax.set_xlabel("Body Mass (g)")
 ax.set_ylabel("Bill Length (mm)")
 
 st.pyplot(fig)
+
+```
+
+
+## An alternative way of displaying charts made with matplotlib
+
+Instead of using the `st.pyplot()` function, we may find it easier in some cases to save the output figure and serve that to the user using the `st.image()` function instead.
+
+```{python}
+#| eval: false
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+from palmerpenguins import load_penguins
+
+penguins = load_penguins()
+
+fig, ax = plt.subplots(figsize=(15,10))
+
+plt.scatter(
+  x=penguins["body_mass_g"],
+  y=penguins["bill_length_mm"]
+  )
+
+plt.title("Penguin Body Mass (g) versus Bill Length (mm)")
+
+ax.set_xlabel("Body Mass (g)")
+ax.set_ylabel("Bill Length (mm)")
+
+filename = 'penguins_scatter_method_1.png' # <1>
+plt.savefig(filename) # <2>
+
+st.image(filename) # <3>
+
+```
+
+1. We set a filename string, including the file extension of .png
+2. Next we save the file to local storage - it will save in the same folder relative to our Streamlit app script.
+3. Finally, we use `st.image()` to display the image file we have just created.
+
+:::{.callout-note}
+We could also write the last 3 lines of code above as
+
+```{python}
+#| eval: false
+
+plt.savefig('penguins_scatter_method_1.png')
+
+st.image('penguins_scatter_method_1.png')
+```
+
+though more care must then be taken to ensure that the names are identical! Generally it is better to define the `filename` variable to reduce repetition.
+:::
+
+You can see that functionally this appears nearly identical to what we do above!
+
+```{stlite-python}
+import micropip
+await micropip.install("setuptools")
+await micropip.install("palmerpenguins")
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+from palmerpenguins import load_penguins
+
+penguins = load_penguins()
+
+fig, ax = plt.subplots(figsize=(15,10))
+
+plt.scatter(
+  x=penguins["body_mass_g"],
+  y=penguins["bill_length_mm"]
+  )
+
+plt.title("Penguin Body Mass (g) versus Bill Length (mm)")
+
+ax.set_xlabel("Body Mass (g)")
+ax.set_ylabel("Bill Length (mm)")
+
+filename = 'penguins_scatter_method_1.png'
+plt.savefig(filename)
+
+st.image(filename)
 
 ```
 

@@ -645,7 +645,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="saving-as-csv-or-excel-file" class="level3" data-number="18.1.1">
 <h3 data-number="18.1.1" class="anchored" data-anchor-id="saving-as-csv-or-excel-file"><span class="header-section-number">18.1.1</span> Saving as csv or excel file</h3>
 <p>If a dataframe is displayed using the standard <code>st.dataframe()</code> command or the <code>st.write()</code> command, a csv download option will become visible when hovering over the dataframe.</p>
-<div id="6e31f04d" class="cell" data-execution_count="1">
+<div id="4e8e890a" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
@@ -669,7 +669,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This is also just a bit more visible than the default .csv download button in streamlit dataframes, which is easy for your end users to miss.</p>
 <p>The function we will use is <code>st.download_button</code>.</p>
 <p>This uses the standard format</p>
-<div id="0fb419a0" class="cell" data-execution_count="2">
+<div id="7dabc973" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a>st.download_button(</span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>   <span class="st">"Click here to download the dataframe as a csv file"</span>,</span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-2-3" class="code-annotation-target"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>   data<span class="op">=</span>individual_df.to_csv(index<span class="op">=</span><span class="va">False</span>).encode(<span class="st">'utf-8'</span>),</span>
@@ -708,7 +708,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>(OPTIONAL) provide a default file name for the resulting csv - you may want to use an f-string to intelligently provide a filename if the data is reflecting options the user has chosen</li>
 <li>(OPTIONAL) Specify the MIME type of the data as <code>"text/csv"</code> - an automatic value will be inferred from the data type, but it is better practice to more explicitly specify it like this</li>
 </ul>
-<div id="86cb8128" class="cell" data-execution_count="3">
+<div id="e7dc57e8" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
@@ -776,7 +776,7 @@ Tip
 <h5 data-number="18.1.1.1.2" class="anchored" data-anchor-id="excel-files"><span class="header-section-number">18.1.1.1.2</span> Excel Files</h5>
 <p>It is slightly more complex to set up the download of a dataframe as an Excel file.</p>
 <p>However, this does have the benefit of being something your end users will be more familiar with - and with advanced usage of the <code>xlsxwriter</code> library that we’ll make use of in the Modern Analytics module + book, it allows us to add in multiple worksheets to a single file, as well as more advanced things like formulas and Excel charts that will update if users update values in the spreadsheet.</p>
-<div id="6cad48dd" class="cell" data-execution_count="4">
+<div id="15a30e5c" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
