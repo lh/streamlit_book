@@ -78,9 +78,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="site_libs/quarto-contrib/stlite/iframeResizer.min.js"></script>
-<script src="site_libs/quarto-contrib/stlite/stlite.js"></script>
-<link href="site_libs/quarto-contrib/stlite/style.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -207,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./loading_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Loading Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">An Introduction to Loading and Displaying Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -633,7 +630,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="21.0.1" class="anchored" data-anchor-id="folium"><span class="header-section-number">21.0.1</span> Folium</h3>
 <p>Interactive maps can be created using the Folium package.</p>
 <p>Folium maps cannot be displayed in Streamlit by default, but can be imported using the <code>st-folium</code> custom component.</p>
-<div id="ecac08c9" class="cell" data-execution_count="1">
+<div id="a9032752" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -677,9 +674,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        mime<span class="op">=</span><span class="st">'text/html'</span></span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<iframe src="https://share.stlite.net/?embed=true#code=import%20micropip%0Aawait%20micropip.install%28%22geopandas%22%29%0Aawait%20micropip.install%28%22streamlit-folium%22%29%0Aimport%20geopandas%0Aimport%20pandas%20as%20pd%0Aimport%20matplotlib.pyplot%20as%20plt%0Aimport%20streamlit%20as%20st%0Aimport%20folium%0Afrom%20streamlit_folium%20import%20st_folium%0A%0Agp_list_gdf_sw%20%3D%20geopandas.read_file%28%22https%3A//files.catbox.moe/atzk26.gpkg%22%29%0A%0A%23%20Filter%20out%20instances%20with%20no%20geometry%0Agp_list_gdf_sw%20%3D%20gp_list_gdf_sw%5B~gp_list_gdf_sw%5B%27geometry%27%5D.is_empty%5D%0A%0A%23%20Create%20a%20geometry%20list%20from%20the%20GeoDataFrame%0Ageo_df_list%20%3D%20%5B%5Bpoint.xy%5B1%5D%5B0%5D%2C%20point.xy%5B0%5D%5B0%5D%5D%20for%20point%20in%20gp_list_gdf_sw.geometry%5D%0A%0Agp_map_tooltip%20%3D%20folium.Map%28%0A%20%20%20%20location%3D%5B50.7%2C%20-4.2%5D%2C%0A%20%20%20%20zoom_start%3D8%2C%0A%20%20%20%20tiles%3D%27openstreetmap%27%2C%0A%20%20%20%20%29%0A%0Afor%20i%2C%20coordinates%20in%20enumerate%28geo_df_list%29%3A%0A%0A%20%20%20%20gp_map_tooltip%20%3D%20gp_map_tooltip.add_child%28%0A%20%20%20%20%20%20%20%20folium.Marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20location%3Dcoordinates%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20tooltip%3Dgp_list_gdf_sw%5B%27name%27%5D.values%5Bi%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20icon%3Dfolium.Icon%28icon%3D%22user-md%22%2C%20prefix%3D%27fa%27%2C%20color%3D%22black%22%29%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%0A%20%20%20%20%20%29%0A%0Ast_folium%28gp_map_tooltip%29%0A%0Agp_map_tooltip.save%28%22gp_map_devon.html%22%29%0A%0Awith%20open%28%22gp_map_devon.html%22%2C%20%22rb%22%29%20as%20map_file_html%3A%0A%20%20%20%20st.download_button%28%0A%20%20%20%20%20%20%20%20label%3D%27Download%20This%20Map%20as%20an%20Interactive%20HTML%20file%27%2C%0A%20%20%20%20%20%20%20%20data%3Dmap_file_html%2C%0A%20%20%20%20%20%20%20%20file_name%3Df%27Devon%20GP%20Map.html%27%2C%0A%20%20%20%20%20%20%20%20mime%3D%27text/html%27%0A%20%20%20%20%29
+<!-- ```{stlite-python}
+import micropip
+await micropip.install("geopandas")
+await micropip.install("streamlit-folium")
+import geopandas
+import pandas as pd
+import matplotlib.pyplot as plt
+import streamlit as st
+import folium
+from streamlit_folium import st_folium
 
-" class="stlite"></iframe>
+gp_list_gdf_sw = geopandas.read_file("https://files.catbox.moe/atzk26.gpkg")
+
+# Filter out instances with no geometry
+gp_list_gdf_sw = gp_list_gdf_sw[~gp_list_gdf_sw['geometry'].is_empty]
+
+# Create a geometry list from the GeoDataFrame
+geo_df_list = [[point.xy[1][0], point.xy[0][0]] for point in gp_list_gdf_sw.geometry]
+
+gp_map_tooltip = folium.Map(
+    location=[50.7, -4.2],
+    zoom_start=8,
+    tiles='openstreetmap',
+    )
+
+for i, coordinates in enumerate(geo_df_list):
+
+    gp_map_tooltip = gp_map_tooltip.add_child(
+        folium.Marker(
+            location=coordinates,
+            tooltip=gp_list_gdf_sw['name'].values[i],
+            icon=folium.Icon(icon="user-md", prefix='fa', color="black")
+            )
+     )
+
+st_folium(gp_map_tooltip)
+
+gp_map_tooltip.save("gp_map_devon.html")
+
+with open("gp_map_devon.html", "rb") as map_file_html:
+    st.download_button(
+        label='Download This Map as an Interactive HTML file',
+        data=map_file_html,
+        file_name=f'Devon GP Map.html',
+        mime='text/html'
+    )
+``` -->
 
 
 </section>

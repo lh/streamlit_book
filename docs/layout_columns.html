@@ -207,7 +207,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./loading_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Loading Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">An Introduction to Loading and Displaying Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -636,7 +636,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="23.1" class="anchored" data-anchor-id="creating-columns-in-streamlit"><span class="header-section-number">23.1</span> Creating Columns in Streamlit</h2>
 <p>Streamlit has a very easy to use column interface for improving the layout of your apps.</p>
 <p>Columns look like this in a Streamlit app.</p>
-<div id="77332b25" class="cell" data-execution_count="1">
+<div id="0c419b21" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-3" class="code-annotation-target"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a>col1, col2, col3 <span class="op">=</span> st.columns(<span class="dv">3</span>)</span>
@@ -693,7 +693,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>Using a ‘with’ statement and indenting the code that should sit within the column, as we did above.</li>
 </ol>
-<div id="05879a54" class="cell" data-execution_count="2">
+<div id="078bec2b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>col_a, col_b <span class="op">=</span> st.columns(<span class="dv">2</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -706,7 +706,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol start="2" type="1">
 <li>Replacing the <code>st</code> in sections like <code>st.text()</code> with the variable name for the given column.</li>
 </ol>
-<div id="50fa85ba" class="cell" data-execution_count="3">
+<div id="e67d9f75" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>col_a, col_b <span class="op">=</span> st.columns(<span class="dv">2</span>)</span>
@@ -720,7 +720,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="adjusting-column-width" class="level2" data-number="23.3">
 <h2 data-number="23.3" class="anchored" data-anchor-id="adjusting-column-width"><span class="header-section-number">23.3</span> Adjusting Column Width</h2>
 <p>Column width can be controlled by passing in a list with the same number of decimals in as the number of columns you want to create. These numbers must sum to 1.</p>
-<div id="4204be8b" class="cell" data-execution_count="4">
+<div id="d4950926" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>col_a, col_b <span class="op">=</span> st.columns([<span class="fl">0.2</span>, <span class="fl">0.8</span>])</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -733,7 +733,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <iframe src="https://share.stlite.net/?embed=true#code=import%20streamlit%20as%20st%0Acol_a%2C%20col_b%20%3D%20st.columns%28%5B0.2%2C%200.8%5D%29%0A%0Awith%20col_a%3A%0A%20%20%20%20st.text%28%22This%20is%20some%20content%20within%20column%201%22%29%0A%0Awith%20col_b%3A%0A%20%20%20%20st.text%28%22This%20is%20some%20content%20within%20column%202%22%29
 
 " class="stlite"></iframe>
-<div id="9b8295bd" class="cell" data-execution_count="5">
+<div id="c906ed64" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>col_a, col_b, col_c <span class="op">=</span> st.columns([<span class="fl">0.15</span>, <span class="fl">0.7</span>, <span class="fl">0.15</span>])</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -755,7 +755,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The great thing about columns is that we can have multiple sets of columns, allowing you to build up fairly complex grid-like layouts.</p>
 <p>Here, we have an example of a top section with three equal-width columns, a central section that uses the full width of the screen, and a final section with two unequal-width columns.</p>
 <p>It also demonstrates how you can mix and match the use of the <code>with</code> syntax and the <code>col.command</code> syntax within a single Streamlit app.</p>
-<div id="6bda687f" class="cell" data-execution_count="6">
+<div id="59f888a4" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> micropip</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> micropip.install(<span class="st">"plotly"</span>)</span>

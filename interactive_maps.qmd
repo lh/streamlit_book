@@ -60,7 +60,7 @@ st_folium(gp_map_tooltip) # <11>
 10. In Folium, if we don't specify an icon to use for the marker, it will choose a default. However, this doesn't seem to reliably work in all instances of Streamlit, so you may need to specify a custom icon instead using the folium.Icon class to select an icon from a web service such as font awesome. More about this can be found in the [HSMA geographic book](https://hsma-programme.github.io/hsma6_geographic_optimisation_and_visualisation_book/python_geopandas_folium_point_data.html#web-markers).
 11. Finally, we pass our map to the `st_folium()` function.
 
-```{stlite-python}
+<!-- ```{stlite-python}
 import micropip
 await micropip.install("geopandas")
 await micropip.install("streamlit-folium")
@@ -97,7 +97,7 @@ for i, coordinates in enumerate(geo_df_list):
 
 st_folium(gp_map_tooltip)
 
-```
+``` -->
 
 :::{.callout-tip}
 Take a look at the [HSMA geographic modelling and visualisation book](https://hsma-programme.github.io/hsma6_geographic_optimisation_and_visualisation_book/python_geopandas_folium_intro.html) to find out more about creating and modifying interactive maps in Python.
@@ -159,7 +159,7 @@ st_folium(gp_map_tooltip)
 4. Here, we add in a display of the filtered dataframe, restricting it to only the columns specified in the list.
 5. All of our Folium code is unchanged; we just pass the filtered (or unfiltered, if no search string is entered) dataframe instead.
 
-```{stlite-python}
+<!-- ```{stlite-python}
 import micropip
 await micropip.install("geopandas")
 await micropip.install("streamlit-folium")
@@ -204,7 +204,7 @@ for i, coordinates in enumerate(geo_df_list):
 
 st_folium(gp_map_tooltip)
 
-```
+``` -->
 
 ### Updating the app based on the map zoom
 

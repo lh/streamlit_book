@@ -49,7 +49,7 @@ st.pyplot(fig) # <9>
 9. The output of using the `.plot()` method on the geopandas dataframe is a matplotlib.pyplot object. Therefore, we need to use `st.pyplot()` to display it.
 
 
-```{stlite-python}
+<!-- ```{stlite-python}
 import micropip
 await micropip.install("geopandas")
 await micropip.install("matplotlib")
@@ -78,7 +78,7 @@ lsoa_2011_crime_figures_df.plot(
   )
 
 st.pyplot(fig)
-```
+``` -->
 
 :::{.callout-tip}
 Take a look at the [HSMA geographic modelling and visualisation book](https://hsma-programme.github.io/hsma6_geographic_optimisation_and_visualisation_book/python_geopandas_matplotlib.html) to find out more about creating and modifying static maps in python with geopandas and matplotlib.

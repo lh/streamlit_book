@@ -1,5 +1,5 @@
 ---
-title: "Loading Data"
+title: "An Introduction to Loading and Displaying Data"
 filters:
   - whitphx/stlite
 ---
@@ -27,7 +27,7 @@ import streamlit as st # <2>
 
 st.title("Loading in a data file from a publically-accessible csv") # <3>
 
-url = 'https://files.catbox.moe/eor4ta.csv' # <4>
+url = 'https://files.catbox.moe/otqf4i.csv' # <4>
 dataframe = pd.read_csv(url) # <5>
 
 st.write(dataframe) # <6>
@@ -59,7 +59,7 @@ import streamlit as st
 
 st.title("Loading in a data file from a publically-accessible csv")
 
-url = 'https://files.catbox.moe/eor4ta.csv'
+url = 'https://files.catbox.moe/otqf4i.csv'
 dataframe = pd.read_csv(url)
 
 st.write(dataframe)

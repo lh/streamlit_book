@@ -78,9 +78,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="site_libs/quarto-contrib/stlite/iframeResizer.min.js"></script>
-<script src="site_libs/quarto-contrib/stlite/stlite.js"></script>
-<link href="site_libs/quarto-contrib/stlite/style.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -207,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./loading_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Loading Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">An Introduction to Loading and Displaying Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -642,7 +639,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="downloading-static-maps-made-with-matplotlib" class="level2" data-number="20.2">
 <h2 data-number="20.2" class="anchored" data-anchor-id="downloading-static-maps-made-with-matplotlib"><span class="header-section-number">20.2</span> Downloading Static Maps Made With Matplotlib</h2>
 <p>Let’s just start by plotting a map.</p>
-<div id="75b6ec1b" class="cell" data-execution_count="1">
+<div id="141113f9" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -656,30 +653,71 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>lsoa_2011_crime_figures_df <span class="op">=</span> geopandas.read_file(<span class="st">"https://files.catbox.moe/4o0go1.gpkg"</span>)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> lsoa_2011_crime_figures_df.plot(column<span class="op">=</span><span class="st">"sw_5forces_street_by_lsoa_Other crime"</span>,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                                      legend<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>st.pyplot(fig)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>filename <span class="op">=</span> <span class="st">'other_crime_devon.png'</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>plt.savefig(filename)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">"rb"</span>) <span class="im">as</span> img:</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    btn <span class="op">=</span> st.download_button(</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span><span class="st">"Download Map"</span>,</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>img,</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        file_name<span class="op">=</span>filename,</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        mime<span class="op">=</span><span class="st">"image/png"</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>lsoa_2011_crime_figures_df.plot(</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    column<span class="op">=</span><span class="st">"sw_5forces_street_by_lsoa_Other crime"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>st.pyplot(fig)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>filename <span class="op">=</span> <span class="st">'other_crime_devon.png'</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>plt.savefig(filename)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">"rb"</span>) <span class="im">as</span> img:</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    btn <span class="op">=</span> st.download_button(</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span><span class="st">"Download Map"</span>,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>img,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        file_name<span class="op">=</span>filename,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        mime<span class="op">=</span><span class="st">"image/png"</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<iframe src="https://share.stlite.net/?embed=true#code=import%20micropip%0Aawait%20micropip.install%28%22geopandas%22%29%0Aimport%20geopandas%0Aimport%20pandas%20as%20pd%0Aimport%20matplotlib.pyplot%20as%20plt%0Aimport%20streamlit%20as%20st%0A%0Ast.title%28%22Crime%20in%20Devon%20by%20Type%22%29%0A%0A%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%0A%23%20Read%20the%20geopandas%20file%20and%20create%20a%20matplotlib%20figure%0A%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%0A%0Alsoa_2011_crime_figures_df%20%3D%20geopandas.read_file%28%22https%3A//files.catbox.moe/4o0go1.gpkg%22%29%0A%0Afig%20%3D%20lsoa_2011_crime_figures_df.plot%28column%3D%22sw_5forces_street_by_lsoa_Other%20crime%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20legend%3DTrue%29%0A%0Ast.pyplot%28fig%29%0A%0Afilename%20%3D%20%27other_crime_devon.png%27%0A%0Aplt.savefig%28filename%29%0A%0Awith%20open%28filename%2C%20%22rb%22%29%20as%20img%3A%0A%20%20%20%20btn%20%3D%20st.download_button%28%0A%20%20%20%20%20%20%20%20label%3D%22Download%20Map%22%2C%0A%20%20%20%20%20%20%20%20data%3Dimg%2C%0A%20%20%20%20%20%20%20%20file_name%3Dfilename%2C%0A%20%20%20%20%20%20%20%20mime%3D%22image/png%22%0A%20%20%20%20%29%0A
+<!-- ```{stlite-python}
+import micropip
+await micropip.install("geopandas")
+import geopandas
+import pandas as pd
+import matplotlib.pyplot as plt
+import streamlit as st
 
-" class="stlite"></iframe>
+st.title("Crime in Devon by Type")
+
+#########################################################
+# Read the geopandas file and create a matplotlib figure
+#########################################################
+
+lsoa_2011_crime_figures_df = geopandas.read_file("https://files.catbox.moe/4o0go1.gpkg")
+
+fig, ax = plt.subplots()
+
+lsoa_2011_crime_figures_df.plot(
+    column="sw_5forces_street_by_lsoa_Other crime",
+    legend=True,
+    ax=ax
+    )
+
+st.pyplot(fig)
+
+filename = 'other_crime_devon.png'
+
+plt.savefig(filename)
+
+with open(filename, "rb") as img:
+    btn = st.download_button(
+        label="Download Map",
+        data=img,
+        file_name=filename,
+        mime="image/png"
+    )
+
+``` -->
 <section id="a-map-with-subplots" class="level4" data-number="20.2.0.1">
 <h4 data-number="20.2.0.1" class="anchored" data-anchor-id="a-map-with-subplots"><span class="header-section-number">20.2.0.1</span> A map with subplots</h4>
 <p>Static maps with subplots are much the same - you are just interested in saving the <code>fig</code> object to a temporary <code>.png</code> image file before then serving that temporary file to the user.</p>
-<div id="23aa2913" class="cell" data-execution_count="2">
+<div id="c0e8746a" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -742,15 +780,78 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>        mime<span class="op">=</span><span class="st">"image/png"</span></span>
 <span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<iframe src="https://share.stlite.net/?embed=true#code=import%20micropip%0Aawait%20micropip.install%28%22geopandas%22%29%0Aimport%20geopandas%0Aimport%20pandas%20as%20pd%0Aimport%20matplotlib.pyplot%20as%20plt%0Aimport%20streamlit%20as%20st%0A%0Ast.title%28%22Crime%20in%20Devon%20by%20Type%22%29%0A%0A%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%0A%23%20Read%20the%20geopandas%20file%20and%20create%20a%20matplotlib%20figure%0A%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%0A%0Alsoa_2011_crime_figures_df%20%3D%20geopandas.read_file%28%22https%3A//files.catbox.moe/4o0go1.gpkg%22%29%0A%0Axmin%2C%20xmax%20%3D%20290000%2C295000%0Aymin%2C%20ymax%20%3D%2091000%2C95000%0Alsoa_2011_crime_figures_df_exeter%20%3D%20lsoa_2011_crime_figures_df.cx%5Bxmin%3Axmax%2C%20ymin%3Aymax%5D%0A%0Alsoa_2011_crime_figures_df_exeter%20%3D%20lsoa_2011_crime_figures_df_exeter.rename%28columns%3D%0A%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%27sw_5forces_street_by_lsoa_Anti-social%20behaviour%27%3A%20%27Anti-social%20behaviour%27%2C%0A%20%20%20%20%20%20%20%20%27sw_5forces_street_by_lsoa_Bicycle%20theft%27%3A%20%27Bicycle%20theft%27%2C%0A%20%20%20%20%20%20%20%20%27sw_5forces_street_by_lsoa_Burglary%27%3A%20%27Burglary%27%2C%0A%20%20%20%20%20%20%20%20%27sw_5forces_street_by_lsoa_Criminal%20damage%20and%20arson%27%3A%20%27Criminal%20damage%20and%20arson%27%2C%0A%20%20%20%20%20%20%20%20%27sw_5forces_street_by_lsoa_Drugs%27%3A%20%27Drugs%27%2C%0A%20%20%20%20%20%20%20%20%27sw_5forces_street_by_lsoa_Total%20number%20crimes%27%3A%20%27Total%20number%20crimes%27%0A%20%20%20%20%7D%0A%29%0A%0Acols%20%3D%20%5B%27Anti-social%20behaviour%27%2C%20%27Bicycle%20theft%27%2C%20%27Burglary%27%2C%20%27Criminal%20damage%20and%20arson%27%2C%0A%20%20%20%20%20%20%20%20%27Drugs%27%2C%20%27Total%20number%20crimes%27%5D%0A%0Afig%2C%20axs%20%3D%20plt.subplots%282%2C%203%2C%20figsize%3D%2820%2C%2015%29%29%0A%0Afor%20i%2C%20ax%20in%20enumerate%28fig.axes%29%3A%0A%20%20%20%20lsoa_2011_crime_figures_df_exeter.plot%28cols%5Bi%5D%2C%20cmap%3D%22RdYlGn_r%22%2C%20legend%3DTrue%2C%20ax%3Dax%29%0A%0A%20%20%20%20ax.axis%28%27off%27%29%0A%0A%20%20%20%20ax.title.set_text%28cols%5Bi%5D%29%0A%0A%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%0A%23%20Display%20the%20figure%0A%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%0A%0Ast.pyplot%28fig%29%0A%0A%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%0A%23%20Create%20a%20download%20button%0A%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%0A%0Afilename%20%3D%20%27crime_devon.png%27%0A%0Aplt.savefig%28filename%29%0A%0Awith%20open%28filename%2C%20%22rb%22%29%20as%20img%3A%0A%20%20%20%20btn%20%3D%20st.download_button%28%0A%20%20%20%20%20%20%20%20label%3D%22Download%20Map%22%2C%0A%20%20%20%20%20%20%20%20data%3Dimg%2C%0A%20%20%20%20%20%20%20%20file_name%3Dfilename%2C%0A%20%20%20%20%20%20%20%20mime%3D%22image/png%22%0A%20%20%20%20%29%0A
+<!-- ```{stlite-python}
+import micropip
+await micropip.install("geopandas")
+import geopandas
+import pandas as pd
+import matplotlib.pyplot as plt
+import streamlit as st
 
-" class="stlite"></iframe>
+st.title("Crime in Devon by Type")
+
+#########################################################
+# Read the geopandas file and create a matplotlib figure
+#########################################################
+
+lsoa_2011_crime_figures_df = geopandas.read_file("https://files.catbox.moe/4o0go1.gpkg")
+
+xmin, xmax = 290000,295000
+ymin, ymax = 91000,95000
+lsoa_2011_crime_figures_df_exeter = lsoa_2011_crime_figures_df.cx[xmin:xmax, ymin:ymax]
+
+lsoa_2011_crime_figures_df_exeter = lsoa_2011_crime_figures_df_exeter.rename(columns=
+    {
+        'sw_5forces_street_by_lsoa_Anti-social behaviour': 'Anti-social behaviour',
+        'sw_5forces_street_by_lsoa_Bicycle theft': 'Bicycle theft',
+        'sw_5forces_street_by_lsoa_Burglary': 'Burglary',
+        'sw_5forces_street_by_lsoa_Criminal damage and arson': 'Criminal damage and arson',
+        'sw_5forces_street_by_lsoa_Drugs': 'Drugs',
+        'sw_5forces_street_by_lsoa_Total number crimes': 'Total number crimes'
+    }
+)
+
+cols = ['Anti-social behaviour', 'Bicycle theft', 'Burglary', 'Criminal damage and arson',
+        'Drugs', 'Total number crimes']
+
+fig, axs = plt.subplots(2, 3, figsize=(20, 15))
+
+for i, ax in enumerate(fig.axes):
+    lsoa_2011_crime_figures_df_exeter.plot(cols[i], cmap="RdYlGn_r", legend=True, ax=ax)
+
+    ax.axis('off')
+
+    ax.title.set_text(cols[i])
+
+#########################################################
+# Display the figure
+#########################################################
+
+st.pyplot(fig)
+
+#########################################################
+# Create a download button
+#########################################################
+
+filename = 'crime_devon.png'
+
+plt.savefig(filename)
+
+with open(filename, "rb") as img:
+    btn = st.download_button(
+        label="Download Map",
+        data=img,
+        file_name=filename,
+        mime="image/png"
+    )
+
+``` -->
 </section>
 <section id="multiple-separate-maps" class="level4" data-number="20.2.0.2">
 <h4 data-number="20.2.0.2" class="anchored" data-anchor-id="multiple-separate-maps"><span class="header-section-number">20.2.0.2</span> Multiple Separate Maps</h4>
 <p>What if we want to create several different maps instead of using the subplot feature?</p>
 <p>We could do this and then provide a download button for each.</p>
-<div id="821f75ca" class="cell" data-execution_count="3">
+<div id="2f15e023" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -784,9 +885,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>            mime<span class="op">=</span><span class="st">"image/png"</span></span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<iframe src="https://share.stlite.net/?embed=true#code=import%20micropip%0Aawait%20micropip.install%28%22geopandas%22%29%0Aimport%20geopandas%0Aimport%20pandas%20as%20pd%0Aimport%20matplotlib.pyplot%20as%20plt%0Aimport%20streamlit%20as%20st%0A%0Ast.title%28%22Crime%20in%20Devon%20by%20Type%22%29%0A%0A%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%0A%23%20Read%20the%20geopandas%20file%20and%20create%20a%20matplotlib%20figure%0A%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%0A%0Alsoa_2011_crime_figures_df%20%3D%20geopandas.read_file%28%22https%3A//files.catbox.moe/4o0go1.gpkg%22%29%0A%0Afor%20col%20in%20%5B%27sw_5forces_street_by_lsoa_Anti-social%20behaviour%27%2C%0A%20%20%20%20%20%20%20%20%27sw_5forces_street_by_lsoa_Bicycle%20theft%27%2C%0A%20%20%20%20%20%20%20%20%27sw_5forces_street_by_lsoa_Burglary%27%5D%3A%0A%0A%20%20%20%20fig%20%3D%20lsoa_2011_crime_figures_df.plot%28column%3Dcol%2C%20legend%3DTrue%29%0A%0A%20%20%20%20st.pyplot%28fig%29%0A%0A%20%20%20%20filename%20%3D%20f%27%7Bcol%7D.png%27%0A%0A%20%20%20%20plt.savefig%28filename%29%0A%0A%20%20%20%20with%20open%28filename%2C%20%22rb%22%29%20as%20img%3A%0A%20%20%20%20%20%20%20%20btn%20%3D%20st.download_button%28%0A%20%20%20%20%20%20%20%20%20%20%20%20label%3D%22Download%20Map%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20data%3Dimg%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20file_name%3Dfilename%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20mime%3D%22image/png%22%0A%20%20%20%20%20%20%20%20%29%0A
+<!-- ```{stlite-python}
+import micropip
+await micropip.install("geopandas")
+import geopandas
+import pandas as pd
+import matplotlib.pyplot as plt
+import streamlit as st
 
-" class="stlite"></iframe>
+st.title("Crime in Devon by Type")
+
+#########################################################
+# Read the geopandas file and create a matplotlib figure
+#########################################################
+
+lsoa_2011_crime_figures_df = geopandas.read_file("https://files.catbox.moe/4o0go1.gpkg")
+
+for col in ['sw_5forces_street_by_lsoa_Anti-social behaviour',
+        'sw_5forces_street_by_lsoa_Bicycle theft',
+        'sw_5forces_street_by_lsoa_Burglary']:
+
+    fig = lsoa_2011_crime_figures_df.plot(column=col, legend=True)
+
+    st.pyplot(fig)
+
+    filename = f'{col}.png'
+
+    plt.savefig(filename)
+
+    with open(filename, "rb") as img:
+        btn = st.download_button(
+            label="Download Map",
+            data=img,
+            file_name=filename,
+            mime="image/png"
+        )
+
+``` -->
 
 
 </section>

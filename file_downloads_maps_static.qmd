@@ -33,8 +33,13 @@ st.title("Crime in Devon by Type")
 
 lsoa_2011_crime_figures_df = geopandas.read_file("https://files.catbox.moe/4o0go1.gpkg")
 
-fig = lsoa_2011_crime_figures_df.plot(column="sw_5forces_street_by_lsoa_Other crime",
-                                      legend=True)
+fig, ax = plt.subplots()
+
+lsoa_2011_crime_figures_df.plot(
+    column="sw_5forces_street_by_lsoa_Other crime",
+    legend=True,
+    ax=ax
+    )
 
 st.pyplot(fig)
 
@@ -53,7 +58,7 @@ with open(filename, "rb") as img:
 ```
 
 
-```{stlite-python}
+<!-- ```{stlite-python}
 import micropip
 await micropip.install("geopandas")
 import geopandas
@@ -69,8 +74,13 @@ st.title("Crime in Devon by Type")
 
 lsoa_2011_crime_figures_df = geopandas.read_file("https://files.catbox.moe/4o0go1.gpkg")
 
-fig = lsoa_2011_crime_figures_df.plot(column="sw_5forces_street_by_lsoa_Other crime",
-                                      legend=True)
+fig, ax = plt.subplots()
+
+lsoa_2011_crime_figures_df.plot(
+    column="sw_5forces_street_by_lsoa_Other crime",
+    legend=True,
+    ax=ax
+    )
 
 st.pyplot(fig)
 
@@ -86,7 +96,7 @@ with open(filename, "rb") as img:
         mime="image/png"
     )
 
-```
+``` -->
 
 #### A map with subplots
 
@@ -158,7 +168,7 @@ with open(filename, "rb") as img:
 
 ```
 
-```{stlite-python}
+<!-- ```{stlite-python}
 import micropip
 await micropip.install("geopandas")
 import geopandas
@@ -223,7 +233,7 @@ with open(filename, "rb") as img:
         mime="image/png"
     )
 
-```
+``` -->
 
 #### Multiple Separate Maps
 
@@ -270,7 +280,7 @@ for col in ['sw_5forces_street_by_lsoa_Anti-social behaviour',
 ```
 
 
-```{stlite-python}
+<!-- ```{stlite-python}
 import micropip
 await micropip.install("geopandas")
 import geopandas
@@ -306,4 +316,4 @@ for col in ['sw_5forces_street_by_lsoa_Anti-social behaviour',
             mime="image/png"
         )
 
-```
+``` -->

@@ -78,9 +78,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="site_libs/quarto-contrib/stlite/iframeResizer.min.js"></script>
-<script src="site_libs/quarto-contrib/stlite/stlite.js"></script>
-<link href="site_libs/quarto-contrib/stlite/style.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -207,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./loading_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Loading Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">An Introduction to Loading and Displaying Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -637,7 +634,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="11.1" class="anchored" data-anchor-id="interactive-maps-with-folium"><span class="header-section-number">11.1</span> Interactive maps with Folium</h2>
 <p>Folium is an easy way to make interactive maps.</p>
 <p>While they are not natively supported in streamlit, the st-folium component is a powerful custom component that is being actively supported and developed.</p>
-<div id="43fc80ad" class="cell" data-execution_count="1">
+<div id="511a6ba5" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span>
 <span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
@@ -720,9 +717,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dl>
 </div>
 </div>
-<iframe src="https://share.stlite.net/?embed=true#code=import%20micropip%0Aawait%20micropip.install%28%22geopandas%22%29%0Aawait%20micropip.install%28%22streamlit-folium%22%29%0Aimport%20geopandas%0Aimport%20pandas%20as%20pd%0Aimport%20matplotlib.pyplot%20as%20plt%0Aimport%20streamlit%20as%20st%0Aimport%20folium%0Afrom%20streamlit_folium%20import%20st_folium%0A%0Agp_list_gdf_sw%20%3D%20geopandas.read_file%28%22https%3A//files.catbox.moe/atzk26.gpkg%22%29%0A%0A%23%20Filter%20out%20instances%20with%20no%20geometry%0Agp_list_gdf_sw%20%3D%20gp_list_gdf_sw%5B~gp_list_gdf_sw%5B%27geometry%27%5D.is_empty%5D%0A%0A%23%20Create%20a%20geometry%20list%20from%20the%20GeoDataFrame%0Ageo_df_list%20%3D%20%5B%5Bpoint.xy%5B1%5D%5B0%5D%2C%20point.xy%5B0%5D%5B0%5D%5D%20for%20point%20in%20gp_list_gdf_sw.geometry%5D%0A%0Agp_map_tooltip%20%3D%20folium.Map%28%0A%20%20%20%20location%3D%5B50.7%2C%20-4.2%5D%2C%0A%20%20%20%20zoom_start%3D8%2C%0A%20%20%20%20tiles%3D%27openstreetmap%27%2C%0A%20%20%20%20%29%0A%0Afor%20i%2C%20coordinates%20in%20enumerate%28geo_df_list%29%3A%0A%0A%20%20%20%20gp_map_tooltip%20%3D%20gp_map_tooltip.add_child%28%0A%20%20%20%20%20%20%20%20folium.Marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20location%3Dcoordinates%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20tooltip%3Dgp_list_gdf_sw%5B%27name%27%5D.values%5Bi%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20icon%3Dfolium.Icon%28icon%3D%22user-md%22%2C%20prefix%3D%27fa%27%2C%20color%3D%22black%22%29%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%0A%20%20%20%20%20%29%0A%0Ast_folium%28gp_map_tooltip%29%0A
+<!-- ```{stlite-python}
+import micropip
+await micropip.install("geopandas")
+await micropip.install("streamlit-folium")
+import geopandas
+import pandas as pd
+import matplotlib.pyplot as plt
+import streamlit as st
+import folium
+from streamlit_folium import st_folium
 
-" class="stlite"></iframe>
+gp_list_gdf_sw = geopandas.read_file("https://files.catbox.moe/atzk26.gpkg")
+
+# Filter out instances with no geometry
+gp_list_gdf_sw = gp_list_gdf_sw[~gp_list_gdf_sw['geometry'].is_empty]
+
+# Create a geometry list from the GeoDataFrame
+geo_df_list = [[point.xy[1][0], point.xy[0][0]] for point in gp_list_gdf_sw.geometry]
+
+gp_map_tooltip = folium.Map(
+    location=[50.7, -4.2],
+    zoom_start=8,
+    tiles='openstreetmap',
+    )
+
+for i, coordinates in enumerate(geo_df_list):
+
+    gp_map_tooltip = gp_map_tooltip.add_child(
+        folium.Marker(
+            location=coordinates,
+            tooltip=gp_list_gdf_sw['name'].values[i],
+            icon=folium.Icon(icon="user-md", prefix='fa', color="black")
+            )
+     )
+
+st_folium(gp_map_tooltip)
+
+``` -->
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -740,7 +772,7 @@ Tip
 <h3 data-number="11.1.1" class="anchored" data-anchor-id="sneak-peak---updating-the-map-based-on-inputs"><span class="header-section-number">11.1.1</span> Sneak Peak - Updating the map based on inputs</h3>
 <p>Let’s use a simple text input to filter the dataframe we are passing to the map.</p>
 <p>What happens to the map when we do this?</p>
-<div id="71eb20e2" class="cell" data-execution_count="2">
+<div id="e0653518" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span>
 <span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
@@ -805,9 +837,52 @@ Tip
 </dl>
 </div>
 </div>
-<iframe src="https://share.stlite.net/?embed=true#code=import%20micropip%0Aawait%20micropip.install%28%22geopandas%22%29%0Aawait%20micropip.install%28%22streamlit-folium%22%29%0Aimport%20geopandas%0Aimport%20pandas%20as%20pd%0Aimport%20matplotlib.pyplot%20as%20plt%0Aimport%20streamlit%20as%20st%0Aimport%20folium%0Afrom%20streamlit_folium%20import%20st_folium%0A%0Asearch_string%20%3D%20st.text_input%28%22Enter%20a%20string%20to%20search%20the%20practice%20name%20field%20by%22%29%0A%0Agp_list_gdf_sw%20%3D%20geopandas.read_file%28%22https%3A//files.catbox.moe/atzk26.gpkg%22%29%0A%0A%23%20Filter%20out%20instances%20with%20no%20geometry%0Agp_list_gdf_sw%20%3D%20gp_list_gdf_sw%5B~gp_list_gdf_sw%5B%27geometry%27%5D.is_empty%5D%0A%0A%23%20Filter%20to%20just%20the%20practice%20of%20interest%20%28if%20given%29%0Aif%20search_string%20is%20not%20None%3A%0A%20%20%20%20gp_list_gdf_sw%20%3D%20gp_list_gdf_sw%5Bgp_list_gdf_sw%5B%27name%27%5D.str.contains%28search_string.upper%28%29%29%5D%0A%0Ast.dataframe%28gp_list_gdf_sw%5B%5B%27name%27%2C%20%27address_1%27%2C%20%27postcode%27%2C%20%27Total%20List%20Size%27%5D%5D%29%0A%0A%23%20Create%20a%20geometry%20list%20from%20the%20GeoDataFrame%0Ageo_df_list%20%3D%20%5B%5Bpoint.xy%5B1%5D%5B0%5D%2C%20point.xy%5B0%5D%5B0%5D%5D%20for%20point%20in%20gp_list_gdf_sw.geometry%5D%0A%0Agp_map_tooltip%20%3D%20folium.Map%28%0A%20%20%20%20location%3D%5B50.7%2C%20-4.2%5D%2C%0A%20%20%20%20zoom_start%3D8%2C%0A%20%20%20%20tiles%3D%27openstreetmap%27%2C%0A%20%20%20%20%29%0A%0Afor%20i%2C%20coordinates%20in%20enumerate%28geo_df_list%29%3A%0A%0A%20%20%20%20gp_map_tooltip%20%3D%20gp_map_tooltip.add_child%28%0A%20%20%20%20%20%20%20%20folium.Marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20location%3Dcoordinates%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20tooltip%3Dgp_list_gdf_sw%5B%27name%27%5D.values%5Bi%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20icon%3Dfolium.Icon%28icon%3D%22user-md%22%2C%20prefix%3D%27fa%27%2C%20color%3D%22black%22%29%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%0A%20%20%20%20%20%29%0A%0Ast_folium%28gp_map_tooltip%29%0A
+<!-- ```{stlite-python}
+import micropip
+await micropip.install("geopandas")
+await micropip.install("streamlit-folium")
+import geopandas
+import pandas as pd
+import matplotlib.pyplot as plt
+import streamlit as st
+import folium
+from streamlit_folium import st_folium
 
-" class="stlite"></iframe>
+search_string = st.text_input("Enter a string to search the practice name field by")
+
+gp_list_gdf_sw = geopandas.read_file("https://files.catbox.moe/atzk26.gpkg")
+
+# Filter out instances with no geometry
+gp_list_gdf_sw = gp_list_gdf_sw[~gp_list_gdf_sw['geometry'].is_empty]
+
+# Filter to just the practice of interest (if given)
+if search_string is not None:
+    gp_list_gdf_sw = gp_list_gdf_sw[gp_list_gdf_sw['name'].str.contains(search_string.upper())]
+
+st.dataframe(gp_list_gdf_sw[['name', 'address_1', 'postcode', 'Total List Size']])
+
+# Create a geometry list from the GeoDataFrame
+geo_df_list = [[point.xy[1][0], point.xy[0][0]] for point in gp_list_gdf_sw.geometry]
+
+gp_map_tooltip = folium.Map(
+    location=[50.7, -4.2],
+    zoom_start=8,
+    tiles='openstreetmap',
+    )
+
+for i, coordinates in enumerate(geo_df_list):
+
+    gp_map_tooltip = gp_map_tooltip.add_child(
+        folium.Marker(
+            location=coordinates,
+            tooltip=gp_list_gdf_sw['name'].values[i],
+            icon=folium.Icon(icon="user-md", prefix='fa', color="black")
+            )
+     )
+
+st_folium(gp_map_tooltip)
+
+``` -->
 </section>
 <section id="updating-the-app-based-on-the-map-zoom" class="level3" data-number="11.1.2">
 <h3 data-number="11.1.2" class="anchored" data-anchor-id="updating-the-app-based-on-the-map-zoom"><span class="header-section-number">11.1.2</span> Updating the app based on the map zoom</h3>

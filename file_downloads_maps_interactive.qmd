@@ -58,7 +58,7 @@ with open("gp_map_devon.html", "rb") as map_file_html:
 ```
 
 
-```{stlite-python}
+<!-- ```{stlite-python}
 import micropip
 await micropip.install("geopandas")
 await micropip.install("streamlit-folium")
@@ -104,4 +104,4 @@ with open("gp_map_devon.html", "rb") as map_file_html:
         file_name=f'Devon GP Map.html',
         mime='text/html'
     )
-```
+``` -->

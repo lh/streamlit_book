@@ -503,7 +503,7 @@ with tab3:
 
     @st.cache_data
     def load_crime_data():
-        return geopandas.read_file("https://files.catbox.moe/4o0go1.gpkg")
+        return geopandas.read_file("https://github.com/Bergam0t/streamlit_book/raw/refs/heads/main/crime_dataset.gpkg")
 
     lsoa_2011_crime_figures_df = load_crime_data()
 
@@ -534,7 +534,7 @@ with tab3:
     @st.cache_data
     def load_gp_data():
         return geopandas.read_file(
-        "https://files.catbox.moe/atzk26.gpkg"
+        "https://github.com/Bergam0t/streamlit_book/raw/refs/heads/main/gps_sw.gpkg"
         )
 
     gp_list_gdf_sw = load_gp_data()
