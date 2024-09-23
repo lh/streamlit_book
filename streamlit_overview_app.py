@@ -781,6 +781,7 @@ gp_list_gdf_sw = gp_list_gdf_sw[~gp_list_gdf_sw['geometry'].is_empty]
                     )
             )
 
+        st.write("There's a bug preventing interactive maps rendering within tabs! https://github.com/streamlit/streamlit/issues/7376")
         st_folium(gp_map_tooltip)
 
         gp_map_tooltip.save('plotly_map_gp.html')
@@ -796,11 +797,52 @@ gp_list_gdf_sw = gp_list_gdf_sw[~gp_list_gdf_sw['geometry'].is_empty]
 
 with tab3:
 
-    tab11, tab22, tab33, tab44 = st.tabs(
-        ["Matplotlib Plots", "Plotly Plots", "Static Maps", "Interactive Maps"]
+    tab11, tab22, tab33, tab44, tab55, tab66, tab77 = st.tabs(
+        ["Tables", "Dataframes", "Editable Dataframes",
+         "Matplotlib Plots", "Plotly Plots", "Static Maps",
+         "Interactive Maps"]
     )
 
     with tab11:
+        if show_code:
+            st.code("""
+            penguins_df = pd.read_csv("https://github.com/Bergam0t/streamlit_book/raw/refs/heads/main/penguins_df.csv")
+
+            st.table(penguins_df)
+            """)
+        st.table(penguins_df)
+
+    with tab22:
+
+        if show_code:
+            st.code("""
+                    penguins_df = pd.read_csv("https://github.com/Bergam0t/streamlit_book/raw/refs/heads/main/penguins_df.csv")
+
+                    st.dataframe(penguins_df)
+                    """)
+
+        st.dataframe(penguins_df)
+
+
+    with tab33:
+
+        if show_code:
+            st.code("""
+                    penguins_df = pd.read_csv("https://github.com/Bergam0t/streamlit_book/raw/refs/heads/main/penguins_df.csv")
+
+                    penguins_df_edited = st.data_editor(penguins_df)
+
+                    st.write(f"The value in row 1 cell 1 is {penguins_df.head(1)['species'].values[0]}")
+
+                    st.write(f"The value in row 1 cell 1 of the edited dataframe is {penguins_df_edited.head(1)['species'].values[0]}")
+                    """)
+
+        penguins_df_edited = st.data_editor(penguins_df)
+
+        st.write(f"The value in row 1 cell 1 is {penguins_df.head(1)['species'].values[0]}")
+        st.write(f"The value in row 1 cell 1 of the edited dataframe is {penguins_df_edited.head(1)['species'].values[0]}")
+
+    with tab44:
         st.header("Matplotlib Plots")
 
         if show_code:
@@ -826,7 +868,7 @@ with tab3:
 
         st.pyplot(fig)
 
-    with tab22:
+    with tab55:
         st.header("Plotly Plots")
 
         if show_code:
@@ -845,7 +887,7 @@ with tab3:
 
         st.plotly_chart(plotly_fig)
 
-    with tab33:
+    with tab66:
         st.header("Static Maps")
 
         if show_code:
@@ -875,7 +917,7 @@ with tab3:
 
         st.pyplot(fig)
 
-    with tab44:
+    with tab77:
         st.header("Interactive Maps")
 
         if show_code:
@@ -908,6 +950,7 @@ with tab3:
         st_folium(gp_map_tooltip)
                     """)
 
+        st.write("There's a bug preventing interactive maps rendering within tabs! https://github.com/streamlit/streamlit/issues/7376")
         st_folium(gp_map_tooltip, key="folium_map_2")
 
 
