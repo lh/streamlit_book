@@ -1,0 +1,9 @@
+streamlit_folium
+streamlit
+pandas
+palmerpenguins
+xlsxwriter
+matplotlib
+plotly
+geopandas
+folium
