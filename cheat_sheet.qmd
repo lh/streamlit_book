@@ -2,6 +2,15 @@
 title: "Streamlit Cheat Sheet"
 ---
 
+There is a custom HSMA cheatsheet here:
+
+<https://command-overview-app-hsma.streamlit.app/>
+
+```{=html}
+<iframe width="780" height="500" src="https://command-overview-app-hsma.streamlit.app/" title="Quarto Components"></iframe>
+```
+
+
 The fantastic Streamlit Cheat Sheet is well worth bookmarking!
 
 <https://cheat-sheet.streamlit.app/>
