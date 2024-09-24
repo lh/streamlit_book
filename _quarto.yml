@@ -38,6 +38,7 @@ book:
     - file_downloads_maps_interactive.qmd
   - part: Layout
     chapters:
+    - wide_layout.qmd
     - layout_divider.qmd
     - layout_columns.qmd
     - layout_sidebar.qmd

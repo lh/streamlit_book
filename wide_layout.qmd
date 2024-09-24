@@ -1,0 +1,59 @@
+---
+title: "Wide Layout, Page Tab Titles and Favicons"
+filters:
+  - whitphx/stlite
+---
+
+You may have noticed that Streamlit apps only seem to use part of the screen.
+
+We can override this with the `st.set_page_config(layout="wide")` command.
+
+:::{.callout-warning}
+This must be the first Streamlit command used on an app page (after importing streamlit)!
+
+You must only set it once per page.
+:::
+
+```{stlite-python}
+import streamlit as st
+
+st.title("App not using full width")
+
+st.write("Look at all this space we're wasting!")
+```
+
+```{stlite-python}
+import streamlit as st
+
+st.set_page_config(layout="wide")
+
+st.title("App using full width")
+
+st.write("Look at all this space we're using!")
+```
+
+```{python}
+#| eval: false
+
+import streamlit as st
+
+st.set_page_config(layout="wide")
+
+st.title("App using full width")
+
+st.write("Look at all this space we're using!")
+
+```
+
+## Other settings in set_page_config
+
+Within st.set_page_config, you can also
+
+- Set the page title that is shown in the browser tab
+- Set an icon that is used within the browser tab and if the user favourites the page
+- If using a sidebar, determines whether the sidebar starts opened, closed, or whether it's determined by the width of the page
+- Set up links to 'get help', 'report a bug' and 'about' that will appear within the menu at the top-right of the app.
+
+See the documentation for details on each of these.
+
+<https://docs.streamlit.io/develop/api-reference/configuration/st.set_page_config>
